@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Last Station — Story Digital</title>
+<meta name="description" content="Jenna takes the same train home every night. Tonight, she is not sure she is the only one on board.">
+<link rel="icon" type="image/jpeg" href="../assets/story-icon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F5EFDD;
+    --paper-soft: #ECE3C6;
+    --cover: #1E3A2B;
+    --cover-dark: #142A1E;
+    --leaf: #B7D93A;
+    --gold: #E7B93A;
+    --ink: #262318;
+    --ink-soft: #55503f;
+    --spine-4: #8C2F2F;
+    --max-w: 1120px;
+    --read-w: 700px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    margin: 0;
+    color: var(--cover-dark);
+  }
+
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+  .read { max-width: var(--read-w); margin: 0 auto; padding: 0 32px; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--cover); color: var(--paper);
+    padding: 10px 16px; z-index: 999;
+  }
+  .skip-link:focus { left: 16px; top: 16px; }
+
+  /* ---------- Ribbon nav (matches main site) ---------- */
+  .ribbon {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--cover);
+    border-bottom: 3px solid var(--gold);
+  }
+  .ribbon-inner {
+    max-width: var(--max-w); margin: 0 auto; padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand img { width: 42px; height: 42px; border-radius: 50%; display: block; border: 2px solid var(--gold); }
+  .brand-word { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.15rem; color: var(--paper); }
+  .nav-links { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  .nav-links a { text-decoration: none; color: var(--paper); opacity: 0.85; }
+  .nav-links a:hover, .nav-links a:focus-visible { opacity: 1; }
+
+  /* ---------- Story hero ---------- */
+  .story-hero {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid rgba(30,58,43,0.15);
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Space Mono', monospace; font-size: 0.76rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-soft); text-decoration: none; margin-bottom: 26px;
+  }
+  .back-link:hover, .back-link:focus-visible { color: var(--spine-4); }
+
+  .tag-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 5px 12px; border-radius: 999px;
+    background: var(--cover); color: var(--paper);
+  }
+  .tag.alt { background: var(--paper-soft); color: var(--cover-dark); border: 1px solid rgba(30,58,43,0.2); }
+
+  .story-title {
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--spine-4);
+  }
+  .story-meta {
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .story-dek {
+    margin-top: 22px;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* ---------- Chapters ---------- */
+  .story-body { padding: 56px 0 20px; }
+  .chapter { margin-bottom: 54px; }
+  .chapter-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--leaf);
+    background: var(--cover-dark);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .chapter h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .chapter p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin: 0 0 20px;
+    color: var(--ink);
+  }
+  .chapter p:first-of-type::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 3.1rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.8;
+    margin: 6px 8px 0 0;
+    color: var(--spine-4);
+  }
+
+  .aside {
+    margin: 8px 0 28px;
+    padding: 16px 20px;
+    background: var(--paper-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .aside::before {
+    content: "Reader's note — ";
+    font-style: normal;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--spine-4);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .author-break {
+    text-align: center;
+    margin: 44px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .author-break::before, .author-break::after {
+    content: "◆";
+    color: var(--leaf);
+    margin: 0 14px;
+    font-size: 0.6rem;
+    vertical-align: middle;
+  }
+
+  .the-end {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--cover-dark);
+    margin: 40px 0 0;
+  }
+
+  /* ---------- Story footer / CTA ---------- */
+  .story-cta {
+    background: var(--cover);
+    color: var(--paper);
+    padding: 56px 0;
+    margin-top: 64px;
+    text-align: center;
+  }
+  .story-cta h3 { color: var(--paper); font-size: 1.4rem; margin-bottom: 12px; }
+  .story-cta p { color: rgba(245,239,221,0.8); max-width: 50ch; margin: 0 auto 24px; line-height: 1.6; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold); color: var(--cover-dark);
+    text-decoration: none; padding: 13px 26px; border-radius: 999px;
+    font-family: 'Space Mono', monospace; font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    transition: transform 0.2s ease;
+  }
+  .btn:hover, .btn:focus-visible { transform: translateY(-2px); }
+  .btn.ghost { background: transparent; color: var(--paper); border: 1px solid rgba(245,239,221,0.4); margin-left: 12px; }
+
+  footer.site-footer {
+    background: var(--cover-dark);
+    color: rgba(245,239,221,0.75);
+    padding: 32px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  footer.site-footer a { color: var(--gold); text-decoration: none; }
+
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+
+  @media (max-width: 640px) {
+    .wrap, .read { padding: 0 20px; }
+    .ribbon-inner { padding: 12px 20px; flex-direction: column; gap: 12px; }
+    .story-hero { padding: 40px 0 30px; }
+    .story-title { font-size: clamp(2rem, 10vw, 2.6rem); }
+    .chapter p { font-size: 1rem; }
+    .btn.ghost { display: inline-block; margin: 12px 0 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+  .chapter p.nodrop::first-letter { all: unset; }
+  .chapter-title { font-size: 1.5rem; font-weight: 600; margin: 0 0 20px; }
+  .story-byline { margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; }
+  .end-mark { text-align: center; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.3rem; color: var(--cover-dark); margin: 10px 0 0; }
+  .back-matter { margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(30,58,43,0.2); }
+  .back-matter .chapter { margin-bottom: 28px; }
+  .back-matter .chapter p { font-size: 0.98rem; color: var(--ink-soft); }
+  .back-matter .chapter p::first-letter { all: unset; }
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#section-1">Skip to story</a>
+
+<header class="ribbon">
+  <div class="ribbon-inner">
+    <a class="brand" href="../index.html#home">
+      <img src="../assets/story-icon.jpg" alt="Story Digital logo, an open book on a green circle">
+      <span class="brand-word">Story Digital</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="../index.html#home">Home</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#genre">Our Genre</a></li>
+        <li><a href="../index.html#share">Share a Story</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="story-hero">
+    <div class="read">
+      <a class="back-link" href="../index.html#genre-thriller">&larr; Back to the shelf</a>
+      <div class="tag-row"><span class="tag">Thriller</span></div>
+      <h1 class="story-title">The Last Station</h1>
+      <p class="story-meta">4 chapters · about 14 min read</p>
+      <p class="story-byline">By Hassaan Ijaz</p>
+      <p class="story-dek">Jenna takes the same train home every night. Tonight, she is not sure she is the only one on board.</p>
+    </div>
+  </section>
+
+  <section class="story-body">
+    <div class="read">
+
+      <article class="chapter" id="section-1">
+      <span class="chapter-number">Chapter 1</span>
+      <h2 class="chapter-title">Five minutes to arrival</h2>
+      <p>Jenna returned from her university to the same place where she used to go back home from, the train station. The wind was chilly, with cool zephyrs caressing her skin, making an illusion as if some insect is crawling on it. The night ahead was young and the station was fondly quiet except for the clinical sound of the speaker echoing through the space.</p>
+      <p>“Train 565, arriving in 5 minutes.” The lobby fell quiet immediately with Jenna only hearing her own soft breaths. She glanced around, taking in the familiar surroundings before focusing her attention back to her phone. She mindlessly scrolled through reels, trying to spend the agonizingly slow 5 minutes of her life until the train arrived—it did and she thanked god. Tired as she was, she nearly stumbled on the way to the train but managed to regain her footing, “Clumsy me.” She thought to herself before walking into the carriage which felt like a second home to her due to the amount of times she had used the same train, the same carriage, to reach back home.</p>
+      <p>She took off her bag from her shoulder and tossed it onto the seat before laying on it, using the bag as a pillow—even though it was uncomfortable, she could bear it. The speaker inside the train buzzed again, “Train 565, commencing route from Station 5 to station 7.” Jenna closed her eyes and tried to catch a quick power nap before the train arrived at her home town. Eventually, she fell asleep quicker than she anticipated and her body went limp. While her soul explored an alternative reality in her dream, her body received a sensation of something touching her foot, as if gently touching it or trying to gently grab it.</p>
+      <p>Her brain activated and her senses came back, causing her eyes to snap open and her body to escape from the peaceful nap she was having. She sat up on her seat and glanced down to her feet but nothing was there—who could have it been?</p>
+      <p>She ran her gaze through the carriage but apart from her, there was no one inside, only her. Jenna brushed it off, thinking it must have been her subconscious state playing tricks on her while she was busy exploring the other universe in her head. She laid back on her seat and closed her eyes, trying to fall back into the nap she was enjoying a few moments ago.</p>
+      <p>The gentle swaying motion of the carriage felt like someone was giving strong swings to it—for a normal person, it would not be a pleasant sensation, but for Jenna, she was used to it and allowed her body to sway with the rhythm.</p>
+      <p>She took a glance out of the window, gazing at the cityscape which seemed to be zooming in the opposite direction, resting her arms on the windowsill under her chin. Her mind was clouded with memories of the day she had spent in the university and the amount of assignments she had gotten.</p>
+      <p>Her body began picking up signals behind her as if something or someone is there, approaching, slowly, but surely. The hair on the nape of her neck began to stand and Goosebumps erupted across her arms and legs, making her shiver. Her heart began picking up speed, pumping blood faster in her veins which was adrenaline coursing through. She knew she was alone but the sensation grew stronger and stronger, until she felt like whatever was behind her, was about to touch her.</p>
+      <p>Taking a deep breath, she swiftly spun back to see who crept closer to her on her seat but to her surprise, she saw no one. Frustrated, she growled in a low voice, “Don’t give me false alarms!” she spoke to her own body in exhaustion, Silently praying for the train to reach her hometown as soon as possible. She unzipped her bag and pulled out a gum, chewing it to relax her jaw and brain, lazily resting her head back at the headrest of the seat.</p>
+      </article>
+
+      <article class="chapter" id="section-2">
+      <span class="chapter-number">Chapter 2</span>
+      <h2 class="chapter-title">Long awaited moment</h2>
+      <p>The speaker buzzed again, catching Jenna’s attention like a moth drawn to a flame. “Train 565 has arrived at station 7.” Jenna took a deep breath of joy and her body automatically stood up, eager to go back home and plop down on her cozy bed. After such a tiring day, she couldn’t ask for more.</p>
+      <p>She quickly exited the train, the cool air of the night hitting her on the face, making her dullness go away in an instant. She looked around the station to notice a few people from her neighbourhood standing there, waiting for the next train. A wave of relief and a sense of security washed over her as she walked back to her home since it was not too far.</p>
+      <p>She produced a key from her pocket and unlocked the front door, entering her house. “Home sweet home.” She said happily as she made her way to her bedroom. Jenna noticed that her mother was asleep since it was almost midnight and so she proceeded to her room without disturbing her mother. Upon entering the room, she put her bag into its place and laid down on the bed, stretching languidly like a cat.</p>
+      <p>Jenna pulled the blanket on top of her and snuggled deeper into her bed. She closed her eyes and drifted of to comfortable sleep. One day, she was travelling back from her university on the same train, train 565. Everything was going peaceful as usual until, the carriage suddenly jolted, causing Jenna to fall on the floor with a thud, a gasp of pain escaping her lips. The carriage was shaking violently as the engine bogey of the train derailed due to a broken track piece and the carriage where Jenna was, also turned sideways and crashed into the ground. Jenna saw the horrific moment before everything went black.</p>
+      <p>Her eyes snapped open after a moment and she found herself breathing heavily, she quickly glanced and her body at hands, expecting to find herself wounded and bleeding from the incident but strangely, she was just laying in her bed and completely fine, a stark contrast to what she had experienced.</p>
+      <p>She sat up on her bed, her throat suddenly dry from fear, her pulse thundering in her nerves. That’s when the moment of realization dawned on her, it was just a dream. She took long breaths to calm her frightened heart. She made her way to the kitchen, needing some water to soothe her parched throat. As she began filling the cup, she noticed a strange movement in the lounge which as shrouded in darkness. “Hello? Mom? Is that you?.” She asked but received no response. She got up, placing the glass full of water on the shelf before proceeding towards the lounge. She squinted her eyes, trying to see ahead but the darkness made it difficult. She traced her hand on the wall when it finally brushed against the switch and the lights turned on. The sudden flash caused Jenna to momentarily cover her eyes, blinding herself for a few seconds.</p>
+      <p>As she regained her sight, she saw a black shadowy figure standing on the corresponding side as hers. She froze, her eyes widening in terror and her heart got gripped by fear. She couldn’t even get a word to form on her cold tongue. The figure suddenly moved, slowly extending its hand to reach out for Jenna. Jenna screamed in fear, falling backwards on the floor.</p>
+      <p>The figure didn’t stop, it kept extending its dark arm towards her. Just as its finger was about to make contact with her skin, a voice pierced the silence, “Jenna!? Darling what happened?” Jenna opened her eyes to see her mother come out of her room and rush to Jenna’s side. The mysterious black figure was gone, nowhere to be seen.</p>
+      <p>“Mom, I swear I saw something here.” Jenna’s mother looked concerned but nonetheless, she comforted her daughter. “Honey, you’re just tired, that’s all, come on, lets go to bed.” With those soothing words, Jenna stood up and went back to her bed, still dehydrated but the terrifying experience made her forget about the thirst gnawing at her. All she wanted... was peace—would she even get it?.</p>
+      </article>
+
+      <article class="chapter" id="section-3">
+      <span class="chapter-number">Chapter 3</span>
+      <h2 class="chapter-title">Left with more questions than answers</h2>
+      <p>It was another day at the university, Jenna made her way to her dormitory to find her Fatimah already sitting on the bed, grinning and twirling her pink hair locks, dressed in a pink top and long skirt, “Hey Jenna! You know, I made some yummy chicken cheese sandwiches for you!” Jenna smiled, sitting beside her friend on the bed. “Thank you so much for this Fatima, you’re amazing.”</p>
+      <p>As they ate together, Fatima suddenly asked a question which left Jenna stunned. “Hey Jenna, do you know that train 565 of station 5 recently crashed in an horrible incident and everyone on-board unfortunately died.”</p>
+      <p>Jenna felt as if the very earth had been snatched from under her feet—the same train she used to take, has crashed? “At what time did the incident occur?” Jenna inquired immediately to which Fatima thought for a moment, “I don’t know, maybe around night time.”</p>
+      <p>Jenna’s breath caught in her throat, it was like the reality was crushing down on her. She struggled to form words in her mouth, not knowing what to say at the moment. Just then, the bell rang and Fatima stood up, “Hey come on, lets go to the class.” Jenna was left with no choice but to follow behind.</p>
+      <p>As they entered, Professor Abdullah was waiting for them to begin the lecture, dressed in a cool attire. “Why are you both late?” he asked in his professional tone. “Sorry Professor, we were talking and hence couldn’t keep track of time.” Fatima said, shrugging and walking to her seat while Jenna sat down beside her. As the class was about to commence, one student asked, “Professor Abdullah, do you know about the horrific incident that occured with train 565?”</p>
+      <p>Professor Abdullah nodded, “Oh yes, all my condolences to the families who lost their loved ones.” He said before beginning the lecture. As the lecture progressed, Jenna was lost in her own world of thoughts, how come the same train which she took to home had crashed and she didn’t know about it. Something even more terrifying was that the incident occured at the same time when she was going back home but more confusingly, she saw that the train was fine.</p>
+      <p>Back at her dormitory, as she was thinking about the recent events, a memory came flashing back which shook her to the core, she remembered the dream which she had, about her taking the train and later it crashed before everything went black. She shuddered violently at the thought, “No, no, no, NO!” Her voice rose a pitch as she was almost about to scream but managed to control herself, “This can’t be!” she quickly looked at her feet and hands but was relieved to find herself still alive.</p>
+      <p>Her body suddenly started picking up sensations which were foreign to her, her feet grew cold and her hands had Goosebumps, “Stop, stop it!” she sneered at her own body in frustration but it was no use. She quickly took some pills to stabilize her body as this reaction happened to her whenever she was immensely stressed.</p>
+      <p>“This has to stop, I will not rest until I figure out what’s going on with me.” Jenna said fiercely, steeling herself for the investigation that she was about to do. She would go back to the train station and try to see what really happened with train 565.</p>
+      </article>
+
+      <article class="chapter" id="section-4">
+      <span class="chapter-number">Chapter 4</span>
+      <h2 class="chapter-title">Truth always hurts</h2>
+      <p>Jenna arrived at the same station that she had grown accustomed to—station 5. She wanted to see if Train 565 was really destroyed in the incident. She waited patiently, her gaze locked on the screen which showed the arrival and departure of trains.</p>
+      <p>Suddenly, the screen flickered and Jenna immediately noticed the change, the screen showed the shocking, ‘Train 565 arriving in 5 minutes’. Jenna knew this was it, she would finally reveal the truth of what is happening in her life.</p>
+      <p>Soon, she spotted the silhouette of the same train arriving which everyone said had crashed. She was very confused as to how the train was still running if it had crashed. The train stopped at the station and its doors slid open. The speaker’s voice echoed, “Train 565 arrived at Station 5, will shortly commence journey to Station 7.” The same words, the same scene which Jenna had witnessed every single day since her first day of university. She took a breath, building the courage and going on the train.</p>
+      <p>She entered the same carriage where she sat one day ago, but Jenna wasn’t here to just sit and go back home, today, she had a new purpose. She started exploring the train, starting from the last most carriage, everything seemed normal and according to life but a few things seemed changed. Some seats had different, vivid colours which Jenna had not seen before on the train and the doors connecting the carriages sometimes opened and closed on their own, as if some unseen force is present.</p>
+      <p>Jenna however, was not fazed, she was determined to find out what had gone wrong with train 565, she wanted to prove that the news of the crash was fake because she was on the train, travelling back home like usual. As she reached the same carriage from where she started, she was about to end her exploration and call it a day but just then, her skin picked up vivid sensations, her senses came to life and warned her of a small gush of wind coming from the engine bogey.</p>
+      <p>Jenna felt a wave of anxiety wash over her as she realized she had not yet explored the engine compartment. She knew that normal passengers aren’t allowed there but defying the rules, she went ahead and opened the door, revealing a dark, confined space with just the light of the controls visible and a large front window showing the outsides.</p>
+      <p>“Hello? Captain? Anyone?” she tried to find who was driving the train but strangely, what she saw was not human. It was the figure. Jenna gasped, eyes wide in terror, her heart momentarily stopping at the sight. “Y-you!?” she questioned to which the figure turned around slowly, grinning without teeth, “Welcome Jenna, I have been waiting for you.” Jenna stumbled back but before she could scream, the figure covered her mouth. “Shh, do not be afraid, girl.” Through the blockade, Jenna managed to gasp, “Who are you and what do you want?” the figure let out a low chuckle, “I am here to tell you the truth.”</p>
+      <p>Before Jenna could question any further, the figure spoke, “you see Jenna, we both are dead.” Jenna’s heart stopped at the words, “W-what!?” the figure nodded and continued, “I know, I know, its a lot to consume so suddenly.” It went silent for a second, “This train, train 565, my pride, my ride, got into a terrible accident when it derailed... and I was the first one to die.”</p>
+      <p>Jenna was confused, “who are you?” the figure responded in kind, “I am the captain of this train.” Slowly, the black figure materialized into a more human form, revealing it was indeed, the captain. “Captain!?” the figure nodded, its expression unreadable. “I hate to break it to you Jenna, but, unfortunately, you, I, and anyone else on this train, all died in that incident.”</p>
+      <p>“So what is this then? Why are we in the same train again?”—“This is an illusion, Jenna, which your mind created, in reality, you’re resting in your grave but your mind refuses to accept that harsh reality and that is why, it has created this... alternative world for you to see.”—“So I am not real?”— “Neither am I.”</p>
+      <p>Jenna was stunned to her core, she couldn’t process what was even happening now. “Remember Jenna, the truth always hurts.” With those final words from the figure, the world around them started collapsing, the earth began to vanish, a strange noise filling the air and Jenna’s scream was the last thing that echoed...</p>
+      </article>
+
+      <article class="chapter" id="section-5">
+      <span class="chapter-number">Epilogue</span>
+      <p>Jenna took the Station 5 everyday to reach back home from her university, train 565 was the train which went from Station 5 to Station 7 where Jenna’s residence was located. One tragic day, while travelling back through the same train, the track had a missing piece which caused it to derail and crash on the ground, killing everyone inside, including Jenna. Her mind refused to believe the horrific truth and made an alternative reality in which she was still alive, but it was an illusion. Jenna was born with this amazing ability as described by her mother in a later interview, “She was the best girl a mother could ask for, I am so saddened by the news of her death, it truly hurts me, breaks me every time I hear it, she had an amazing mind and was truly a god-gifted creation.”</p>
+      <p>Jenna’s funeral was attended by her family and friends, including her mother, her friend Fatima and her university professor, Abdullah. She was buried at the local cemetery near her house and her mother paid regular visits to her daughter’s grave. Hence, Station 5 became the ‘Last Station’ Jenna would ever take in her life...</p>
+      </article>
+
+      <p class="end-mark">The End</p>
+
+      <div class="back-matter">
+      <article class="chapter" id="section-100">
+      <span class="chapter-number">Note from the author</span>
+      <p>The story is based on Jenna’s imagination of the alternative world her mind had created shortly after her death where she noticed anomalies and errors which were just glitches in the illusion created by her mind, the reality was far different.</p>
+      <p>‘Thank you for taking out some time from your life and reading this story, I hope you enjoyed it and found the plot interesting. I am open to you guys finding possible errors and flaws in my story and pointing it out to me. Remember, The “truth always hurts” ☺’</p>
+      </article>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="story-cta">
+    <div class="wrap">
+      <h3>Thanks for reading.</h3>
+      <p>New stories go up on Instagram first. Follow along to catch the next one as soon as it is posted.</p>
+      <a class="btn" href="https://www.instagram.com/story._.digital" target="_blank" rel="noopener">Follow on Instagram</a>
+      <a class="btn ghost" href="../index.html#genre-thriller">Back to the shelf</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; 2026 Story Digital. All stories original. <a href="../index.html#home">Back to Story Digital</a></div>
+</footer>
+
+</body>
+</html>

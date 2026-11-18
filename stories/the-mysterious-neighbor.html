@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Mysterious Neighbor — Story Digital</title>
+<meta name="description" content="A friendly visit from the new man next door leaves James with more questions than answers.">
+<link rel="icon" type="image/jpeg" href="../assets/story-icon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F5EFDD;
+    --paper-soft: #ECE3C6;
+    --cover: #1E3A2B;
+    --cover-dark: #142A1E;
+    --leaf: #B7D93A;
+    --gold: #E7B93A;
+    --ink: #262318;
+    --ink-soft: #55503f;
+    --spine-4: #8C2F2F;
+    --max-w: 1120px;
+    --read-w: 700px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    margin: 0;
+    color: var(--cover-dark);
+  }
+
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+  .read { max-width: var(--read-w); margin: 0 auto; padding: 0 32px; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--cover); color: var(--paper);
+    padding: 10px 16px; z-index: 999;
+  }
+  .skip-link:focus { left: 16px; top: 16px; }
+
+  /* ---------- Ribbon nav (matches main site) ---------- */
+  .ribbon {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--cover);
+    border-bottom: 3px solid var(--gold);
+  }
+  .ribbon-inner {
+    max-width: var(--max-w); margin: 0 auto; padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand img { width: 42px; height: 42px; border-radius: 50%; display: block; border: 2px solid var(--gold); }
+  .brand-word { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.15rem; color: var(--paper); }
+  .nav-links { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  .nav-links a { text-decoration: none; color: var(--paper); opacity: 0.85; }
+  .nav-links a:hover, .nav-links a:focus-visible { opacity: 1; }
+
+  /* ---------- Story hero ---------- */
+  .story-hero {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid rgba(30,58,43,0.15);
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Space Mono', monospace; font-size: 0.76rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-soft); text-decoration: none; margin-bottom: 26px;
+  }
+  .back-link:hover, .back-link:focus-visible { color: var(--spine-4); }
+
+  .tag-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 5px 12px; border-radius: 999px;
+    background: var(--cover); color: var(--paper);
+  }
+  .tag.alt { background: var(--paper-soft); color: var(--cover-dark); border: 1px solid rgba(30,58,43,0.2); }
+
+  .story-title {
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--spine-4);
+  }
+  .story-meta {
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .story-dek {
+    margin-top: 22px;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* ---------- Chapters ---------- */
+  .story-body { padding: 56px 0 20px; }
+  .chapter { margin-bottom: 54px; }
+  .chapter-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--leaf);
+    background: var(--cover-dark);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .chapter h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .chapter p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin: 0 0 20px;
+    color: var(--ink);
+  }
+  .chapter p:first-of-type::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 3.1rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.8;
+    margin: 6px 8px 0 0;
+    color: var(--spine-4);
+  }
+
+  .aside {
+    margin: 8px 0 28px;
+    padding: 16px 20px;
+    background: var(--paper-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .aside::before {
+    content: "Reader's note — ";
+    font-style: normal;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--spine-4);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .author-break {
+    text-align: center;
+    margin: 44px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .author-break::before, .author-break::after {
+    content: "◆";
+    color: var(--leaf);
+    margin: 0 14px;
+    font-size: 0.6rem;
+    vertical-align: middle;
+  }
+
+  .the-end {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--cover-dark);
+    margin: 40px 0 0;
+  }
+
+  /* ---------- Story footer / CTA ---------- */
+  .story-cta {
+    background: var(--cover);
+    color: var(--paper);
+    padding: 56px 0;
+    margin-top: 64px;
+    text-align: center;
+  }
+  .story-cta h3 { color: var(--paper); font-size: 1.4rem; margin-bottom: 12px; }
+  .story-cta p { color: rgba(245,239,221,0.8); max-width: 50ch; margin: 0 auto 24px; line-height: 1.6; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold); color: var(--cover-dark);
+    text-decoration: none; padding: 13px 26px; border-radius: 999px;
+    font-family: 'Space Mono', monospace; font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    transition: transform 0.2s ease;
+  }
+  .btn:hover, .btn:focus-visible { transform: translateY(-2px); }
+  .btn.ghost { background: transparent; color: var(--paper); border: 1px solid rgba(245,239,221,0.4); margin-left: 12px; }
+
+  footer.site-footer {
+    background: var(--cover-dark);
+    color: rgba(245,239,221,0.75);
+    padding: 32px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  footer.site-footer a { color: var(--gold); text-decoration: none; }
+
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+
+  @media (max-width: 640px) {
+    .wrap, .read { padding: 0 20px; }
+    .ribbon-inner { padding: 12px 20px; flex-direction: column; gap: 12px; }
+    .story-hero { padding: 40px 0 30px; }
+    .story-title { font-size: clamp(2rem, 10vw, 2.6rem); }
+    .chapter p { font-size: 1rem; }
+    .btn.ghost { display: inline-block; margin: 12px 0 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+  .chapter p.nodrop::first-letter { all: unset; }
+  .chapter-title { font-size: 1.5rem; font-weight: 600; margin: 0 0 20px; }
+  .story-byline { margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; }
+  .end-mark { text-align: center; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.3rem; color: var(--cover-dark); margin: 10px 0 0; }
+  .back-matter { margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(30,58,43,0.2); }
+  .back-matter .chapter { margin-bottom: 28px; }
+  .back-matter .chapter p { font-size: 0.98rem; color: var(--ink-soft); }
+  .back-matter .chapter p::first-letter { all: unset; }
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#section-1">Skip to story</a>
+
+<header class="ribbon">
+  <div class="ribbon-inner">
+    <a class="brand" href="../index.html#home">
+      <img src="../assets/story-icon.jpg" alt="Story Digital logo, an open book on a green circle">
+      <span class="brand-word">Story Digital</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="../index.html#home">Home</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#genre">Our Genre</a></li>
+        <li><a href="../index.html#share">Share a Story</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="story-hero">
+    <div class="read">
+      <a class="back-link" href="../index.html#genre-horror">&larr; Back to the shelf</a>
+      <div class="tag-row"><span class="tag">Horror</span><span class="tag alt">Thriller</span></div>
+      <h1 class="story-title">The Mysterious Neighbor</h1>
+      <p class="story-meta">Short story · about 4 min read</p>
+      
+      <p class="story-dek">A friendly visit from the new man next door leaves James with more questions than answers.</p>
+    </div>
+  </section>
+
+  <section class="story-body">
+    <div class="read">
+
+      <article class="chapter" id="section-1">
+      <p>The weather was serene with the soft chirping of birds and occasional cooing of doves echoing through the house as I sat on my couch, sipping the steamy cup of tea. Unexpectedly, the doorbell rang and I had to go check which I secretly hated after getting comfy. It’s always the worst timings, right?</p>
+      <p>As I opened the door, I was met with the sight of a middle aged man standing on my porch, turned out to be my neighbor whom I barely knew since he had just moved in recently and since then, we didn’t had much chat.</p>
+      <p>He smiled at me and I could just feel the undercurrent that something was odd but didn’t pay much thought to it. Breaking the silence, I initiated the conversation, “Hello Mr. Jay, how may I help you?” I tried sounding normal, despite my unease. “Oh nothing much young man, I just wanted to have a chat, mind giving me a few minutes?”</p>
+      <p>He asked with an oddly cheerful tone, I couldn’t make up any good excuse so I ended up inviting him in. He sat on the couch across me and then started his conversation, “Well James, I wanted to ask you something”. His expression firm as he immediately continued, “Have you seen the news recently?”</p>
+      <p>I was confused as to why Mr. Jay asked that question from me but regardless, I answered, “No Mr. Jay, I haven’t seen the news recently, why though?” My curiosity was piqued as I had an urge to know what Mr. Jay was up to.</p>
+      <p>A moment of pure silence passed between us and it grew awkward, Mr. Jay was clearly hesitating to answer my question now and that got me slightly suspicious. Just then, I heard a noise from my kitchen which caused me to jump slightly. I quickly went to check and weirdly, found nothing out of the ordinary.</p>
+      <p>I heard Mr. Jay get up and say, “Oh sorry man, I got some urgent work so I got to go, see you soon.” And with that, he left my house. I found it very suspicious though, first it was Mr. Jay hesitating to answer my question and then the weird noise which diverted my attention elsewhere and that gave a chance to Mr. Jay to escape my interrogation. Remembering that he mentioned about watching the news, I grabbed my phone and quickly opened the news, to my horror, it was about a man who had committed a crime of taking someone’s life and the police still didn’t manage to figure out who he was. However, eyewitnesses told that it was a middle aged man with grey hair but no further details were provided.</p>
+      <p>My mind was stormed with unlimited possibilities and conspiracies, somehow, my suspicion landed on Mr. Jay, my next door neighbor who had just visited me and he had grey hair and was middle aged but I wasn’t truly sure if it could have been Mr. Jay since he was my neighbor but not everyone is innocent.</p>
+      <p>I was caught up in my thoughts and internal debates when a daring idea came to my mind. I made a plan to go and investigate Mr. Jay’s house myself. My logical side screamed at me to call the police as it was a safer option but my other, more adventurous and daring side, wanted to do it myself.</p>
+      <p>That night, I began my operation by sneaking onto Mr. Jay’s property which felt illegal but that didn’t stop me. I found his main door locked so I made my way around his house and climbed into his backyard by jumping over the small wall. I kept my footsteps as quiet as possible, knowing that Mr. Jay is inside his home.</p>
+      <p>To my surprise, the backyard door was unlocked, typical Jay moment, I thought to myself as I went in and saw that the entire house was shrouded in darkness but luckily I could still make out the path needed to navigate through.</p>
+      <p>I made my way across his lounge and found myself near a staircase leading upwards onto the first floor. I carefully ascended and as soon as I reached the top, I heard a voice of… chanting? It can’t be, right?</p>
+      <p>It was strange since I expected Mr. Jay to be fast asleep but something wasn’t adding up, something was terribly wrong. Taking a deep breath and bracing myself, I continued forwards and saw a room which had its door slightly ajar and a warm, orange glow emitting from inside. I made my way silently towards it and upon peeking inside, my breath hitched. My blood ran cold ,Mr. Jay was sitting on the floor, back facing towards me as before him on the ground was a satanic symbol and he had a knife on his shelf which had dried blood. I quickly retreated back but my panicky movement caused a noise from the creaky floorboard and my worst fear came true.</p>
+      <p>Mr. Jay stopped chanting and slowly tilted his head around, his now red and pupils dilated, fixed on me. The change in his physical form caused a shiver to crawl against my spine. “You weren’t supposed to see this James, I thought we had an understanding”</p>
+      <p>He said in his monotone voice as he stood up and with slow, calculated movement, started approaching me. My body felt paralyzed as I was stuck and couldn’t move an inch due to the amount of fear instilled in me.</p>
+      <p>“Now, you can’t escape the truth, boy”. He spoke as shadows danced across the walls and the candles burned brighter than ever. “Now you will experience what it feels like after breaking someone’s trust”</p>
+      <p>His voice grew and flames burnt brighter than ever.</p>
+      </article>
+
+      <p class="end-mark">The End</p>
+
+      
+
+    </div>
+  </section>
+
+  <section class="story-cta">
+    <div class="wrap">
+      <h3>Thanks for reading.</h3>
+      <p>New stories go up on Instagram first. Follow along to catch the next one as soon as it is posted.</p>
+      <a class="btn" href="https://www.instagram.com/story._.digital" target="_blank" rel="noopener">Follow on Instagram</a>
+      <a class="btn ghost" href="../index.html#genre-horror">Back to the shelf</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; 2026 Story Digital. All stories original. <a href="../index.html#home">Back to Story Digital</a></div>
+</footer>
+
+</body>
+</html>

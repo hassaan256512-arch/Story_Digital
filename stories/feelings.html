@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feelings — Story Digital</title>
+<meta name="description" content="Two office colleagues hide the same secret feeling, until a dinner party makes it impossible to keep hiding.">
+<link rel="icon" type="image/jpeg" href="../assets/story-icon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F5EFDD;
+    --paper-soft: #ECE3C6;
+    --cover: #1E3A2B;
+    --cover-dark: #142A1E;
+    --leaf: #B7D93A;
+    --gold: #E7B93A;
+    --ink: #262318;
+    --ink-soft: #55503f;
+    --spine-4: #8C2F2F;
+    --max-w: 1120px;
+    --read-w: 700px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    margin: 0;
+    color: var(--cover-dark);
+  }
+
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+  .read { max-width: var(--read-w); margin: 0 auto; padding: 0 32px; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--cover); color: var(--paper);
+    padding: 10px 16px; z-index: 999;
+  }
+  .skip-link:focus { left: 16px; top: 16px; }
+
+  /* ---------- Ribbon nav (matches main site) ---------- */
+  .ribbon {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--cover);
+    border-bottom: 3px solid var(--gold);
+  }
+  .ribbon-inner {
+    max-width: var(--max-w); margin: 0 auto; padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand img { width: 42px; height: 42px; border-radius: 50%; display: block; border: 2px solid var(--gold); }
+  .brand-word { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.15rem; color: var(--paper); }
+  .nav-links { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  .nav-links a { text-decoration: none; color: var(--paper); opacity: 0.85; }
+  .nav-links a:hover, .nav-links a:focus-visible { opacity: 1; }
+
+  /* ---------- Story hero ---------- */
+  .story-hero {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid rgba(30,58,43,0.15);
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Space Mono', monospace; font-size: 0.76rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-soft); text-decoration: none; margin-bottom: 26px;
+  }
+  .back-link:hover, .back-link:focus-visible { color: var(--spine-4); }
+
+  .tag-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 5px 12px; border-radius: 999px;
+    background: var(--cover); color: var(--paper);
+  }
+  .tag.alt { background: var(--paper-soft); color: var(--cover-dark); border: 1px solid rgba(30,58,43,0.2); }
+
+  .story-title {
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--spine-4);
+  }
+  .story-meta {
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .story-dek {
+    margin-top: 22px;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* ---------- Chapters ---------- */
+  .story-body { padding: 56px 0 20px; }
+  .chapter { margin-bottom: 54px; }
+  .chapter-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--leaf);
+    background: var(--cover-dark);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .chapter h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .chapter p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin: 0 0 20px;
+    color: var(--ink);
+  }
+  .chapter p:first-of-type::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 3.1rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.8;
+    margin: 6px 8px 0 0;
+    color: var(--spine-4);
+  }
+
+  .aside {
+    margin: 8px 0 28px;
+    padding: 16px 20px;
+    background: var(--paper-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .aside::before {
+    content: "Reader's note — ";
+    font-style: normal;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--spine-4);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .author-break {
+    text-align: center;
+    margin: 44px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .author-break::before, .author-break::after {
+    content: "◆";
+    color: var(--leaf);
+    margin: 0 14px;
+    font-size: 0.6rem;
+    vertical-align: middle;
+  }
+
+  .the-end {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--cover-dark);
+    margin: 40px 0 0;
+  }
+
+  /* ---------- Story footer / CTA ---------- */
+  .story-cta {
+    background: var(--cover);
+    color: var(--paper);
+    padding: 56px 0;
+    margin-top: 64px;
+    text-align: center;
+  }
+  .story-cta h3 { color: var(--paper); font-size: 1.4rem; margin-bottom: 12px; }
+  .story-cta p { color: rgba(245,239,221,0.8); max-width: 50ch; margin: 0 auto 24px; line-height: 1.6; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold); color: var(--cover-dark);
+    text-decoration: none; padding: 13px 26px; border-radius: 999px;
+    font-family: 'Space Mono', monospace; font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    transition: transform 0.2s ease;
+  }
+  .btn:hover, .btn:focus-visible { transform: translateY(-2px); }
+  .btn.ghost { background: transparent; color: var(--paper); border: 1px solid rgba(245,239,221,0.4); margin-left: 12px; }
+
+  footer.site-footer {
+    background: var(--cover-dark);
+    color: rgba(245,239,221,0.75);
+    padding: 32px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  footer.site-footer a { color: var(--gold); text-decoration: none; }
+
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+
+  @media (max-width: 640px) {
+    .wrap, .read { padding: 0 20px; }
+    .ribbon-inner { padding: 12px 20px; flex-direction: column; gap: 12px; }
+    .story-hero { padding: 40px 0 30px; }
+    .story-title { font-size: clamp(2rem, 10vw, 2.6rem); }
+    .chapter p { font-size: 1rem; }
+    .btn.ghost { display: inline-block; margin: 12px 0 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+  .chapter p.nodrop::first-letter { all: unset; }
+  .chapter-title { font-size: 1.5rem; font-weight: 600; margin: 0 0 20px; }
+  .story-byline { margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; }
+  .end-mark { text-align: center; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.3rem; color: var(--cover-dark); margin: 10px 0 0; }
+  .back-matter { margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(30,58,43,0.2); }
+  .back-matter .chapter { margin-bottom: 28px; }
+  .back-matter .chapter p { font-size: 0.98rem; color: var(--ink-soft); }
+  .back-matter .chapter p::first-letter { all: unset; }
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#section-1">Skip to story</a>
+
+<header class="ribbon">
+  <div class="ribbon-inner">
+    <a class="brand" href="../index.html#home">
+      <img src="../assets/story-icon.jpg" alt="Story Digital logo, an open book on a green circle">
+      <span class="brand-word">Story Digital</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="../index.html#home">Home</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#genre">Our Genre</a></li>
+        <li><a href="../index.html#share">Share a Story</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="story-hero">
+    <div class="read">
+      <a class="back-link" href="../index.html#genre-romance">&larr; Back to the shelf</a>
+      <div class="tag-row"><span class="tag">Romance</span></div>
+      <h1 class="story-title">Feelings</h1>
+      <p class="story-meta">Short story · about 8 min read</p>
+      
+      <p class="story-dek">Two office colleagues hide the same secret feeling, until a dinner party makes it impossible to keep hiding.</p>
+    </div>
+  </section>
+
+  <section class="story-body">
+    <div class="read">
+
+      <article class="chapter" id="section-1">
+      <p>Fred was a young man who worked at a company where he was an employee, he had eyes for his colleague who was a young woman. Fred was drawn to her by her personality traits, her charming smile, her sweet, kind nature. Everyday when coming to work at her office, Lydia would greet Fred warmly and Fred reciprocated her manners. He admired her from a distance and sneaked glances at her whenever she wasn’t looking.</p>
+      <p>Fred would occasionally talk to her about the assignments they received from the office and would collaborate on some projects. Each encounter made Fred’s heart race but he managed to keep his composure. However, keeping his feelings hidden was starting to take a toll on Fred. His mind was occupied with thoughts of Lydia, her smile, her voice, her character, he simply couldn’t stop thinking about her. This started to have a negative impact on Fred as after going home, he would feel extremely lonely and would crave affection but there was no one to offer it to him.</p>
+      <p>He started having sleepless nights, ruined schedule, all because he harboured feelings for Lydia but was scared to confess, fearing rejection. Unbeknownst to him, Lydia secretly had feelings for him too but she never showed them, fearing the same thing, rejection. At work, their gazes would lock momentarily, causing them to get a bit shy naturally. At lunch break, they would chat for a bit, feeling a warm flutter in their chest. “So, what’s your routine?” Lydia asked Fred, interested in knowing her colleague better. “Just the usual, go home, eat, sleep, back to work, repeat.” Fred replied back, feeling a bit shy while engaging in a conversation with Lydia. Lydia laughed and nodded, “Tell me more about it, I have the same routine too.” Fred nodded in response, his thoughts contemplating whether to confess his feelings or wait. Ultimately, he decided not to confess so suddenly, so he kept the conversation light-hearted. “By the way, have you heard about the upcoming dinner at John’s place? He invited us all.” Lydia asked Fred, curious. Fred perked up at the question, “yeah, I also got an invitation from John.” Fred responded and Lydia beamed with excitement. “Great then, I’ll see you at the dinner party.” Lydia said as she went away, waving goodbye to Fred.</p>
+      <p>Fred was excited at the thought of seeing Lydia at the party, where he won’t have to worry about any office rules. Soon, the day came and Fred arrived at the party, he was dressed in a red shirt and black coat, his hair slicked back and his shoes neat. He chatted with a few old friends and colleagues from work when his gaze landed on her, Lydia. She was standing a few feet away, chatting with another colleague, dressed in a stunning red dress which accentuated her beauty, her smooth brunette hair cascaded down her back effortlessly, her lips naturally red, her hazel eyes sparkling and her posture welcoming. Lydia’s gaze also landed on Fred and her lips curved into a warm smile, she sauntered towards him, her body moving with grace and her hips swaying with practised ease. She stopped near him and looked up at him with that breath-taking smile, “Nice to see you here, Fred.” Fred’s heart skipped a beat as she gave him that beautiful smile, “Nice to see you too, Lydia.”</p>
+      <p>Lydia smirked, eyeing Fred appreciatively, “You’re looking handsome today.” Fred got a bit shy but thanked her for the compliment. “Well, are we just going to stand here? Come on, lets dance.” Lydia offered, getting a bit shy herself but extending her hand for Fred to hold. Fred was surprised by the offer but tentatively held her hand, feeling her soft skin In his slightly rough one. They started dancing to the music, their bodies moving to the rhythm, though, they both were a bit tense at first due to the proximity but slowly, they started to relax and move more freely. Lydia placed her hand on Fred’s shoulder, her touch feather light, Fred placed his hand on her lower back. Their bodies moved together in perfect harmony, their gazes locked on each other. In that moment, they both felt a flutter in their chest, a feeling both couldn’t deny. Lydia’s breath hitched, her gaze intensified, she moved her hand from Fred’s shoulder to his neck, holding him closer than before. In equal response, Fred’s hand moved from her lower back to her waist, holding her closer than before. “Fred” Lydia breathed out his name, she found herself leaning closer to him. “Lydia” Fred also whispered her name which sent a pleasant shiver down her spine, he also found himself leaning closer to Lydia. Soon, their lips met in a soft, sweet—tender kiss. Lydia moaned lightly into the kiss, her lips moved sensually against his, pouring her pent up feelings into the intimate contact. Fred smiled into kiss, his expression full of love and bliss. Breaking away gently from the kiss, Lydia gazed up at Fred, her eyes filled with affection and love for him. “Fred, I have something to tell you.” She said, feeling a bit vulnerable but confident as well. Fred was intrigued and listened attentively, “I.. I have feelings for you... Fred.” Lydia confessed, her gaze darting to the ground nervously, fearing that Fred might not feel the same or hey may not be ready. “Me too, Lydia.” The words from Fred sent a wave of disbelief and joy washing over Lydia. She looked up again at Fred, but this time, her eyes held something else, something more...</p>
+      <p>Her eyes shone with unshed tears of relief as she wrapped her arms around his neck tightly, hugging him dearly. “Oh my, Fred, You have no idea how much that means to me, I had these feelings for so long.” She confessed further, gazing at Fred adoringly. Before Fred could say anything, she leaned in and pressed her lips to his again in a searing kiss. Fred wrapped his arms around her, holding her close lovingly as he kissed back with equal fervour. Fred’s heart bloomed with joy and relief as he knew he had the woman he loved secretly. “I had these feelings for you too, Lydia, I was just scared to confess, fearing that our work relation might be in danger.” Lydia’s expression softened and she hugged him more closely, “Oh Fred, you should have confessed earlier, but it doesn’t matter, love bonded us together still.” Lydia said with a smile.</p>
+      <p>Since that day, both Lydia and Fred started dating, they would meet at home and work, their bond kept growing stronger by each passing day. Fred would occasionally take Lydia out on dates, sometimes to malls, sometimes to amusement parks or sometimes to cozy cafes. Lydia was extremely happy having Fred as her partner, she was taken care of, felt loved and heard. One day, their lives were about to change forever. Fred and Lydia were on their occasional date in a luxurious restaurant, enjoying their time and meals when Fred suddenly stood up. “I have a surprise for you, Lydia.” He spoke, smiling warmly, Lydia was intrigued, looking at Fred expectantly. Fred knelt down on one knee, his hand reaching into his pocket. Lydia realized what was about to happen, her eyes wide, her heart racing with anticipation and the expected happened. Fred pulled out a black box, holding it in his hand before opening it and revealing a stunning, Heart-Shaped Diamond ring, adorned with a shiny diamond which had Lydia’s name written on it. Lydia’s jaw dropped, her heart stopping for a second at the sight, her eyes wide as if she saw a ghost. Slowly, a wide smile spread across her face, her eyes shining with tears of love and acceptance. “Oh my god, this... this is beautiful.” She reached out to touch the ring, her voice barely above a whisper. She looked at Fred and nodded vigorously. “Yes, yes, yes! A million times yes! I would marry you.” Lydia squealed in excitement, getting out of her seat and throwing her arms around Fred. Holding him tightly, she sobbed softly on his shoulder, overwhelmed by emotion. “I can’t believe it Fred, this is monumental, we met as office colleagues and now, we are going to be, husband and wife. I can’t wait to be yours and have you as mine.” Lydia spoke, her voice chocked with emotion. “I can’t wait either, Lydia, my love for you keeps growing day by day.”</p>
+      <p>Soon, their marriage day arrived, Fred and Lydia stood at the altar, their wedding dresses elegant, their friends and colleagues beamed with joy and happiness, clearly approving of the marriage and wishing the new couple a happy life. The marriage happened normally and both Fred and Lydia, were pronounced as Husband and Wife. After their marriage, they came back to their home, their sanctuary where they would now spend their lives together.</p>
+      <p>Lydia sat gently on the bed, her wedding dress adorned with glitter and petals. Fred sat opposite to her on the bed, Lydia reached out and tenderly held his hand. “Fred, it happened...” Lydia spoke with a smile, “We are finally married, husband and wife now.” Fred smiled and nodded, holding Lydia’s hand adoringly. “I love you so much, Lydia.” Fred spoke and Lydia’s smile widened, “and I love you too, my sweet-talking husband.” She teased lightly, scooting closer to Fred on the bed. “My darling, show me the depth of your love tonight, show me how much you adore me.” Lydia demanded softly and Fred complied, he wrapped his arms around her, holding her close and kissing her with passion. The night went on with the couple expressing their love and emotion for each other.</p>
+      <p>A couple of years later after their marriage, they had built a beautiful family together, having a son and a daughter. Lydia gazed at the family photo they had recently took, a warm smile on her face, clearly happy and in love with the 3 people in her life. Fred sat alongside her, mirroring her smile. Lydia gazed at him and spoke, “Remember darling, when I first became a mother, and you became a father...” Fred had a dreamy smile on his face, “Yes darling and I am so happy with the family we created together.” His eyes wandered to their children, played with their toys and giggled happily. The family was a happy one, filled with love, laughter and joy for the rest of the years that would come in their lives...</p>
+      </article>
+
+      <p class="end-mark">The End</p>
+
+      
+
+    </div>
+  </section>
+
+  <section class="story-cta">
+    <div class="wrap">
+      <h3>Thanks for reading.</h3>
+      <p>New stories go up on Instagram first. Follow along to catch the next one as soon as it is posted.</p>
+      <a class="btn" href="https://www.instagram.com/story._.digital" target="_blank" rel="noopener">Follow on Instagram</a>
+      <a class="btn ghost" href="../index.html#genre-romance">Back to the shelf</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; 2026 Story Digital. All stories original. <a href="../index.html#home">Back to Story Digital</a></div>
+</footer>
+
+</body>
+</html>

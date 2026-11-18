@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Story Digital — Stories written for your feed</title>
+<link rel="icon" type="image/jpeg" href="assets/story-icon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F5EFDD;
+    --paper-soft: #ECE3C6;
+    --cover: #1E3A2B;
+    --cover-dark: #142A1E;
+    --leaf: #B7D93A;
+    --gold: #E7B93A;
+    --ink: #262318;
+    --ink-soft: #55503f;
+    --spine-1: #1E3A2B;
+    --spine-2: #4B6B3F;
+    --spine-3: #C79A2B;
+    --spine-4: #8C2F2F;
+    --max-w: 1120px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    margin: 0;
+    color: var(--cover-dark);
+  }
+
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+
+  .wrap {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- Skip link / focus ---------- */
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .skip-link {
+    position: absolute;
+    left: -999px;
+    top: 0;
+    background: var(--cover);
+    color: var(--paper);
+    padding: 10px 16px;
+    z-index: 999;
+  }
+  .skip-link:focus {
+    left: 16px;
+    top: 16px;
+  }
+
+  /* ---------- Ribbon nav ---------- */
+  .ribbon {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--cover);
+    border-bottom: 3px solid var(--gold);
+  }
+  .ribbon-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+  .brand img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: block;
+    border: 2px solid var(--gold);
+  }
+  .brand-word {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--paper);
+    letter-spacing: 0.01em;
+  }
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 28px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--paper);
+    opacity: 0.85;
+    position: relative;
+    padding-bottom: 4px;
+  }
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: -2px;
+    width: 0%;
+    height: 2px;
+    background: var(--leaf);
+    transition: width 0.25s ease;
+  }
+  .nav-links a:hover,
+  .nav-links a:focus-visible {
+    opacity: 1;
+  }
+  .nav-links a:hover::after,
+  .nav-links a:focus-visible::after {
+    width: 100%;
+  }
+
+  /* ---------- Hero: open book ---------- */
+  .hero {
+    padding: 72px 0 88px;
+    overflow: hidden;
+  }
+  .book {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--paper-soft);
+    border-radius: 10px;
+    box-shadow: 0 30px 60px -30px rgba(20, 42, 30, 0.35);
+    position: relative;
+  }
+  .book::before {
+    /* spine shadow down the middle */
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    transform: translateX(-50%);
+    background: linear-gradient(to right,
+      rgba(0,0,0,0) 0%,
+      rgba(0,0,0,0.10) 50%,
+      rgba(0,0,0,0) 100%);
+    pointer-events: none;
+  }
+  .page {
+    padding: 56px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+  }
+  .page-left {
+    border-right: 1px solid rgba(30,58,43,0.15);
+  }
+  .page-left .eyebrow { margin-bottom: -6px; }
+  .hero-title {
+    font-size: clamp(2.1rem, 4vw, 2.9rem);
+    line-height: 1.08;
+    font-weight: 700;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--spine-3);
+  }
+  .hero-sub {
+    font-size: 1.02rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 46ch;
+  }
+  .cta-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--cover);
+    color: var(--paper);
+    text-decoration: none;
+    padding: 13px 24px;
+    border-radius: 999px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .btn:hover, .btn:focus-visible {
+    background: var(--cover-dark);
+    transform: translateY(-2px);
+  }
+  .handle {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  .page-right {
+    align-items: center;
+    text-align: center;
+  }
+  .seal-wrap {
+    position: relative;
+    width: min(280px, 80%);
+  }
+  .seal-wrap img {
+    width: 100%;
+    display: block;
+    border-radius: 50%;
+    box-shadow: 0 18px 40px -14px rgba(20,42,30,0.5);
+  }
+  .seal-caption {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 18px;
+  }
+
+  /* ---------- Section shell ---------- */
+  section {
+    padding: 90px 0;
+  }
+  .section-head {
+    margin-bottom: 44px;
+    max-width: 60ch;
+  }
+  .section-head .eyebrow { margin-bottom: 10px; }
+  .section-title {
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    font-weight: 600;
+  }
+
+  /* ---------- About: colophon ---------- */
+  .about {
+    background: var(--cover);
+    color: var(--paper);
+  }
+  .about .eyebrow { color: var(--leaf); }
+  .about .section-title { color: var(--paper); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .about-copy p {
+    line-height: 1.75;
+    font-size: 1.02rem;
+    color: rgba(245,239,221,0.88);
+    margin: 0 0 18px;
+  }
+  .about-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    border-left: 2px solid rgba(183,217,58,0.4);
+    padding-left: 28px;
+  }
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--leaf);
+  }
+  .stat-value {
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    color: var(--paper);
+  }
+
+  /* ---------- Our Genre: bookshelf ---------- */
+  .genre-shelf {
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+    padding-bottom: 18px;
+    border-bottom: 10px solid var(--cover);
+    position: relative;
+  }
+  .genre-shelf::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -14px;
+    height: 14px;
+    background: var(--cover-dark);
+    border-radius: 0 0 6px 6px;
+  }
+  .spine {
+    flex: 1 1 0;
+    min-width: 70px;
+    height: 300px;
+    border-radius: 6px 6px 3px 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 8px;
+    text-decoration: none;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08), 0 8px 16px -10px rgba(20,42,30,0.4);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: default;
+    position: relative;
+  }
+  .spine:hover {
+    transform: translateY(-16px);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08), 0 20px 30px -12px rgba(20,42,30,0.5);
+  }
+  a.spine.has-story { cursor: pointer; }
+  .spine-badge {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.5rem;
+    color: var(--gold);
+    text-shadow: 0 0 6px rgba(231,185,58,0.7);
+  }
+  .genre-card-featured {
+    border: 1px solid rgba(30,58,43,0.15);
+  }
+  .read-link {
+    display: inline-block;
+    margin-top: 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    text-decoration: none;
+    color: var(--spine-4);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+  .read-link:hover, .read-link:focus-visible {
+    border-color: var(--spine-4);
+  }
+  .spine-title {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .spine-1 { background: var(--spine-1); color: var(--paper); }
+  .spine-2 { background: var(--spine-2); color: var(--paper); }
+  .spine-3 { background: var(--spine-3); color: var(--cover-dark); }
+  .spine-4 { background: var(--spine-4); color: var(--paper); }
+  .spine-5 { background: var(--leaf); color: var(--cover-dark); }
+  .spine-6 { background: var(--cover-dark); color: var(--gold); }
+
+  .genre-detail {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .genre-card {
+    background: var(--paper-soft);
+    border-radius: 10px;
+    padding: 22px 22px 24px;
+  }
+  .genre-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+  }
+  .genre-card p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Genre story lists ---------- */
+  a.spine { cursor: pointer; }
+  .spine-5 .spine-badge { color: var(--cover-dark); text-shadow: none; }
+  .nav-links a { white-space: nowrap; }
+  .genre-block { margin-top: 56px; scroll-margin-top: 90px; }
+  .genre-block:first-of-type { margin-top: 56px; }
+  .genre-block-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; border-bottom: 2px solid var(--cover); padding-bottom: 8px; }
+  .genre-block-head h3 { font-size: 1.6rem; }
+  .genre-count { font-family: 'Space Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); }
+  .genre-desc { margin: 12px 0 22px; color: var(--ink-soft); line-height: 1.6; max-width: 62ch; }
+  .story-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .story-card { background: var(--paper-soft); border-radius: 10px; padding: 20px 20px 18px; border-left: 4px solid var(--gold); display: flex; flex-direction: column; gap: 8px; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .story-card:hover { transform: translateY(-4px); box-shadow: 0 16px 28px -18px rgba(20,42,30,0.5); }
+  .story-card h4 { margin: 0; font-family: 'Fraunces', serif; font-size: 1.15rem; line-height: 1.25; }
+  .story-card h4 a { text-decoration: none; color: var(--cover-dark); }
+  .story-card h4 a:hover { text-decoration: underline; }
+  .story-card p { margin: 0; font-size: 0.92rem; line-height: 1.55; color: var(--ink-soft); }
+  .story-card .read-link { margin-top: auto; padding-top: 6px; align-self: flex-start; }
+  .mini-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .mini-tag { font-family: 'Space Mono', monospace; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 9px; border-radius: 999px; background: var(--cover); color: var(--paper); }
+  .shelf-empty { margin: 0; padding: 18px 20px; background: var(--paper-soft); border-radius: 10px; color: var(--ink-soft); font-size: 0.92rem; }
+
+  /* ---------- Share a Story ---------- */
+  .share { background: var(--paper-soft); }
+  .share-intro { margin: 14px 0 0; line-height: 1.65; color: var(--ink-soft); }
+  .share-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .upload-form {
+    background: var(--paper);
+    border-radius: 10px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 20px 40px -28px rgba(20,42,30,0.45);
+  }
+  .upload-form label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin-top: 10px;
+  }
+  .upload-form input[type="text"],
+  .upload-form select {
+    font: inherit;
+    padding: 11px 12px;
+    border: 1px solid rgba(30,58,43,0.3);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--ink);
+  }
+  .upload-form input[type="file"] {
+    font: inherit;
+    font-size: 0.9rem;
+    padding: 10px;
+    border: 1px dashed rgba(30,58,43,0.5);
+    border-radius: 6px;
+    background: #fff;
+  }
+  .upload-form input[type="file"]::file-selector-button {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    background: var(--cover);
+    color: var(--paper);
+    border: none;
+    border-radius: 999px;
+    padding: 8px 16px;
+    margin-right: 12px;
+    cursor: pointer;
+  }
+  .upload-form .check {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    text-transform: none;
+    letter-spacing: 0;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-top: 16px;
+  }
+  .upload-form .check input { margin-top: 3px; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .btn-submit {
+    margin-top: 18px;
+    background: var(--cover);
+    color: var(--paper);
+    border: none;
+    border-radius: 999px;
+    padding: 13px 24px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .btn-submit:hover, .btn-submit:focus-visible { background: var(--cover-dark); transform: translateY(-2px); }
+  .btn-submit:disabled { opacity: 0.6; cursor: wait; transform: none; }
+  .upload-status { margin: 10px 0 0; font-size: 0.9rem; min-height: 1.3em; }
+  .upload-status.ok { color: var(--spine-2); }
+  .upload-status.err { color: var(--spine-4); }
+
+  .community h3 { font-size: 1.3rem; margin-bottom: 8px; }
+  .community-note { margin: 0 0 16px; font-size: 0.9rem; color: var(--ink-soft); line-height: 1.5; }
+  .community-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  .community-item {
+    background: var(--paper);
+    border-radius: 8px;
+    padding: 16px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    border-left: 4px solid var(--gold);
+  }
+  .community-item strong { font-family: 'Fraunces', serif; font-size: 1.05rem; color: var(--cover-dark); display: block; }
+  .community-item span { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; }
+  .community-item a {
+    flex-shrink: 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--spine-4);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .community-item a:hover, .community-item a:focus-visible { border-color: var(--spine-4); }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: var(--cover-dark);
+    color: rgba(245,239,221,0.75);
+    padding: 40px 0;
+  }
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+  }
+  .footer-inner a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+  .footer-inner a:hover { text-decoration: underline; }
+
+  /* ---------- Media queries ---------- */
+  @media (max-width: 900px) {
+    .book {
+      grid-template-columns: 1fr;
+    }
+    .book::before { display: none; }
+    .page-left {
+      border-right: none;
+      border-bottom: 1px solid rgba(30,58,43,0.15);
+    }
+    .page-right { order: -1; padding-bottom: 32px; }
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    .about-stats {
+      border-left: none;
+      border-top: 2px solid rgba(183,217,58,0.4);
+      padding-left: 0;
+      padding-top: 22px;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .about-stats > div { flex: 1 1 160px; }
+    .genre-detail {
+      grid-template-columns: 1fr 1fr;
+    }
+    .share-grid { grid-template-columns: 1fr; gap: 36px; }
+    .story-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 0 20px; }
+    .ribbon-inner { padding: 12px 20px; flex-direction: column; gap: 12px; }
+    .nav-links { gap: 8px 16px; font-size: 0.7rem; flex-wrap: wrap; justify-content: center; }
+    .upload-form { padding: 22px 18px; }
+    .story-grid { grid-template-columns: 1fr; }
+    .page { padding: 40px 26px; }
+    .hero { padding: 44px 0 56px; }
+    section { padding: 60px 0; }
+    .genre-shelf {
+      flex-wrap: wrap;
+      border-bottom: none;
+    }
+    .genre-shelf::after { display: none; }
+    .spine {
+      flex: 1 1 100%;
+      height: auto;
+      min-height: 64px;
+      writing-mode: initial;
+    }
+    .spine-title {
+      writing-mode: horizontal-tb;
+      transform: none;
+    }
+    .genre-detail {
+      grid-template-columns: 1fr;
+    }
+    .footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .spine, .btn, .nav-links a::after { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#home">Skip to content</a>
+
+<header class="ribbon">
+  <div class="ribbon-inner">
+    <a class="brand" href="#home">
+      <img src="assets/story-icon.jpg" alt="Story Digital logo, an open book on a green circle">
+      <span class="brand-word">Story Digital</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#genre">Our Genre</a></li>
+        <li><a href="#share">Share a Story</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= HOME ================= -->
+  <section id="home" class="hero">
+    <div class="wrap">
+      <div class="book">
+        <div class="page page-left">
+          <p class="eyebrow">A story every week, straight to your feed</p>
+          <h1 class="hero-title">Short stories, <em>written</em><br>for the scroll.</h1>
+          <p class="hero-sub">
+            Story Digital is a storytelling page where new fiction goes up
+            for anyone to read — no app to download, no book to buy.
+            Just open Instagram and start reading.
+          </p>
+          <div class="cta-row">
+            <a class="btn" href="https://www.instagram.com/story._.digital/" target="_blank" rel="noopener">Read on Instagram</a>
+          </div>
+        </div>
+        <div class="page page-right">
+          <div class="seal-wrap">
+            <img src="Icons/ChatGPT_logo.png" alt="Story Digital emblem, an open book illustration">
+          </div>
+          <p class="seal-caption">Story Digital</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about" class="about">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="about-copy">
+          <p class="eyebrow">About the page</p>
+          <h2 class="section-title">Stories that fit in one sitting.</h2>
+          <p>
+            Story Digital started as a simple idea: not everyone has time
+            to sit down with a novel, but almost everyone has a minute to
+            spare while scrolling. So the stories here are written to be
+            read start to finish in that minute, without losing the shape
+            of a real story — a beginning, a turn, and an ending worth
+            reading twice.
+          </p>
+          <p>
+            Every post is written from scratch, edited by hand, and shared
+            for free. This website exists as a home base for the page —
+            a place to see what it's about, browse by genre, and get
+            pointed back to the latest story on Instagram.
+          </p>
+        </div>
+        <div class="about-stats">
+          <div>
+            <p class="stat-label">Home of</p>
+            <p class="stat-value">Original short fiction</p>
+          </div>
+          <div>
+            <p class="stat-label">Posted on</p>
+            <p class="stat-value">Instagram, weekly</p>
+          </div>
+          <div>
+            <p class="stat-label">Written for</p>
+            <p class="stat-value">Readers on the go</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= OUR GENRE ================= -->
+  <section id="genre" class="genre">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">On the shelf</p>
+        <h2 class="section-title">Our Genre</h2>
+      </div>
+
+      <div class="genre-shelf" role="list" aria-label="Genres">
+        <a class="spine spine-1 has-story" href="#genre-horror" role="listitem" aria-label="Horror, 9 stories">
+          <span class="spine-badge" aria-hidden="true">●</span>
+          <span class="spine-title">Horror</span>
+        </a>
+        <a class="spine spine-2 has-story" href="#genre-romance" role="listitem" aria-label="Romance, 4 stories">
+          <span class="spine-badge" aria-hidden="true">●</span>
+          <span class="spine-title">Romance</span>
+        </a>
+        <a class="spine spine-3" href="#genre-fantasy" role="listitem" aria-label="Fantasy, coming soon">
+          <span class="spine-title">Fantasy</span>
+        </a>
+        <a class="spine spine-4 has-story" href="#genre-thriller" role="listitem" aria-label="Thriller, 7 stories">
+          <span class="spine-badge" aria-hidden="true">●</span>
+          <span class="spine-title">Thriller</span>
+        </a>
+        <a class="spine spine-5 has-story" href="#genre-slice-of-life" role="listitem" aria-label="Slice of Life, 1 story">
+          <span class="spine-badge" aria-hidden="true">●</span>
+          <span class="spine-title">Slice of Life</span>
+        </a>
+        <a class="spine spine-6 has-story" href="#genre-sci-fi" role="listitem" aria-label="Sci-Fi, 1 story">
+          <span class="spine-badge" aria-hidden="true">●</span>
+          <span class="spine-title">Sci-Fi</span>
+        </a>
+      </div>
+
+      <div class="genre-block" id="genre-horror">
+        <div class="genre-block-head">
+          <h3>Horror</h3>
+          <span class="genre-count">9 stories</span>
+        </div>
+        <p class="genre-desc">Quiet dread and sudden turns, the kind of story that makes you check the room you&#x27;re sitting in.</p>
+        <ul class="story-grid">
+          <li class="story-card">
+            <h4><a href="stories/hallucinations.html">Hallucinations</a></h4>
+            <div class="mini-tags"><span class="mini-tag">Thriller</span></div>
+            <p>Jacob works the overnight shift alone in an empty office, until a sound in the dark and a woman in white start to undo everything he is sure of.</p>
+            <a class="read-link" href="stories/hallucinations.html" aria-label="Read Hallucinations">Read story &rarr;</a>
+          </li>
+          <li class="story-card">
+            <h4><a href="stories/the-creepy-doll.html">The Creepy Doll</a></h4>
+            
+            <p>No one in the antique shop wants the old porcelain doll. Then one customer decides to take it home.</p>
+            <a class="read-link" href="stories/the-creepy-doll.html" aria-label="Read The Creepy Doll">Read story &rarr;</a>
+          </li>
+          <li class="story-card">
+            <h4><a href="stories/the-haunted-hotel.html">The Haunted Hotel</a></h4>
+            
+            <p>Two friends stranded in a strange city check into a quiet hotel where the receptionist seems to know far too much.</p>
+            <a class="read-link" href="stories/the-haunted-hotel.html" aria-label="Read The Haunted Hotel">Read story &rarr;</a>
+          </li>
+          <li class="story-card">
+            <h4><a href="stories/the-shadow-that-waits.html">The Shadow That Waits</a></h4>
+            
+            <p>After her 18th birthday, Clara starts to feel that something is wrong with her own shadow.</p>
+            <a class="read-link" href="stories/the-shadow-that-waits.html" aria-label="Read The Shadow That Waits">Read story &rarr;</a>
+          </li>
+          <li class="story-card">
+            <h4><a href="stories/the-book.html">The Book</a></h4>
+            
+            <p>Ada loves reading, so she orders a new horror novel online. She did not expect it to bring something else into the house.</p>
+            <a class="read-link" href="stories/the-book.html" aria-label="Read The Book">Read story &rarr;</a>
+          </li>
+          <li class="story-card">
+            <h4><a href="stories/the-haunted-hospital.html">The Haunted Hospital</a></h4>
+            
+            <p>A paranormal investigator explores a hospital that has been abandoned for five years, ever since everyone inside vanished overnight.</p>
+            <a class="read-link" href="stories/the-haunted-hospital.html" aria-label="Read The Haunted Hospital">Read story &rarr;</a>
+          </li>
+          <li class="story-card">
+            <h4><a href="stories/the-mirror.html">The Mirror</a></h4>
+            
+            <p>A mirror that came into Samantha and Jacob&#x27;s home on their wedding day has been quietly watching their family.</p>
+            <a class="read-link" href="stories/the-mirror.html" aria-label="Read The Mirror">Read story &rarr;</a>
+          </li>
+          <li class="story-card">
+            <h4><a href="stories/return-of-the-dead.html">Return of the Dead</a></h4>
+            
+            <p>Three urban explorers fly to Indonesia to find out whether the legend of the pocong is real.</p>
+            <a class="read-link" href="stories/return-of-the-dead.html" aria-label="Read Return of the Dead">Read story &rarr;</a>
+          </li>
+          <li class="story-card">
+            <h4><a href="stories/the-mysterious-neighbor.html">The Mysterious Neighbor</a></h4>
+            <div class="mini-tags"><span class="mini-tag">Thriller</span></div>
+            <p>A friendly visit from the new man next door leaves James with more questions than answers.</p>
+            <a class="read-link" href="stories/the-mysterious-neighbor.html" aria-label="Read The Mysterious Neighbor">Read story &rarr;</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="genre-block" id="genre-romance">
+        <div class="genre-block-head">
+          <h3>Romance</h3>
+          <span class="genre-count">4 stories</span>
+        </div>
+        <p class="genre-desc">Small moments between people, told with enough restraint to let the feeling land.</p>
+        <ul class="story-grid">
+          <li class="story-card">
+            <h4><a href="stories/love-at-first-sight.html">Love at First Sight</a></h4>
+            
+            <p>Shy Parker has never dared to chase love, until a new girl walks into his class.</p>
+            <a class="read-link" href="stories/love-at-first-sight.html" aria-label="Read Love at First Sight">Read story &rarr;</a>
+          </li>
+          <li class="story-card">
+            <h4><a href="stories/feelings.html">Feelings</a></h4>
+            
+            <p>Two office colleagues hide the same secret feeling, until a dinner party makes it impossible to keep hiding.</p>
+            <a class="read-link" href="stories/feelings.html" aria-label="Read Feelings">Read story &rarr;</a>
+          </li>
+          <li class="story-card">
+            <h4><a href="stories/tether-to-reality.html">Tether to Reality</a></h4>
+            
+            <p>A diner waitress from a modest family finds an unexpected love, but strange things in her new home refuse to stay quiet.</p>
+            <a class="read-link" href="stories/tether-to-reality.html" aria-label="Read Tether to Reality">Read story &rarr;</a>
+          </li>
+          <li class="story-card">
+            <h4><a href="stories/forbidden-obsession.html">Forbidden Obsession: Corrupt Love</a></h4>
+            <div class="mini-tags"><span class="mini-tag">Slice of Life</span></div>
+            <p>A famous actress&#x27;s perfect wedding day is torn apart by a rejected admirer who will do anything to make her his.</p>
+            <a class="read-link" href="stories/forbidden-obsession.html" aria-label="Read Forbidden Obsession: Corrupt Love">Read story &rarr;</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="genre-block" id="genre-fantasy">
+        <div class="genre-block-head">
+          <h3>Fantasy</h3>
+          <span class="genre-count">Coming soon</span>
+        </div>
+        <p class="genre-desc">Worlds with different rules. This shelf is still empty, so check back soon.</p>
+        <p class="shelf-empty">No stories on this shelf yet. Check back soon.</p>
+      </div>
+
+      <div class="genre-block" id="genre-thriller">
+        <div class="genre-block-head">
+          <h3>Thriller</h3>
+          <span class="genre-count">7 stories</span>
+        </div>
+        <p class="genre-desc">Tight plots, risky choices and answers that arrive one step too late.</p>
+        <ul class="story-grid">
+          <li class="story-card">
+            <h4><a href="stories/hallucinations.html">Hallucinations</a></h4>
+            <div class="mini-tags"><span class="mini-tag">Horror</span></div>
+            <p>Jacob works the overnight shift alone in an empty office, until a sound in the dark and a woman in white start to undo everything he is sure of.</p>
+            <a class="read-link" href="stories/hallucinations.html" aria-label="Read Hallucinations">Read story &rarr;</a>
+          </li>
+          <li class="story-card">
+            <h4><a href="stories/the-mysterious-neighbor.html">The Mysterious Neighbor</a></h4>
+            <div class="mini-tags"><span class="mini-tag">Horror</span></div>
+            <p>A friendly visit from the new man next door leaves James with more questions than answers.</p>
+            <a class="read-link" href="stories/the-mysterious-neighbor.html" aria-label="Read The Mysterious Neighbor">Read story &rarr;</a>
+          </li>
+          <li class="story-card">
+            <h4><a href="stories/otherworldly-obsession.html">Otherworldly Obsession</a></h4>
+            
+            <p>Chris and Maya move into the house of their dreams, unaware that something else has been living there far longer.</p>
+            <a class="read-link" href="stories/otherworldly-obsession.html" aria-label="Read Otherworldly Obsession">Read story &rarr;</a>
+          </li>
+          <li class="story-card">
+            <h4><a href="stories/the-last-station.html">The Last Station</a></h4>
+            
+            <p>Jenna takes the same train home every night. Tonight, she is not sure she is the only one on board.</p>
+            <a class="read-link" href="stories/the-last-station.html" aria-label="Read The Last Station">Read story &rarr;</a>
+          </li>
+          <li class="story-card">
+            <h4><a href="stories/the-shadow-in-the-night.html">The Shadow in the Night</a></h4>
+            
+            <p>A detective hunts a killer who always seems to be one step ahead, in a city living in fear.</p>
+            <a class="read-link" href="stories/the-shadow-in-the-night.html" aria-label="Read The Shadow in the Night">Read story &rarr;</a>
+          </li>
+          <li class="story-card">
+            <h4><a href="stories/the-dream.html">The Dream</a></h4>
+            
+            <p>A young author&#x27;s ordinary evening takes a strange turn: a power cut nobody else noticed, and a nightmare that feels too real.</p>
+            <a class="read-link" href="stories/the-dream.html" aria-label="Read The Dream">Read story &rarr;</a>
+          </li>
+          <li class="story-card">
+            <h4><a href="stories/fallen-angels.html">Fallen Angels</a></h4>
+            <div class="mini-tags"><span class="mini-tag">Sci-Fi</span></div>
+            <p>A Los Angeles journalist follows the news as an asteroid heads for Earth, and what lands is not what anyone expected.</p>
+            <a class="read-link" href="stories/fallen-angels.html" aria-label="Read Fallen Angels">Read story &rarr;</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="genre-block" id="genre-slice-of-life">
+        <div class="genre-block-head">
+          <h3>Slice of Life</h3>
+          <span class="genre-count">1 story</span>
+        </div>
+        <p class="genre-desc">Ordinary days written closely enough that they stop feeling ordinary.</p>
+        <ul class="story-grid">
+          <li class="story-card">
+            <h4><a href="stories/forbidden-obsession.html">Forbidden Obsession: Corrupt Love</a></h4>
+            <div class="mini-tags"><span class="mini-tag">Romance</span></div>
+            <p>A famous actress&#x27;s perfect wedding day is torn apart by a rejected admirer who will do anything to make her his.</p>
+            <a class="read-link" href="stories/forbidden-obsession.html" aria-label="Read Forbidden Obsession: Corrupt Love">Read story &rarr;</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="genre-block" id="genre-sci-fi">
+        <div class="genre-block-head">
+          <h3>Sci-Fi</h3>
+          <span class="genre-count">1 story</span>
+        </div>
+        <p class="genre-desc">New rules for the world, kept just grounded enough to believe by the second paragraph.</p>
+        <ul class="story-grid">
+          <li class="story-card">
+            <h4><a href="stories/fallen-angels.html">Fallen Angels</a></h4>
+            <div class="mini-tags"><span class="mini-tag">Thriller</span></div>
+            <p>A Los Angeles journalist follows the news as an asteroid heads for Earth, and what lands is not what anyone expected.</p>
+            <a class="read-link" href="stories/fallen-angels.html" aria-label="Read Fallen Angels">Read story &rarr;</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SHARE A STORY ================= -->
+  <section id="share" class="share">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Open shelf</p>
+        <h2 class="section-title">Share Your Story</h2>
+        <p class="share-intro">Got a story of your own? Upload it as a PDF or text file and it will be shared here for everyone to read once it has been reviewed.</p>
+      </div>
+
+      <div class="share-grid">
+        <form id="upload-form" class="upload-form" novalidate>
+          <label for="story-title">Story title</label>
+          <input id="story-title" name="title" type="text" maxlength="120" required>
+
+          <label for="story-author">Your name or pen name</label>
+          <input id="story-author" name="author" type="text" maxlength="60" required>
+
+          <label for="story-genre">Genre</label>
+          <select id="story-genre" name="genre" required>
+            <option value="">Choose a genre</option>
+            <option>Horror</option>
+            <option>Romance</option>
+            <option>Fantasy</option>
+            <option>Thriller</option>
+            <option>Slice of Life</option>
+            <option>Sci-Fi</option>
+            <option>Mystery</option>
+            <option>Other</option>
+          </select>
+
+          <label for="story-file">Story file (PDF or TXT, up to 10 MB)</label>
+          <input id="story-file" name="file" type="file" accept=".pdf,.txt,application/pdf,text/plain" required>
+
+          <!-- spam trap: real people never see or fill this -->
+          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <label class="check">
+            <input id="story-consent" type="checkbox" required>
+            <span>I wrote this story and I'm happy for it to be shared publicly on Story Digital.</span>
+          </label>
+
+          <button class="btn-submit" type="submit">Upload story</button>
+          <p id="upload-status" class="upload-status" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="community">
+          <h3>Community Stories</h3>
+          <p id="community-note" class="community-note"></p>
+          <ul id="community-list" class="community-list"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>© <span id="year">2026</span> Story Digital. All stories original.</span>
+    <a href="https://www.instagram.com/story._.digital/" target="_blank" rel="noopener">Follow on Instagram →</a>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

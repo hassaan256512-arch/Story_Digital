@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Otherworldly Obsession — Story Digital</title>
+<meta name="description" content="Chris and Maya move into the house of their dreams, unaware that something else has been living there far longer.">
+<link rel="icon" type="image/jpeg" href="../assets/story-icon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F5EFDD;
+    --paper-soft: #ECE3C6;
+    --cover: #1E3A2B;
+    --cover-dark: #142A1E;
+    --leaf: #B7D93A;
+    --gold: #E7B93A;
+    --ink: #262318;
+    --ink-soft: #55503f;
+    --spine-4: #8C2F2F;
+    --max-w: 1120px;
+    --read-w: 700px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    margin: 0;
+    color: var(--cover-dark);
+  }
+
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+  .read { max-width: var(--read-w); margin: 0 auto; padding: 0 32px; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--cover); color: var(--paper);
+    padding: 10px 16px; z-index: 999;
+  }
+  .skip-link:focus { left: 16px; top: 16px; }
+
+  /* ---------- Ribbon nav (matches main site) ---------- */
+  .ribbon {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--cover);
+    border-bottom: 3px solid var(--gold);
+  }
+  .ribbon-inner {
+    max-width: var(--max-w); margin: 0 auto; padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand img { width: 42px; height: 42px; border-radius: 50%; display: block; border: 2px solid var(--gold); }
+  .brand-word { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.15rem; color: var(--paper); }
+  .nav-links { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  .nav-links a { text-decoration: none; color: var(--paper); opacity: 0.85; }
+  .nav-links a:hover, .nav-links a:focus-visible { opacity: 1; }
+
+  /* ---------- Story hero ---------- */
+  .story-hero {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid rgba(30,58,43,0.15);
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Space Mono', monospace; font-size: 0.76rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-soft); text-decoration: none; margin-bottom: 26px;
+  }
+  .back-link:hover, .back-link:focus-visible { color: var(--spine-4); }
+
+  .tag-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 5px 12px; border-radius: 999px;
+    background: var(--cover); color: var(--paper);
+  }
+  .tag.alt { background: var(--paper-soft); color: var(--cover-dark); border: 1px solid rgba(30,58,43,0.2); }
+
+  .story-title {
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--spine-4);
+  }
+  .story-meta {
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .story-dek {
+    margin-top: 22px;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* ---------- Chapters ---------- */
+  .story-body { padding: 56px 0 20px; }
+  .chapter { margin-bottom: 54px; }
+  .chapter-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--leaf);
+    background: var(--cover-dark);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .chapter h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .chapter p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin: 0 0 20px;
+    color: var(--ink);
+  }
+  .chapter p:first-of-type::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 3.1rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.8;
+    margin: 6px 8px 0 0;
+    color: var(--spine-4);
+  }
+
+  .aside {
+    margin: 8px 0 28px;
+    padding: 16px 20px;
+    background: var(--paper-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .aside::before {
+    content: "Reader's note — ";
+    font-style: normal;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--spine-4);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .author-break {
+    text-align: center;
+    margin: 44px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .author-break::before, .author-break::after {
+    content: "◆";
+    color: var(--leaf);
+    margin: 0 14px;
+    font-size: 0.6rem;
+    vertical-align: middle;
+  }
+
+  .the-end {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--cover-dark);
+    margin: 40px 0 0;
+  }
+
+  /* ---------- Story footer / CTA ---------- */
+  .story-cta {
+    background: var(--cover);
+    color: var(--paper);
+    padding: 56px 0;
+    margin-top: 64px;
+    text-align: center;
+  }
+  .story-cta h3 { color: var(--paper); font-size: 1.4rem; margin-bottom: 12px; }
+  .story-cta p { color: rgba(245,239,221,0.8); max-width: 50ch; margin: 0 auto 24px; line-height: 1.6; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold); color: var(--cover-dark);
+    text-decoration: none; padding: 13px 26px; border-radius: 999px;
+    font-family: 'Space Mono', monospace; font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    transition: transform 0.2s ease;
+  }
+  .btn:hover, .btn:focus-visible { transform: translateY(-2px); }
+  .btn.ghost { background: transparent; color: var(--paper); border: 1px solid rgba(245,239,221,0.4); margin-left: 12px; }
+
+  footer.site-footer {
+    background: var(--cover-dark);
+    color: rgba(245,239,221,0.75);
+    padding: 32px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  footer.site-footer a { color: var(--gold); text-decoration: none; }
+
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+
+  @media (max-width: 640px) {
+    .wrap, .read { padding: 0 20px; }
+    .ribbon-inner { padding: 12px 20px; flex-direction: column; gap: 12px; }
+    .story-hero { padding: 40px 0 30px; }
+    .story-title { font-size: clamp(2rem, 10vw, 2.6rem); }
+    .chapter p { font-size: 1rem; }
+    .btn.ghost { display: inline-block; margin: 12px 0 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+  .chapter p.nodrop::first-letter { all: unset; }
+  .chapter-title { font-size: 1.5rem; font-weight: 600; margin: 0 0 20px; }
+  .story-byline { margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; }
+  .end-mark { text-align: center; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.3rem; color: var(--cover-dark); margin: 10px 0 0; }
+  .back-matter { margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(30,58,43,0.2); }
+  .back-matter .chapter { margin-bottom: 28px; }
+  .back-matter .chapter p { font-size: 0.98rem; color: var(--ink-soft); }
+  .back-matter .chapter p::first-letter { all: unset; }
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#section-1">Skip to story</a>
+
+<header class="ribbon">
+  <div class="ribbon-inner">
+    <a class="brand" href="../index.html#home">
+      <img src="../assets/story-icon.jpg" alt="Story Digital logo, an open book on a green circle">
+      <span class="brand-word">Story Digital</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="../index.html#home">Home</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#genre">Our Genre</a></li>
+        <li><a href="../index.html#share">Share a Story</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="story-hero">
+    <div class="read">
+      <a class="back-link" href="../index.html#genre-thriller">&larr; Back to the shelf</a>
+      <div class="tag-row"><span class="tag">Thriller</span></div>
+      <h1 class="story-title">Otherworldly Obsession</h1>
+      <p class="story-meta">10 chapters · about 20 min read</p>
+      <p class="story-byline">By Hassaan Ijaz</p>
+      <p class="story-dek">Chris and Maya move into the house of their dreams, unaware that something else has been living there far longer.</p>
+    </div>
+  </section>
+
+  <section class="story-body">
+    <div class="read">
+
+      <article class="chapter" id="section-1">
+      <span class="chapter-number">Chapter 1</span>
+      <h2 class="chapter-title">Start of something</h2>
+      <p>Chris and Maya had recently bought a new house after a long struggle with their previous place’s landlord who was corrupt and charged extra fees for no reason. When Maya heard of the news of their new home by Chris, she couldn’t contain her excitement and threw her arms around Chris in a tight hug, peppering his face with sweet kisses.</p>
+      <p>Chris chuckled, trying to calm his wife who was acting like a little girl who just got her favourite doll. “Alright, alright, calm down, lets get packing the goods and move into our new home.” Chris said as Maya released him from the hug and hurried to her room, immediately packing up her essentials with Chris helping her.</p>
+      <p>“Gosh, I can’t tell how excited I am for this, Chris, I swear you’re the best husband of all time!” Maya chirped, smiling with gratitude, her heart filling with love and adoration for the man who cared for her. Chris smiled, giving Maya a peck on the cheek before packing his own clothes.</p>
+      <p>By evening, the two had done their preparations and arranged cargo trucks to move their items. Chris drove first to the house and Maya followed in her car. The house was located roughly 25 minutes away from where they lived in a rented house and it was a far better place. Maya’s mind was flooded with thoughts of her new, separate home which she hadn’t seen yet. She planned to decorate it and make it a lovely place for herself and her husband where she would spend the rest of her life.</p>
+      <p>Upon arrival, Chris got out of the car and admired their house which had been renovated after years of use. Soon, Maya’s car pulled over and Maya got out—hands flying to her mouth as if she had seen something truly beautiful. “Oh my god, Chris.” Maya spoke in awe, her voice a mere whisper. “This house looks so pretty.” Maya felt a loss of words at the sight, her heart pumping harder in joy. “You don’t know how much I had waited for this house, my house, our house.” Maya spoke, her voice full of wonder and adoration.</p>
+      <p>She rushed in, not caring about the new doors being opened harshly. She was greeted by the sight before her, a courtyard and lounge area with double staircases ascending up to the first floor and further, the interior was designed as if it was a royal palace instead of an house. Maya felt tears form in her eyes as she looked around in fascination, “Oh my god, this..” she choked as Chris just smiled at her.</p>
+      <p>Together, the couple began arranging their house, placing furniture and accessories.</p>
+      </article>
+
+      <article class="chapter" id="section-2">
+      <span class="chapter-number">Chapter 2</span>
+      <h2 class="chapter-title">Unexpected Discovery</h2>
+      <p>A day had passed since Chris and Maya moved into their new sanctuary. Everything seemed normal—too normal but neither of them cared about it, they simply enjoyed their life together. Unbeknownst to them, something else was also living in the house, unseen, unheard, but there.</p>
+      <p>One day, Chris was out at work, following his usual routine while Maya was at home, working as a housewife. She was in the kitchen, making lunch to eat when her husband would return from work. The house was quiet except the sound of steam running up the chimney and water boiling in the pot which were the only sounds keeping Maya company.</p>
+      <p>However, Maya was blissfully unaware that her day was not going to be smooth as the previous ones. A strange, unmistakable noise emanated from somewhere within the house. The noise was not audible to Maya at first but soon, her ears started picking up the unordinary frequencies. She paused cutting the vegetables and strained her ears to hear better of what the sound was.</p>
+      <p>The noise seemed to be of light scratching--Or perhaps of light footsteps as of something or someone is walking with measured steps. Nevertheless, Maya wasn’t sure but she wanted to know what the sound was and where it was originating from. She exited the kitchen and came into the living room where she could hear the noise growing a bit louder, indicating that she was getting closer.</p>
+      <p>Her heart pounded in her chest as he took cautious steps and approached the area where the noise was coming from. Soon, she found herself in front of the basement door where the sound allegedly was coming from. Maya personally had never accessed the basement before, only Chris had did and hence she was unsure whether to go in or wait for Chris to arrive.</p>
+      <p>The sound was continuous and it seemed that whatever was causing it had no intent of stopping soon which further boosted Maya’s curiosity and lead her to open the door. The air wafted out of the basement, carrying the scent of decay and rot with it, causing Maya to make a disgusted face. She took a step back, momentarily caught off guard by the smell but it didn’t stop her.</p>
+      <p>She carefully descended the steps into the basement, the area mostly dark with the only light source being a dim light. As Maya reached the floor of the basement, she squinted her eyes, trying to see better but it was hard. The sound had strangely stopped as if whatever was causing it, knew that Maya had been lured in.</p>
+      <p>Maya’s gaze suddenly lands on something in the corner of the basement room and saw a black trash bag piled up. She approached it, the air heavy with the scent of decay and maybe... blood. Maya’s eyes widened as she touched the bag lightly and it felt like a body—a human’s body. Maya screamed and immediately bolted out of the basement, she had never been in such a situation before. She immediately dialled Chris’s number and called him home early.</p>
+      </article>
+
+      <article class="chapter" id="section-3">
+      <span class="chapter-number">Chapter 3</span>
+      <h2 class="chapter-title">Unexpected Ordeal</h2>
+      <p>Chris heard about what Maya had seen at the house and he grew worried. He took an early leave from work and hurried back to his house, concerned about her wife’s safety. His car screeched to a halt on the car porch and Chris practically jumped out of his vehicle, running to the front door and barging in.</p>
+      <p>Inside, he saw his wife, Maya, sitting on the couch, looking terrified, “I swear I saw a dead body in a bag in the basement.” Maya spoke with a trembling voice, completely shaken. Chris’s heart ached and he approached Maya, enveloping her in a tight hug, “Its okay babe, I am here, I will take care of what is wrong, Love you.” With those words, Chris hurried into the basement where Maya told the alleged dead body lay in a bag.</p>
+      <p>Maya followed close behind, acting as support for her husband but something shocking occured. There was no dead body, no smell and no sound, catching Maya off guard and leaving Chris puzzled. Chris scanned the entire basement, making sure no corner was left unchecked but to their surprise, there was nothing out of the ordinary.</p>
+      <p>Chris turned around to look at Maya who seemed more confused than he was. “No Chris, I am not lying, it-it was there!” Maya desperately pointed to a corner but the corner was empty, her expression full of terror, “Please Chris, believe me, I am not lying, I don’t lie-” Before Maya could finish her sentence, Chris enveloped her in another warm hug, silencing her explanation, his voice soothing, “Relax honey, why are you so scared? I am here and I am not mad at you or anything.” He whispered, rubbing her back soothingly, the only thing Maya craved the most without knowing.</p>
+      <p>Maya buried her face in his chest, sobbing softly before looking up at Chris with tear-filled eyes, “Thank you Chris, you understand me, only you.” She choked, her fingers stroking his jawline, Chris smiled, holding Maya close, “Its okay honey, but I wonder if the body was really there, then where did it go?” Chris asked and Maya nodded, having the same question in her head.</p>
+      <p>“That is what shook me, Chris, the moment you couldn’t find the body was a true shocker for me.” Maya said as Chris scratched his head, “Lets go back upstairs and discuss this matter.” Chris suggested and Maya replied, “Yeah lets go, I also made you some delicious lunch.” She managed a small smile despite the turmoil inside her.</p>
+      </article>
+
+      <article class="chapter" id="section-4">
+      <span class="chapter-number">Chapter 4</span>
+      <h2 class="chapter-title">Discussion</h2>
+      <p>They both exited the basement and went into the dining room where Chris sat comfortably on the chair and Maya disappeared into the kitchen. Chris’s mind was filled with thoughts, part of him had a feeling that Maya may have hallucinated and saw things but part of him felt as if something else was involved in that incident but before he could dive deeper into his thoughts, Maya appeared with a tray in her hands.</p>
+      <p>“I prepared this dish for you, honey.” Maya said, forcing a smile and setting the tray down in front of Chris. They began eating and discussing about what had happened. “You’re doubting me, right?” Maya asked softly, awaiting Chris’s response, Chris seemed surprised by Maya’s question but cleared his throat, “No, why would I doubt you, Maya?” Chris said as he turned his focus on Maya who looked back at him with a serious gaze.</p>
+      <p>“The incident” Maya said before speaking, “I saw that body, that bag, but when you came, it was gone, how?.” Maya wanted an explanation, an answer but was left with more questions. Chris sighed, knowing what Maya was referring to, “You think I’d doubt you on that? Even though it was very weird.” Chris tried to reassure Maya but she didn’t quite believe him—didn’t buy his words.</p>
+      <p>“I know you’re probably thinking that I am going crazy, right?” Maya’s question left Chris stunned as he tried to calm Maya, “No babe, its not like that.” He reached out and grabbed Maya’s hand, holding it in hers, “I love you Maya, with all my heart.” Chris spoke with raw sincerity, making tears form in Maya’s eyes—tears of joy.</p>
+      <p>“I love you too, Chris.” Maya declared softly, fighting back her tears as she brought his hand close to her lips, gently kissing his knuckles. “You are my everything, not just my husband, but my everything, I would be reduced to nothing without you, Chris.” Maya said, her voice trembling from emotion. Chris stood up from his chair and walked over to where Maya was sitting, he gently hugged her, feeling her arms wrap around his neck. “Just hold me, Chris.” Maya whispered into the crook of his neck and Chris complied, holding Maya close.</p>
+      <p>The day had turned into evening and into night. Maya pulled back, looking at the time which read ‘9:00p.m’ and then looked at Chris, “You must be tired, darling, lets go and rest.” Maya offered as she stood up, holding Chris’s hand. Chris smiled and nodded and just like that, both couple went into their bedroom to sleep.</p>
+      </article>
+
+      <article class="chapter" id="section-5">
+      <span class="chapter-number">Chapter 5</span>
+      <h2 class="chapter-title">Paralysis</h2>
+      <p>The room was bathed in a comfortable glow of warm, orange light, the air filled with the scent of rose flowers. Maya and Chris laid in the bed, snuggling closer and drifting off to sleep. Chris held her close and Maya was grateful for the comfort her husband provided.</p>
+      <p>In the middle of the night, While both couple slept peacefully, the temperature of the room began to decrease, turning cold. The air was charged with tension as a soft breeze cruised through, forming Goosebumps on Maya’s skin even though she was covered by a blanket. Her eyes twitched as she was experiencing a dream—an unpleasant one.</p>
+      <p>She suddenly woke up, her eyes wide with terror but she couldn’t move, making her panic. She tried to move but it felt like she was restricted from doing so, just then, her eyes landed on something— on someone. It was a figure in black, standing in the middle of the corner of the room which was shrouded in darkness. Maya hated the fact that she couldn’t do anything—not even scream or call for help, and worse, she couldn’t even see if Chris was beside her or not.</p>
+      <p>Then, the terrifying happens, the figure starts approaching the bed where Maya was laying, her gaze remained fixed on the approaching figure which looked strangely male. Her heart pounded in her chest and her mind raced with millions of thoughts at once and just as the figure closes in towards Maya’s face. She gasps loudly, jolting up and sitting up right in her bed, her chest heaving and her face pale.</p>
+      <p>Chris who was sleeping beside her also woke up from the noise, seeing Maya looking horrified, “Hey what happened?” Chris inquired as he saw Maya’s scared expression and pale face. She looked at Chris and suddenly leaned into him, throwing her arms around his neck. “There’s something in the room, Chris.” Maya whined as she recalled the scene which almost took her soul out of her body, a shudder ran through her, “There’s someone in our room, Chris, and it was approaching me.” Maya whispered with a shaky voice, hugging Chris tighter. Chris who had just woken up seemed confused as he glanced around in concern, “Who is in our room?”—“I don’t know, but it felt like a male, a guy in dark clothing.” Maya responded to Chris’s question and Chris tightened his arms around Maya instinctively, “Where? Where is he?” Chris asked as his protective instincts came alive.</p>
+      <p>Maya didn’t respond for a moment before shakily pointing to an empty corner. Chris realized that Maya had experienced a nightmare and was scared, he sighed, holding her against his chest, “Honey, relax, there’s no one in our room, you probably saw a dream.” Chris said soothingly, caressing Maya’s back. Maya looked up at him and spoke with a trembling voice, “I am scared Chris, scared of being left alone—of being left without you.” Chris’s heart ached at Maya’s words and he felt tears form in his eyes, “D-don’t say that Maya, never say that.” Chris whispered against her neck and Maya sighed, “I want to avoid saying it, but the fear gets me.”</p>
+      <p>Chris looked at Maya with a determined glint in his eyes, “Tomorrow when I come back from work, we will go to a church and inform the father about the weird stuff happening with us.” Maya seemed relieved and nodded.</p>
+      </article>
+
+      <article class="chapter" id="section-6">
+      <span class="chapter-number">Chapter 6</span>
+      <h2 class="chapter-title">Activities surge</h2>
+      <p>The next day began with the morning light filtering through the curtains of their room. Chris had left for work and Maya was making the bed, alone in the household. She was feeling a bit spooked from the constant weird activities since the previous days but she held strong.</p>
+      <p>A soft zephyr of wind flew through the room, shaking the curtains and swaying the hair above Maya’s head. Maya shivered at the gush of wind, freezing-her muscles tensing as her eyes scanned the area as if trying to sense a possible threat but again—there was nothing.</p>
+      <p>She then went into the kitchen, making a meal for herself, trying to distract her mind from the horrors. However, the temperature dropped and Maya froze again, eyes going wide as if knowing that something was coming close to her. The same gush of wind followed, caressing her skin as if touching her, feeling her. She knew it was wrong, that she should scream, pull away, or run but she couldn’t do anything, her body was frozen.</p>
+      <p>She simply waited for it to end, the breeze came from her arm to her neck, and then to her shoulder, Maya tried to scream-to run, but nothing came out of her mouth-nor did her body move in any direction. She silently prayed in her heart for the phenomenon to stop and soon, everything stopped, the breeze on her skin went away and the temperature returned back to normal but she heard a deep voice—a whisper “Maya...”</p>
+      <p>The voice sounded strangely male, causing Maya to jump, making her realize that she could move now. She let out a yelp of fear, desperately looking around before bolting out of the kitchen towards the main door, desperate to escape her house. Just as she reached the door, it was locked. Maya’s eyes went wide and she started banging the door with her hands, “Please! Open, someone help, let me out! Let me out!!!” her voice rose an octave but it was of no use—no one could hear her at the moment as she was effectively trapped in her own home.</p>
+      <p>She felt tears roll down her cheeks as the cool breeze returned, crawling against her skin and the same deep voice whispered her name, “Maya...” and that’s when everything went black for her, she didn’t knew what happened, all she knew was that everything went totally silent and black for her.</p>
+      </article>
+
+      <article class="chapter" id="section-7">
+      <span class="chapter-number">Chapter 7</span>
+      <h2 class="chapter-title">Missing</h2>
+      <p>As Chris returned back home in the evening, he found the house oddly quiet. Normally, his wife Maya would be in the kitchen or in the living room but today was different, Maya was not in the kitchen neither the living room.</p>
+      <p>Chris was confused and called out, “Honey, I am home.” However, the house was still dead silent, no response of Maya. Chris felt panicked but he didn’t let his intrusive thoughts win, instead, he went towards the bedroom, dropping his bag on the bed and taking off his coat, he pulled out his phone, trying to call Maya but her phone was on the drawer.</p>
+      <p>Chris grew concerned as to where Maya could have gone without informing him, it was as if she vanished out of thin air. He searched the spare bedroom-closet but still no sign of Maya. He searched the Kitchen, laundry and still no sight of Maya. Chris had practically searched the entire house including the basement yet he had no idea as to where Maya went.</p>
+      <p>Finally, he approached the attic and opened the hatch which led into the attic. The area was dark, covered with dust and cobwebs, bathed in darkness. He knew that there was no way Maya could be here but his eyes landed on an unmistakable figure huddled in the corner... Maya.</p>
+      <p>For a moment, his heart stopped as he glanced at Maya’s body huddled in the corner, laying unconscious, he couldn’t bear the sight and immediately climbed into the attic, rushing towards Maya, “Oh my god, Maya, Maya are you okay?” Chris knelt beside Maya’s unconscious body, cradling her head against his chest, he simply couldn’t believe what he was seeing. His wife, his beloved wife, laying unconscious in the dark attic.</p>
+      <p>Chris gently shook Maya, watching in relief as Maya let out a tired grunt, opening her eyes softly to the sight of Chris cradling her. She reached a trembling hand, placing it on his chest, “Chris, you’re here.” She whispered in gratefulness. Chris probed, “Tell me darling, what happened?” Maya took a moment to respond, “There was something, someone in the house with me.” Chris grew concerned as he listened further, “Then I tried to escape the house but the doors were locked and then, I saw darkness, complete darkness.”</p>
+      <p>Chris was fully concerned now, holding Maya close, “This, this has to stop.” He said with determination. “Come on babe, we are going to the church.”</p>
+      </article>
+
+      <article class="chapter" id="section-8">
+      <span class="chapter-number">Chapter 8</span>
+      <h2 class="chapter-title">Seeking Help</h2>
+      <p>Chris helped Maya descend the attic carefully, once they both were at the ground floor, Chris grabbed Maya’s hand and led her out of the house and into his car. “Lets go quick.” Chris said as he opened the passenger door, allowing Maya to sit comfortably in her seat before he slid into the driver seat.</p>
+      <p>The engine roared alive and the car took to the road in minutes. While driving, Chris’s mind was racing with thoughts about what exactly was happening in their house—was it something paranormal?—perhaps something otherworldly? It could be anything.</p>
+      <p>Soon, they were outside the church and Chris got out first, helping Maya get out of the car before they both walked in. As soon as they entered, Maya felt at ease in a long time and Chris felt a glimmer of hope as they approached the priest. The priest regarded them with a warm smile as they approached and attentively listened to their distress, “Father, there have been problems going on in our house.” Chris began speaking and the Priest seemed shocked but listened, “My wife Maya, she has been experiencing activities which can be described as... paranormal, most probably.”</p>
+      <p>There was a silence between them before the priest spoke, “well, it seems like something unholy has taken the path to your home.” The priest diagnosed—well it was pretty obvious, “I would have to pay a visit to your home.” Chris and Maya agreed to the idea, that is what they wanted, that is what they were asking for. Chris nodded and invited the Priest to pay a visit to their home.</p>
+      <p>The Priest agreed and visited their home. “What a wonderful place you both have.” Maya and Chris smiled, stepping aside and letting the Priest inside their home. The Priest set up a cross and handed items to Chris and Maya, instructing them to keep the items close during the cleansing of the house.</p>
+      <p>Chris and Maya nodded, preparing themselves for the cleansing, hoping that it works out and they get to live a peaceful life.</p>
+      </article>
+
+      <article class="chapter" id="section-9">
+      <span class="chapter-number">Chapter 9</span>
+      <h2 class="chapter-title">The Encounter</h2>
+      <p>The Priest began the cleansing ritual, the air charged with tension, each word felt like stepping into unchartered territory. Maya nervously glanced around the house as if looking out for something that would suddenly pounce on her.</p>
+      <p>The Priest started reciting holy verses and just then, a strange noise erupted from somewhere in the house, causing Maya’s ears to perk up and Chris looked around in shock. The Priest was unfazed and kept reciting even as something felt wrong. The light overhead flickered lightly and Maya felt scared by each passing second but Chris held her arm, offering her support which she needed.</p>
+      <p>The Priest kept reciting, seemingly unaware of the changes taking place, the temperature dropped and the same gush lf wind blew across the room, making Goosebumps form on their skins.</p>
+      <p>Just then, a growl was heard from somewhere within the house, Maya’s eyes shot wide as she heard the sound, her grip tightening on Chris’s arm instinctively. The Priest heard the growl too and for a moment he stopped reciting—that was his worst mistake. Just then, the Priest suddenly got suspended in the air, letting out a yell of shock. Chris’s eyes blew wide at the scene which he couldn’t believe.</p>
+      <p>“FATHER!” He rushed towards the Priest who was suspended in the air as if hanging on an invisible string. Suddenly a gush of wind follows and Priest gets thrown out of the house through the window with Maya screaming at the top of her lungs. Chris immediately bolted out of the house after the Priest, followed by Maya.</p>
+      <p>The Priest lay on the ground a few feet away from the house, rolling in pain as Chris knelt beside him, checking for any major injury. “Father, are you okay?” The Priest nodded weakly as Chris didn’t care what was in the house, he cared more for the injured father.</p>
+      <p>Maya stared wide-eyed at the entire scene but suddenly, she felt cold air press against her back before she was dragged by her feet back into the house, her scream filling the air and Chris’s heart dropped, “MAYA!!! NO!!!” He left the Priest as his attention was now diverted on Maya. He rushed after her into the house, seeing Maya being dragged down into the basement.</p>
+      <p>He was in hot pursuit, bursting through the basement door, “Maya No!”, soon, he was in the basement where he saw the horrifying sight. A ghostly figure which seemed strangely male was holding Maya captive. “Who are you?” Chris asked in anger before the ghost responded, “Back off mortal, she is mine now, my wife.”</p>
+      <p>Maya had the same reaction as Chris as his jaw dropped at the ghosts’ declaration, his heart stopped momentarily but he snapped out of it, adrenaline coursing through his veins.</p>
+      </article>
+
+      <article class="chapter" id="section-10">
+      <span class="chapter-number">Chapter 10</span>
+      <h2 class="chapter-title">Final showdown</h2>
+      <p>Chris searched desperately for a way to free his wife from the ghost who had taken her captive but he couldn’t quite find one. Suddenly, he remembered the cross which the Priest gave him and he held it out, chanting holy verses. The ghost let out a guttural growl, his voice a haunting snarl. “You foolish mortal, I will kill you!” the ghost screamed harshly but it was of no use, Chris stood firm.</p>
+      <p>Maya who was held captive felt the ghosts’ grip loosen on her and she also managed to pull out the cross from her pocket, further weakening the influence of the ghost. Their combined effort and love was proving too much for the ghosts’ otherworldly powers to handle and he let out another groan of pain which was very unsettling to hear.</p>
+      <p>Yet somehow, Maya and Chris stood firm as they knew that one wrong move would cost them their life. The ghost began to burn, letting out a series of gurgles, screams and groans as it thrashed wildly, beginning to burn to crisps. Chris chanted loudly at the sight, the ghost letting out one final scream of agony before disappearing fully, leaving behind only burnt ashes.</p>
+      <p>“We, we did it...” Maya spoke, her voice barely above a whisper at the sight, her words more of a question than a statement. Chris let out a sigh of relief, his shoulders relaxing as he exhaled, looking at Maya with a triumphant smile, “We did it, honey.”</p>
+      <p>Maya collapsed on the floor in joy and exhaustion, tears of joy streaming down her face as she let herself enjoy the moment of victory, knowing well that her torment had ended as the thing causing trouble in their house was now gone, which turned out to be a male ghost who had taken a liking to her.</p>
+      <p>Chris knelt beside her, wrapping his arm around her shoulder and pulling her close, Maya accepted the gesture and leaned into him, grateful for her husband’s support and unconditional love all along, “Thank you, Chris, I wouldn’t be alive right now if you weren’t in my life.” Maya spoke with sincerity in her voice, reaching up the cup Chris’s jawline.</p>
+      <p>Chris smiled, caressing her cheek, “It was my duty, as your husband, to be by your side, to support and love you unconditionally.” Chris replied with devotion, making Maya shiver from the depth of his words—his actions. She kissed him on the cheek, smiling. “Lets build a new life from now, filled with laughter and love.” Chris nodded, agreeing fully to the idea and together, the husband and wife started their new life, safe from dangers and filled with love.</p>
+      </article>
+
+      <p class="end-mark">The End</p>
+
+      
+
+    </div>
+  </section>
+
+  <section class="story-cta">
+    <div class="wrap">
+      <h3>Thanks for reading.</h3>
+      <p>New stories go up on Instagram first. Follow along to catch the next one as soon as it is posted.</p>
+      <a class="btn" href="https://www.instagram.com/story._.digital" target="_blank" rel="noopener">Follow on Instagram</a>
+      <a class="btn ghost" href="../index.html#genre-thriller">Back to the shelf</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; 2026 Story Digital. All stories original. <a href="../index.html#home">Back to Story Digital</a></div>
+</footer>
+
+</body>
+</html>

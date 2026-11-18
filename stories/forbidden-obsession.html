@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forbidden Obsession: Corrupt Love — Story Digital</title>
+<meta name="description" content="A famous actress&#x27;s perfect wedding day is torn apart by a rejected admirer who will do anything to make her his.">
+<link rel="icon" type="image/jpeg" href="../assets/story-icon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F5EFDD;
+    --paper-soft: #ECE3C6;
+    --cover: #1E3A2B;
+    --cover-dark: #142A1E;
+    --leaf: #B7D93A;
+    --gold: #E7B93A;
+    --ink: #262318;
+    --ink-soft: #55503f;
+    --spine-4: #8C2F2F;
+    --max-w: 1120px;
+    --read-w: 700px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    margin: 0;
+    color: var(--cover-dark);
+  }
+
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+  .read { max-width: var(--read-w); margin: 0 auto; padding: 0 32px; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--cover); color: var(--paper);
+    padding: 10px 16px; z-index: 999;
+  }
+  .skip-link:focus { left: 16px; top: 16px; }
+
+  /* ---------- Ribbon nav (matches main site) ---------- */
+  .ribbon {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--cover);
+    border-bottom: 3px solid var(--gold);
+  }
+  .ribbon-inner {
+    max-width: var(--max-w); margin: 0 auto; padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand img { width: 42px; height: 42px; border-radius: 50%; display: block; border: 2px solid var(--gold); }
+  .brand-word { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.15rem; color: var(--paper); }
+  .nav-links { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  .nav-links a { text-decoration: none; color: var(--paper); opacity: 0.85; }
+  .nav-links a:hover, .nav-links a:focus-visible { opacity: 1; }
+
+  /* ---------- Story hero ---------- */
+  .story-hero {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid rgba(30,58,43,0.15);
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Space Mono', monospace; font-size: 0.76rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-soft); text-decoration: none; margin-bottom: 26px;
+  }
+  .back-link:hover, .back-link:focus-visible { color: var(--spine-4); }
+
+  .tag-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 5px 12px; border-radius: 999px;
+    background: var(--cover); color: var(--paper);
+  }
+  .tag.alt { background: var(--paper-soft); color: var(--cover-dark); border: 1px solid rgba(30,58,43,0.2); }
+
+  .story-title {
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--spine-4);
+  }
+  .story-meta {
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .story-dek {
+    margin-top: 22px;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* ---------- Chapters ---------- */
+  .story-body { padding: 56px 0 20px; }
+  .chapter { margin-bottom: 54px; }
+  .chapter-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--leaf);
+    background: var(--cover-dark);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .chapter h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .chapter p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin: 0 0 20px;
+    color: var(--ink);
+  }
+  .chapter p:first-of-type::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 3.1rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.8;
+    margin: 6px 8px 0 0;
+    color: var(--spine-4);
+  }
+
+  .aside {
+    margin: 8px 0 28px;
+    padding: 16px 20px;
+    background: var(--paper-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .aside::before {
+    content: "Reader's note — ";
+    font-style: normal;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--spine-4);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .author-break {
+    text-align: center;
+    margin: 44px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .author-break::before, .author-break::after {
+    content: "◆";
+    color: var(--leaf);
+    margin: 0 14px;
+    font-size: 0.6rem;
+    vertical-align: middle;
+  }
+
+  .the-end {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--cover-dark);
+    margin: 40px 0 0;
+  }
+
+  /* ---------- Story footer / CTA ---------- */
+  .story-cta {
+    background: var(--cover);
+    color: var(--paper);
+    padding: 56px 0;
+    margin-top: 64px;
+    text-align: center;
+  }
+  .story-cta h3 { color: var(--paper); font-size: 1.4rem; margin-bottom: 12px; }
+  .story-cta p { color: rgba(245,239,221,0.8); max-width: 50ch; margin: 0 auto 24px; line-height: 1.6; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold); color: var(--cover-dark);
+    text-decoration: none; padding: 13px 26px; border-radius: 999px;
+    font-family: 'Space Mono', monospace; font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    transition: transform 0.2s ease;
+  }
+  .btn:hover, .btn:focus-visible { transform: translateY(-2px); }
+  .btn.ghost { background: transparent; color: var(--paper); border: 1px solid rgba(245,239,221,0.4); margin-left: 12px; }
+
+  footer.site-footer {
+    background: var(--cover-dark);
+    color: rgba(245,239,221,0.75);
+    padding: 32px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  footer.site-footer a { color: var(--gold); text-decoration: none; }
+
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+
+  @media (max-width: 640px) {
+    .wrap, .read { padding: 0 20px; }
+    .ribbon-inner { padding: 12px 20px; flex-direction: column; gap: 12px; }
+    .story-hero { padding: 40px 0 30px; }
+    .story-title { font-size: clamp(2rem, 10vw, 2.6rem); }
+    .chapter p { font-size: 1rem; }
+    .btn.ghost { display: inline-block; margin: 12px 0 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+  .chapter p.nodrop::first-letter { all: unset; }
+  .chapter-title { font-size: 1.5rem; font-weight: 600; margin: 0 0 20px; }
+  .story-byline { margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; }
+  .end-mark { text-align: center; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.3rem; color: var(--cover-dark); margin: 10px 0 0; }
+  .back-matter { margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(30,58,43,0.2); }
+  .back-matter .chapter { margin-bottom: 28px; }
+  .back-matter .chapter p { font-size: 0.98rem; color: var(--ink-soft); }
+  .back-matter .chapter p::first-letter { all: unset; }
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#section-1">Skip to story</a>
+
+<header class="ribbon">
+  <div class="ribbon-inner">
+    <a class="brand" href="../index.html#home">
+      <img src="../assets/story-icon.jpg" alt="Story Digital logo, an open book on a green circle">
+      <span class="brand-word">Story Digital</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="../index.html#home">Home</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#genre">Our Genre</a></li>
+        <li><a href="../index.html#share">Share a Story</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="story-hero">
+    <div class="read">
+      <a class="back-link" href="../index.html#genre-romance">&larr; Back to the shelf</a>
+      <div class="tag-row"><span class="tag">Romance</span><span class="tag alt">Slice of Life</span></div>
+      <h1 class="story-title">Forbidden Obsession: Corrupt Love</h1>
+      <p class="story-meta">9 chapters · about 12 min read</p>
+      <p class="story-byline">By Hassaan Ijaz &amp; Fatimah Tatari</p>
+      <p class="story-dek">A famous actress's perfect wedding day is torn apart by a rejected admirer who will do anything to make her his.</p>
+    </div>
+  </section>
+
+  <section class="story-body">
+    <div class="read">
+
+      <article class="chapter" id="section-1">
+      <span class="chapter-number">Chapter One</span>
+      <h2 class="chapter-title">Introduction</h2>
+      <p>Clara was an actress and a well-known celebrity. Her fame was unmatched by any other. She had a passion for acting and was living a perfect life one could ever ask for. She had a loving family, a beautiful fiancé whom she was going to marry a month later. She had everything she wanted, from fame to luxury to love. Life was going smooth for her-perhaps too smooth...</p>
+      <p>Unbeknownst to her, someone had eyes on her. That someone owned a successful business and was a wealthy man who was incomplete of love. Damian.</p>
+      <p>Damian was more obsessed with Clara than he was in love with her, he just wanted her to be his, that no other man could come near her, but fate had other plans. Damian had been on some dates with Clara, trying to shoot his shot but Clara didn’t accept and rejected him, simply because she didn’t want a man like Damian. She already had a Fiancé who she liked and had plans to marry him, this is what triggered Damian and he wasn’t going to let Clara go so easily.</p>
+      <p>Clara began preparing for marriage and her family was extremely supportive, her fans on social media went insane, reacting with happiness and joy, some shocked. She received huge support from her fan base and was completely happy. However, someone was mot happy, someone objected her marriage and was jealous of her fiancé... it was none other than Damian who had begun to orchestrate his devious plan to ruin Clara’s marriage and take everything away from her soon.</p>
+      </article>
+
+      <article class="chapter" id="section-2">
+      <span class="chapter-number">Chapter Two</span>
+      <h2 class="chapter-title">Marriage</h2>
+      <p>The long awaited moment finally arrived. Clara was getting married to her fiancé after a month. The wedding hall was filled family members, friends and close friend of Clara who had came to witness her marriage. Her fiancé stood on the stage, dressed in a white suit and black tie.</p>
+      <p>Clara walked down the aisle dressed in a beautiful white gown which hugged her figure perfectly, accentuating her feminine features and enhancing her beauty. Her hair was tied in a neat bun and she held a vibrant bouquet in one hand. As she reached the stage, her fiancé leaned forward and gently held her hand, the hall was filled with cheers from friends and family as Clara stood beside the man that was soon going to be her husband.</p>
+      <p>The ceremony began as the priest started recitation. Everything was going according to plan and the priest began the marriage terms. Just then, Damian entered the wedding hall and quietly observed Clara and her Fiancé, feeling a pang of sadness and jealousy but he controlled himself as he was about to execute his plan which would shatter Clara’s wedding. He began preparing and setting up his destructive plan, waiting just for the perfect moment to strike...</p>
+      <p>The priest began moving towards the final part of the ceremony and asked if everyone agreed to the marriage and had no objections. Everyone said yes enthusiastically, waiting for the moment when Clara and her Fiancé would be pronounced husband and wife, but just then, something unexpected happened which left everyone speechless.</p>
+      </article>
+
+      <article class="chapter" id="section-3">
+      <span class="chapter-number">Chapter Three</span>
+      <h2 class="chapter-title">Unexpected turn of events</h2>
+      <p>Just as everyone agreed to the marriage, someone stood up and spoke out aloud, “I OBJECT!” and that was no other than Damian himself. Everyone turned to look at Damian, completely taken aback and shocked by his sudden objection. Some stared at him in shock while some looked at him in confusion. The Priest was also shocked, Clara and her Fiancé turned their heads to look at who spoke and Clara’s eyes widened in shock and horror.</p>
+      <p>Clara’s mother stood up and walked a bit towards Damian, looking at him in deep thought and shock, “What do you object about this wedding?” she asked, her voice firm. “I have some proofs of your daughter cheating on her fiancé.” Said Damian as he quickly pulled out some pictures and fake affair reports showed them to everyone, eliciting shocked gasps from everyone, including Clara’s fiancé who looked at Clara with shock and suspicion.</p>
+      <p>Clara’s mother held the pictures in her hand and was utterly devastated by her daughter’s actions in secrecy, she knew Clara was never like this but seeing the pictures changed her perspective— exactly what Damian wanted. Clara spoke up, trying to defend herself and clear out the misunderstanding but in an unexpected move, her fiancé refused to accept Clara as his wife and walked off the stage, going out of the wedding Hall in pure heartbreak as he thought Clara had actually cheated on him before their marriage.</p>
+      <p>Clara watched in dread and horror as her fiancé rejected their marriage and left in front of everyone. Her fans and friends were also taken aback, now viewing Clara with suspicion and disgust. “We didn’t expect this from you Clara.” A group of fans spoke up as they turned and left the wedding hall. Clara felt absolutely powerless, hollow from the inside and devastated by the events that just unfolded before her very eyes, shattering her image as a celebrity.</p>
+      </article>
+
+      <article class="chapter" id="section-4">
+      <span class="chapter-number">Chapter Four</span>
+      <h2 class="chapter-title">Consequences of actions</h2>
+      <p>Clara was now heartbroken, her makeup ruined by her tears, her fans left, her family left and most importantly, the man she was going to marry, left. The one person who remained was Damian himself, looking smug and satisfied by the successful execution of his plan. Looking up at Damian with tear filled eyes, Clara spoke in pure rage, “Why did you do this? Why Damian? I demand WHY!?” Her voice raised by each word for a pitch, her expression stern and a sneer plastered on her face. In response, Damian chuckled in amusement, “I told you Clara, that rejecting me was a terrible choice, a decision that costed you everything you had, your fame, your love, your fan base...everything.”</p>
+      <p>Clara’s mind was filled with thousands of thoughts and emotions, her ability to think properly completely flooded by her emotions, she didn’t know what to say or how to say. Damian continued, “Now you’re all mine Clara, no one can stop me, I dare.” He spoke with a possessive tone. “Oh you keep dreaming because you will never have me, I won’t be yours” Clara spoke with defiance, desperate to defend herself from the mosquito that had attached itself to her.</p>
+      <p>Damian’s expression turned serious, hardening, “You dare resist me Clara?” he practically growled. In a swift motion, he reached out and grabbed Clara’s arm roughly and started dragging her to his car. “Let go of me you idiot!” Clara whimpered and grunted but Damian’s grip was strong. Reaching his car, he opened the door and shoved Clara into the passenger seat before slamming the door shut. He quickly sat in the driver seat and sped away to his mansion where he had other plans at play.</p>
+      <p>Clara couldn’t believe how swiftly Damian took control of her, a shiver running down her spine at the thought of what else he could do to her now that she was at his mercy. Clara momentarily closed her eyes and fell into a short nap due to being tired.</p>
+      </article>
+
+      <article class="chapter" id="section-5">
+      <span class="chapter-number">Chapter Five</span>
+      <h2 class="chapter-title">Recovering</h2>
+      <p>Clara woke up in a plush, king sized bed adorned with rose petals and she found herself in a dimly lit room. She sat up in the bed, rubbing her eyes and adjusting her vision to the darkness. She noticed Damian sitting on the other end of the bed, observing her as he spoke up, “Woke up from your nap, huh?”.</p>
+      <p>Clara rolled her eyes and looked away, still upset, “yeah” she mumbled dismissively, trying not to pay attention to Damian no matter what, but he was hard to ignore, especially being so close to Clara in a closed room. A maid came into the room, holding a tray full of biscuits and coffee, setting it near Clara and leaving discreetly. Clara was surprised by the offer, she looked at Damian who gestured to the tray, “For you” he said, is tone soft. A stark contrast to his earlier hard tone. Clara tentatively reached out and picked up a biscuit, eating it and discovering that her stomach craves more, she soon grew fond of the atmosphere and began eating fully.</p>
+      <p>Clara’s thoughts were also consumed by the events which occurred in the past, she was contemplating on what to do now as Damian had her captured and there was no way that she could possibly escape. Consequently, she made up a plan, a difficult decision which would lead her into unchartered territory. As days passed, Clara slowly began to soften up to Damian. She slowly began to feel an attraction towards him which she never felt before but it was pleasant.</p>
+      <p>One day while sitting in the living room, she spoke, “Look Damian, I think I was the wrong one this whole time, I am sorry for behaving so rudely to you and rejecting you multiple times but I think... you are the one for me.” Damian was pleased, “I’m glad we came to an understanding, Clara.” He continued immediately after, “Perhaps we should get married soon.” Clara took a breath and nodded.</p>
+      </article>
+
+      <article class="chapter" id="section-6">
+      <span class="chapter-number">Chapter Six</span>
+      <h2 class="chapter-title">A new beginning</h2>
+      <p>On their Marriage, Damian stood at the stage in a slick black tuxedo while Clara walked down the aisle, dressed in a stunning black dress, looking radiant. Damian’s friends cheered him on and he smiled widely. The priest offered the ceremonial prayers and declared Damian and Clara Husband and Wife. Damian’s friend beamed with joy and hugged Damian, congratulating him on the marriage.</p>
+      <p>Clara was also happy with Damian as her new husband. Her defensive walls began to crumble slowly to Damian and she felt comfortable with him after spending a few days with him. She had accepted him as her husband, thinking it was the best choice she could make now.</p>
+      <p>Damian used to treat her with love and care and Clara enjoyed every ounce of affection the man provided for her. They became a lovey-dovey couple, occasionally going out on dates, restaurants, movies and sometimes they would just relax at home, watch a movie and cuddle up to unwind after a long day.</p>
+      <p>Clara began to spend most of her time as a housewife while Damian was away managing his business. She would look after the house and cook meals for Damian. Around 9 months passed since their marriage, one day, Damian got sick and experienced headaches. He came to the kitchen to see Clara cooking breakfast. She looked back and noticed Damian standing there, looking uncomfortable. “What happened honey?” she asked with concern. “Nothing, just a headache.” Damian replied and Clara gave her a cup of tea. “Here, this will help relieve the pain, take care of yourself at work. I will make you something special after you come back from work.”</p>
+      <p>Damian drank the cup of tea and picked up his bag, leaving for work “See you at evening babe.” He said and closed the front door behind him. He went to his car, sat inside and pulled up on the road, driving to work.</p>
+      </article>
+
+      <article class="chapter" id="section-7">
+      <span class="chapter-number">Chapter Seven</span>
+      <h2 class="chapter-title">The Plot</h2>
+      <p>As Damian drove on the road, his head started spinning and he began to lose grip on the steering wheel. Soon, the car went out of control and Damian crashed in an accident. He was rushed to the hospital by people who gathered around the crash site. One of them was his neighbour so he ended up telling Clara that Damian got badly inured in an accident.</p>
+      <p>Clara arrived at the hospital and went to the room Damian was admitted in. She saw him lying on the hospital bed as the Doctor informed that Damian was now half-paralyzed for a few months. Clara felt sorry for Damian but he calmed her down, saying it wasn’t her fault. Clara was really worried.</p>
+      <p>The doctor soon allowed Damian to go home and Clara took him home. Damian was now laying half paralyzed in his bed, only being able to speak and see. She looked down at Damian with a sinister grin on her face, her intention clear. “You know Damian, I actually mixed a drug in your tea before you left for work.” She cackled menacingly, “You thought I was into this ‘Relationship’? Well, too bad I wasn’t and now look who holds the power.”</p>
+      <p>She then took off her engagement ring and let it fall to the ground. “Lets be real here, I wanted you to die, but since you’re paralyzed, I will have more fun taking my revenge.” She spoke in a low, dangerous tone before mercilessly crushing the ring into pieces. Damian was hurt right where it hurted the most but masked it with his usual grumpiness, “I don’t care-.” He spoke in a hoarse voice but knew he was now powerless. Clara smirked and let out a low chuckle, her tone menacing, “I’ll be back tomorrow and I’ll take away everything from you just like you took everything from me.” She said and sauntered off, exiting the room and leaving the mansion.</p>
+      </article>
+
+      <article class="chapter" id="section-8">
+      <span class="chapter-number">Chapter Eight</span>
+      <h2 class="chapter-title">Revenge is a dish best served cold</h2>
+      <p>The next day, Clara came back to the mansion and entered the room where Damian was resting, she instructed the maid tending to Damian to go out and she discreetly exited. “I am back honey” Clara spoke, her tone dripping with false sweetness.</p>
+      <p>She suddenly took out a gun from her pocket and loaded it, “and I am here to take everything from you” she said as she loaded the bullet into the gun, the lock clicking into place. She pointed the barrel under her chin, looking into Damian’s eyes, “You know you will lose everything and I know I am your everything... once I die, you’ll stay in regret for eternity, you’ll yearn for me yet you’ll never find me again. After I die, you will find moonlit night strangely empty because when you will call me through them, there will be no answer, your heart will ache for me, you’ll look in the face of passer-by’s hoping that something will bring me back to you but-” she said with a soft smile as if at peace and presses the trigger and the next thing Damian sees is her lifeless body on the ground as the gunshot echoes through the house. Tears stream down his eyes as he realizes he has lost her forever.</p>
+      <p>Damian lost it completely, his mental health badly damaged. He had lost his everything in a matter of seconds and he couldn’t stop it due to his paralyzed state. He was filled with regret and grief as Clara was gone forever.</p>
+      </article>
+
+      <article class="chapter" id="section-9">
+      <span class="chapter-number">Chapter Nine</span>
+      <h2 class="chapter-title">Eternal Sadness</h2>
+      <p>Years passed since Clara passed away and Damian managed to recover but at what cost? He lost his everything and now he couldn’t find happiness back no matter what.</p>
+      <p>He regularly visited her grave, apologizing to her and begging for forgiveness. He would spend hours crying and grieving at the cemetery. Hoping that he could go back in time to fix everything but fate had been sealed forever and now the damage was irreversible.</p>
+      <p>The sadness got so extreme that Damian never married again for the rest of his life. He would just constantly think about Clara and insult himself for his actions, knowing well that it was his fault as well. Her words haunted him for life “You will find the moonlit nights strangely empty because when you will call my name through them, there will be no answer.”</p>
+      <p>These words echoed in Damian’s head all the time. He would go on to remain single, for the rest of his life, until his death.</p>
+      </article>
+
+      <p class="end-mark">The End</p>
+
+      <div class="back-matter">
+      <article class="chapter" id="section-100">
+      <span class="chapter-number">Credits</span>
+      <p>All credits go to Fatimah Tatari for providing the storyline, plot and structure. This is the first ever collaborated work we have done together. I just composed the story and wrote it down so that her words could reach you guys and she could express herself openly. Thanks for your time ☺</p>
+      </article>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="story-cta">
+    <div class="wrap">
+      <h3>Thanks for reading.</h3>
+      <p>New stories go up on Instagram first. Follow along to catch the next one as soon as it is posted.</p>
+      <a class="btn" href="https://www.instagram.com/story._.digital" target="_blank" rel="noopener">Follow on Instagram</a>
+      <a class="btn ghost" href="../index.html#genre-romance">Back to the shelf</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; 2026 Story Digital. All stories original. <a href="../index.html#home">Back to Story Digital</a></div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Shadow That Waits — Story Digital</title>
+<meta name="description" content="After her 18th birthday, Clara starts to feel that something is wrong with her own shadow.">
+<link rel="icon" type="image/jpeg" href="../assets/story-icon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F5EFDD;
+    --paper-soft: #ECE3C6;
+    --cover: #1E3A2B;
+    --cover-dark: #142A1E;
+    --leaf: #B7D93A;
+    --gold: #E7B93A;
+    --ink: #262318;
+    --ink-soft: #55503f;
+    --spine-4: #8C2F2F;
+    --max-w: 1120px;
+    --read-w: 700px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    margin: 0;
+    color: var(--cover-dark);
+  }
+
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+  .read { max-width: var(--read-w); margin: 0 auto; padding: 0 32px; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--cover); color: var(--paper);
+    padding: 10px 16px; z-index: 999;
+  }
+  .skip-link:focus { left: 16px; top: 16px; }
+
+  /* ---------- Ribbon nav (matches main site) ---------- */
+  .ribbon {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--cover);
+    border-bottom: 3px solid var(--gold);
+  }
+  .ribbon-inner {
+    max-width: var(--max-w); margin: 0 auto; padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand img { width: 42px; height: 42px; border-radius: 50%; display: block; border: 2px solid var(--gold); }
+  .brand-word { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.15rem; color: var(--paper); }
+  .nav-links { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  .nav-links a { text-decoration: none; color: var(--paper); opacity: 0.85; }
+  .nav-links a:hover, .nav-links a:focus-visible { opacity: 1; }
+
+  /* ---------- Story hero ---------- */
+  .story-hero {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid rgba(30,58,43,0.15);
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Space Mono', monospace; font-size: 0.76rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-soft); text-decoration: none; margin-bottom: 26px;
+  }
+  .back-link:hover, .back-link:focus-visible { color: var(--spine-4); }
+
+  .tag-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 5px 12px; border-radius: 999px;
+    background: var(--cover); color: var(--paper);
+  }
+  .tag.alt { background: var(--paper-soft); color: var(--cover-dark); border: 1px solid rgba(30,58,43,0.2); }
+
+  .story-title {
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--spine-4);
+  }
+  .story-meta {
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .story-dek {
+    margin-top: 22px;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* ---------- Chapters ---------- */
+  .story-body { padding: 56px 0 20px; }
+  .chapter { margin-bottom: 54px; }
+  .chapter-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--leaf);
+    background: var(--cover-dark);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .chapter h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .chapter p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin: 0 0 20px;
+    color: var(--ink);
+  }
+  .chapter p:first-of-type::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 3.1rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.8;
+    margin: 6px 8px 0 0;
+    color: var(--spine-4);
+  }
+
+  .aside {
+    margin: 8px 0 28px;
+    padding: 16px 20px;
+    background: var(--paper-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .aside::before {
+    content: "Reader's note — ";
+    font-style: normal;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--spine-4);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .author-break {
+    text-align: center;
+    margin: 44px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .author-break::before, .author-break::after {
+    content: "◆";
+    color: var(--leaf);
+    margin: 0 14px;
+    font-size: 0.6rem;
+    vertical-align: middle;
+  }
+
+  .the-end {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--cover-dark);
+    margin: 40px 0 0;
+  }
+
+  /* ---------- Story footer / CTA ---------- */
+  .story-cta {
+    background: var(--cover);
+    color: var(--paper);
+    padding: 56px 0;
+    margin-top: 64px;
+    text-align: center;
+  }
+  .story-cta h3 { color: var(--paper); font-size: 1.4rem; margin-bottom: 12px; }
+  .story-cta p { color: rgba(245,239,221,0.8); max-width: 50ch; margin: 0 auto 24px; line-height: 1.6; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold); color: var(--cover-dark);
+    text-decoration: none; padding: 13px 26px; border-radius: 999px;
+    font-family: 'Space Mono', monospace; font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    transition: transform 0.2s ease;
+  }
+  .btn:hover, .btn:focus-visible { transform: translateY(-2px); }
+  .btn.ghost { background: transparent; color: var(--paper); border: 1px solid rgba(245,239,221,0.4); margin-left: 12px; }
+
+  footer.site-footer {
+    background: var(--cover-dark);
+    color: rgba(245,239,221,0.75);
+    padding: 32px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  footer.site-footer a { color: var(--gold); text-decoration: none; }
+
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+
+  @media (max-width: 640px) {
+    .wrap, .read { padding: 0 20px; }
+    .ribbon-inner { padding: 12px 20px; flex-direction: column; gap: 12px; }
+    .story-hero { padding: 40px 0 30px; }
+    .story-title { font-size: clamp(2rem, 10vw, 2.6rem); }
+    .chapter p { font-size: 1rem; }
+    .btn.ghost { display: inline-block; margin: 12px 0 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+  .chapter p.nodrop::first-letter { all: unset; }
+  .chapter-title { font-size: 1.5rem; font-weight: 600; margin: 0 0 20px; }
+  .story-byline { margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; }
+  .end-mark { text-align: center; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.3rem; color: var(--cover-dark); margin: 10px 0 0; }
+  .back-matter { margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(30,58,43,0.2); }
+  .back-matter .chapter { margin-bottom: 28px; }
+  .back-matter .chapter p { font-size: 0.98rem; color: var(--ink-soft); }
+  .back-matter .chapter p::first-letter { all: unset; }
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#section-1">Skip to story</a>
+
+<header class="ribbon">
+  <div class="ribbon-inner">
+    <a class="brand" href="../index.html#home">
+      <img src="../assets/story-icon.jpg" alt="Story Digital logo, an open book on a green circle">
+      <span class="brand-word">Story Digital</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="../index.html#home">Home</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#genre">Our Genre</a></li>
+        <li><a href="../index.html#share">Share a Story</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="story-hero">
+    <div class="read">
+      <a class="back-link" href="../index.html#genre-horror">&larr; Back to the shelf</a>
+      <div class="tag-row"><span class="tag">Horror</span></div>
+      <h1 class="story-title">The Shadow That Waits</h1>
+      <p class="story-meta">6 chapters · about 14 min read</p>
+      <p class="story-byline">By Hassaan Ijaz</p>
+      <p class="story-dek">After her 18th birthday, Clara starts to feel that something is wrong with her own shadow.</p>
+    </div>
+  </section>
+
+  <section class="story-body">
+    <div class="read">
+
+      <article class="chapter" id="section-1">
+      <span class="chapter-number">Chapter 1</span>
+      <h2 class="chapter-title">Introduction</h2>
+      <p>It was a cool, chilly night in the middle of November. Clara and her friends had gathered on a cozy rooftop cafe to celebrate her 18th birthday. The space was filled with laughter, celebration and camaraderie.</p>
+      <p>Clara, being an extrovert, enjoyed the company that her friends Emma, Rebecca and Katherine gave her. “Happy Birthday Diva!” Kat chimed, giving Clara a warm hug, Clara giggled, accepting the hug and returning the embrace with a huge smile. Rebecca and Emma squealed in delight as party poppers went off, covering the friend group in its blanket. “This is too much fun! I love this!”</p>
+      <p>Clara exclaimed as she was celebrating her birthday with full throttle, little did she know—this joy would be temporary...</p>
+      <p>They ordered food and began digging in as it arrived. “Damn, this pizza is lit!”—“I know right, its too good!” they enjoyed their meals in harmony, sharing giggles and making memories.</p>
+      <p>Finally, it was time for the big treat, the cake. “We got this custom chocolate cake with a Barbie theme for you, Clara” said her friends in unison, leaving Clara breathless and in awe at the sight. Clara couldn’t help but stare and admire at the piece of art in front of her.</p>
+      <p>She picked up the knife and was about to cut the cake when suddenly, the knife almost struck her wrist, but before it could do, thankfully her friend Kat intervened and saved her, “Oh Clara be careful!” Clara let out a surprised gasp, returning back to reality. The knife momentarily fell on the table and everyone grew concerned.</p>
+      <p>“Oh my god, uhm, I think I got carried away by the cake and accidentally almost injured myself.” Clara said as her friends bought the excuse and helped her cut the cake together safely which they later shared.</p>
+      <p>Though Clara was shaken by the sudden ordeal, she tried to reassure herself that it was just her being clumsy and it was no big deal—but was it really her mistake or something external at play?</p>
+      <p>As the party came to an end, all friends exchanged the final goodbye and went on their separate paths to their respective homes. The streets were calmly silent with the streetlights providing a warm, orange glow, contrasting the grey-dark roads beneath Clara’s feet.</p>
+      <p>Occasional sounds of vehicles passing by was the only thing keeping Clara company on the otherwise dead silent street. As she was walking, she felt as if something, or someone is following her. Her body started tensing, her heartbeat raising slowly but steadily and her gut started alarming her brain that something was definitely behind her.</p>
+      <p>The shocker came when Clara noticed a shadow stretching beneath her feet. She mustered up the courage and immediately turned around to see who it was but received another shocker, there was no one behind her.</p>
+      <p>Clara wasted no time and turned around, walking towards her house as fast as she could, she personally hated walking alone at night and unfortunately for her, she couldn’t call an uber since her phone ran out of battery.</p>
+      <p>Finally, after a swift walk, Clara reached her home and locked the door behind her, feeling safe and secure in her familiar habitat.</p>
+      </article>
+
+      <article class="chapter" id="section-2">
+      <span class="chapter-number">Chapter 2</span>
+      <h2 class="chapter-title">Hints</h2>
+      <p>Clara took off her jacket and hung it on the hook, she took a relaxed sigh before sauntering over to the kitchen to grab a warm cup of tea to cool down after such a chilly night. She turned on the lights, taking in the familiar surrounding of her kitchen before preparing the tea.</p>
+      <p>However, she didn’t feel quite safe as she was supposed to. Occasionally, Clara glanced around the kitchen as if sensing something unseen, or sometimes, she would just stare at her own shadow casted on the floor.</p>
+      <p>Clara brushed off the intrusive thoughts, making herself believe that everything was normal and it was just her imagining things—but was that really the case?</p>
+      <p>Suddenly, a noise jolted Clara out of her thoughts and she immediately looked out at the lounge area where the noise came from. She went to check and found a pot on the ground which was originally on the shelf. She was creeped out by the sight, wondering who could have done it since no one was home except her. A shudder ran through her as her mind made the possibility of an intruder breaking in but there was no such evidence to prove it.</p>
+      <p>Just then, Clara noticed her shadow appearing as if it had mysteriously lagged behind. She found herself staring at her own shadow in confusion and terror and it felt like her shadow was staring back at her. She almost let out a scream of terror but the sound caught in her throat. She immediately placed the pot back and went to her room, her shadow following close behind.</p>
+      <p>She picked up her phone from the charging pod and called up her best friend Kat who thankfully picked up. “Hey, what happened?” Kat inquired but she heard Clara’s panicked voice. “Kat, I don’t know what is happening but I am experiencing strange activities in my home.” Kat grew concerned, “What activities, Clara?”—“A pot on my shelf was randomly knocked over and as I was investigating, I saw my shadow lagging behind, this is just too creepy for me.”</p>
+      <p>Kat couldn’t believe what she was hearing and her heart ached at her friend being in such distress, “Don’t worry babe, just lock all the doors and windows, recite some holy verses and go to sleep. Everything will be okay, I will visit you in the morning.”</p>
+      <p>Kat’s voice was a soothing balm to Clara’s frightened soul and she was grateful for her friends’ support nevertheless. Clara checked on all doors and windows, making sure that her house was secure and safe. Once the security check was done, she picked up a bible and started reciting holy verses which made her feel relaxed.</p>
+      <p>She then turned off all unnecessary lights and went into her bedroom. Closing the door and locking it, providing herself with an extra layer of protection. She lays on her bed, pulling the covers on top of her, her mind was replaying the memories of the day, the pleasant ones and the unpleasant ones. Soon, her eyelids grew heavy and she succumbed to peaceful slumber.</p>
+      </article>
+
+      <article class="chapter" id="section-3">
+      <span class="chapter-number">Chapter 3</span>
+      <h2 class="chapter-title">A night to remember</h2>
+      <p>As Clara was slumbering peacefully, bathed in a comfortable silence, something extraordinary was at play. A sharp thud caused Clara to snap out of her sleep and wake up. Her eyes were blown wide as she looked around the room shrouded in darkness. Her heart was pounding in her chest and her veins were pulsing with adrenaline.</p>
+      <p>She was confused about the sound and where it may have came from but she knew she couldn’t ignore it as it was confirmed to her that something was definitely wrong. She slowly crept out of her bed and walked towards the switch on the wall. As her hands were about to hit the switch, she felt an odd sensation on her fingertips as if she is touching someone else’s hand.</p>
+      <p>She quickly pulled away, gasping in shock but as she squinted her eyes, she saw that it was indeed a hand... Clara let out a scream of fear and stumbled back on the floor but just as she blinked, the hand was gone and there was nothing out of ordinary. She got up and with trembling hands she quickly flicked the switch, the lights turning on and flashing bright on her.</p>
+      <p>Clara squinted her eyes, trying to adjust to the blinding brightness which she soon did and she immediately looked around, trying to see who’s hand it was but to her horror, there was no one in her room. Just then, a vision struck her and she grabbed her head, she saw what seemed like a figure, human, but not quite, staying by her side.</p>
+      <p>Just as the vision ended, she was struck by a memory, of her shadow. She looked towards the ground, trying to spot her shadow and to her immense relief, it was there, looking normal. Clara collapsed on the ground, tears welling up in her eyes at the unexpected horrors she was facing, she wanted comfort, protection and most importantly, all of the bad things to stop—which they wouldn’t, or would they?</p>
+      <p>She crawled towards her bed’s side table and with shaky hands, she grabbed her phone.</p>
+      <p>However, fate didn’t seem to be on her side as her phone was out of battery. “Darn it, you had to die out now, didn’t you?” Clara growled at her phone in frustration, reaching for the charger pod but unexpectedly, it flew away from her hand, as if something unseen tossed it away. The pod landed with a thud in the opposite corner of her room, scaring Clara to the max.</p>
+      <p>“What the hell!?” she exclaimed in fear as her eyes darted to the corner, her heart stopped. She saw a shadow-her shadow, standing in the corner where her charger pod had flown to. At first, it seemed harmless, but suddenly, the shadow began to glide toward her.</p>
+      <p>Clara let out a loud scream, closing her eyes just in time before the shadow reached her. She thought it was over and that she was dead, but she didn’t feel anything. As she opened her eyes, she found herself completely fine but the shadow was nowhere to be seen.</p>
+      <p>Clara began crying, sobbing uncontrollably, burying her face in her hands and hugging her knees to her chest, “Why lord? Why is this happening with me!?” Clara demanded answers but was only left with more questions.</p>
+      <p>She mustered up the courage and managed to grab the charging pod and finally putting her phone to charge. The rectangular device came to life and Clara noticed the time on it, ‘5:00 a.m.’—it was only a matter of an hour before the sun would rise and the night would come to and end.</p>
+      </article>
+
+      <article class="chapter" id="section-4">
+      <span class="chapter-number">Chapter 4</span>
+      <h2 class="chapter-title">Witnesses</h2>
+      <p>Just as morning hours struck, Clara’s room was filled with a warm glow thanks to the window. She let out a sigh of relief as the horrifying night came to an end and a new sense of hope began filling her aching heart.</p>
+      <p>She stood up with a new purpose and paced out of her room, going straight towards the main door. She opened it and the fresh air soothed her bones, making her feel at peace, exactly what she needed. Just then, she remembered that Kat had told her that she would be visiting Clara in the morning which made Clara feel excited despite the horrors she faced last night.</p>
+      <p>She went back to her room to check upon her phone which had charged up to 60%. She opened the chats and texted Kat, “Hey Kat, I am waiting for you, come over quick, I have to tell you something very important.”</p>
+      <p>Kat soon read the message and hurried over to her friend, Clara’s house. As she arrived, she saw that Clara was already waiting for her, smiling, but her smile seemed like a mask, hiding the terror inside her. Kat got out of her car and was immediately hugged by Clara who started sobbing on her shoulder. Kat felt her friends’ emotion pouring out on her and her heart ached, she embraced Clara warmly, “You don’t know how much I have gone through, Kat.” Clara choked, cupping Kat’s face in her hands, her own face wet with tears.</p>
+      <p>Kat tried holding back her tears as she looked at Clara, trying to comfort her, “I know Clara, that’s why I am here, now lets go inside and you tell me what happened, kay?” Clara nodded, wiping her tears with the back of her hand and leading Kat into her house.</p>
+      <p>As they sat down, Clara began recalling the events, “I was sleeping comfortably, right? And then suddenly a loud noise woke me up, it was around 5 in the morning as I remember. Then as I was walking towards the light switch to turn on the light, I felt a hand brush against mine.” Kat felt concerned but probed further, “Then uhm, I stepped back and as soon as I blinked my eye, it was gone.”</p>
+      <p>Kat listened attentively to every detail, nodding along, “Then I tried reaching for my phone’s charging pod and it literally flew away from me, landing in the corner of the room where I saw it, the Shadow-my shadow.”</p>
+      <p>A shudder ran through Clara as an indescribable gush of wind brushed against the two girls, making Goosebumps form on their skin.</p>
+      <p>Kat noticed something suspicious, Clara’s shadow seemed to stretch taller than Clara was. “Wait Clara, stay still.” Clara froze, her eyes wide in fear as she watched Kat come close, her eyes locked on the shadow of Clara. Kat knelt down, trying to see how far the shadow stretched, as her eyes followed the shadow’s body up until its head, Kat saw two faint eyes staring at her which made her gasp and scream.</p>
+      <p>Clara screamed in harmony and both girls clinged to each other for life. “See, I told you Kat, I told you that my shadow is cursed!” Clara cried but the haunting realization dawned on her, that it was her shadow and she could never physically get rid of it no matter what.</p>
+      <p>All Clara knew, was that she had a witness now, who was her best friend Kat.</p>
+      </article>
+
+      <article class="chapter" id="section-5">
+      <span class="chapter-number">Chapter 5</span>
+      <h2 class="chapter-title">Finding a solution</h2>
+      <p>Kat and Clara knew that this situation was not normal and it even made Kat paranoid of her own shadow. Both girls knew they had to find a cure, some sort of cure, but they also knew that getting rid of a shadow was scientifically impossible.</p>
+      <p>“What do we do now!?” Clara demanded a plan but was met with Kat’s confused expression, “How could a shadow do this? How can it act on its own?-how can It act alive?”—“I don’t know Kat, but this isn’t a time for questions, we need a solution,”—“that’s what I am thinking right now.”</p>
+      <p>Kat began browsing on the internet, hoping to find a possible explanation to this odd phenomenon occurring with her best friend Clara. She scrolled for a few minutes before gasping, “Wait, I found this really good psychiatrist.” Clara gave her a frustrated look, “How is a psychiatrist going to help us with an evil shadow? We are not crazy either, you saw it yourself!”</p>
+      <p>Kat noticed the genuine frustration emanating from Clara and a thought struck her mind, “Wait Clara, your shadow, its not harmed anyone yet, right?” Clara nodded, “Yeah, that’s what I was thinking, it hasn’t harmed any of us yet, its just scaring us, as if its playing with us.”</p>
+      <p>Kat had a bizzare idea, “What if you try talking to it? Maybe it just wants something?” Clara’s eyes grew wide in terror, “Are you crazy? I will not try something creepy like that!” Clara retaliated swiftly, not wanting to do whatever Kat was suggesting.</p>
+      <p>However, Kat didn’t back down from her proposal, instead she encouraged the idea further, “Trust me babe, try it, what if it just wants something.” Clara knew how persuasive Kat could get sometimes and decided to finally confront her biggest fear.</p>
+      <p>“Okay fine, I will try, but if I die, I am blaming it on you.” Clara said in an attempt to lighten the mood, a rare occurrence from her side.</p>
+      <p>Kat chuckled, “Sure thing, I will also die with you, don’t worry twin.” She teased affectionately before her expression grew serious, Mirroring Clara’s own steeled expression.</p>
+      </article>
+
+      <article class="chapter" id="section-6">
+      <span class="chapter-number">Chapter 6</span>
+      <h2 class="chapter-title">Terrifying revelation</h2>
+      <p>Clara took a deep breath, steeling herself for the upcoming confrontation. She looked directly at her shadow and began to speak, feeling her friend Kat’s support with her, “Who are you?” the question hung in the air as Clara awaited a response from the shadow, part of her wanted to end this before it started but part of her was curious.</p>
+      <p>Suddenly, the shadow started stretching and twisting before their eyes. It seemed to be gaining a more human like form before the room was filled with a echoing deep voice which seemed to be coming from all directions, “I am the shadow.”</p>
+      <p>“What shadow? Who are you exactly?” Clara and Kat were shocked that the shadow had actually responded to their question, which further solidified the fact that it was alive and maybe evil.</p>
+      <p>“I am not what you expect.” The voice spoke, coming from all directions and nowhere at once. “I am something far beyond human understanding of this world.” Clara and Kat seemed confused a bit frightened as to what they are encountering, “What do you mean?” inquired Kat to which the Shadow responded, “I am a cursed shadow which follows the human it originates from and causes trouble in their life.”</p>
+      <p>Clara and Kat gasped, their eyes wide and expression scared, yet they still continued their questions, “Why are you doing this to us?”</p>
+      <p>There was an odd silence before the response came, “I was created for that purpose, to create chaos in the human’s life, I exist only for that purpose.”</p>
+      <p>Kat and Clara took a step back, their hearts pounding, “Do you intend on harming us? Possibly killing us?” the shadow moved a bit, “I can’t certainly say, but some consequences are certain which I fear.”— “What consequences?”—“Like taking you both because you both have seen this, seen me, discovered the secret which humanity wasn’t supposed to see.”</p>
+      <p>Clara and Kat’s breath caught in their throat and they found themselves backing away until their bodies touched the wall, “Please don’t kill us” Clara begged but the response was emotionless, “I have no choice, but to make you face your final reckoning.”</p>
+      <p>With that threat, the room started to shift, shadows stretching languidly, dancing across walls and the air growing cold. Kat and Clara screamed in unison, but it was no use. Soon, everything went black for them and they found nothing but dead silence, forever...</p>
+      <p>The only thing that remained was the soft glow of the computer screen where Kat was browsing online and the buzzing phone of Clara which kept receiving messages from her other friends, Rebecca and Emma, who remained blissfully unaware of their friends’ death.</p>
+      </article>
+
+      <p class="end-mark">The End</p>
+
+      
+
+    </div>
+  </section>
+
+  <section class="story-cta">
+    <div class="wrap">
+      <h3>Thanks for reading.</h3>
+      <p>New stories go up on Instagram first. Follow along to catch the next one as soon as it is posted.</p>
+      <a class="btn" href="https://www.instagram.com/story._.digital" target="_blank" rel="noopener">Follow on Instagram</a>
+      <a class="btn ghost" href="../index.html#genre-horror">Back to the shelf</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; 2026 Story Digital. All stories original. <a href="../index.html#home">Back to Story Digital</a></div>
+</footer>
+
+</body>
+</html>

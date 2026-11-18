@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love at First Sight — Story Digital</title>
+<meta name="description" content="Shy Parker has never dared to chase love, until a new girl walks into his class.">
+<link rel="icon" type="image/jpeg" href="../assets/story-icon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F5EFDD;
+    --paper-soft: #ECE3C6;
+    --cover: #1E3A2B;
+    --cover-dark: #142A1E;
+    --leaf: #B7D93A;
+    --gold: #E7B93A;
+    --ink: #262318;
+    --ink-soft: #55503f;
+    --spine-4: #8C2F2F;
+    --max-w: 1120px;
+    --read-w: 700px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    margin: 0;
+    color: var(--cover-dark);
+  }
+
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+  .read { max-width: var(--read-w); margin: 0 auto; padding: 0 32px; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--cover); color: var(--paper);
+    padding: 10px 16px; z-index: 999;
+  }
+  .skip-link:focus { left: 16px; top: 16px; }
+
+  /* ---------- Ribbon nav (matches main site) ---------- */
+  .ribbon {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--cover);
+    border-bottom: 3px solid var(--gold);
+  }
+  .ribbon-inner {
+    max-width: var(--max-w); margin: 0 auto; padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand img { width: 42px; height: 42px; border-radius: 50%; display: block; border: 2px solid var(--gold); }
+  .brand-word { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.15rem; color: var(--paper); }
+  .nav-links { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  .nav-links a { text-decoration: none; color: var(--paper); opacity: 0.85; }
+  .nav-links a:hover, .nav-links a:focus-visible { opacity: 1; }
+
+  /* ---------- Story hero ---------- */
+  .story-hero {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid rgba(30,58,43,0.15);
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Space Mono', monospace; font-size: 0.76rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-soft); text-decoration: none; margin-bottom: 26px;
+  }
+  .back-link:hover, .back-link:focus-visible { color: var(--spine-4); }
+
+  .tag-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 5px 12px; border-radius: 999px;
+    background: var(--cover); color: var(--paper);
+  }
+  .tag.alt { background: var(--paper-soft); color: var(--cover-dark); border: 1px solid rgba(30,58,43,0.2); }
+
+  .story-title {
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--spine-4);
+  }
+  .story-meta {
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .story-dek {
+    margin-top: 22px;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* ---------- Chapters ---------- */
+  .story-body { padding: 56px 0 20px; }
+  .chapter { margin-bottom: 54px; }
+  .chapter-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--leaf);
+    background: var(--cover-dark);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .chapter h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .chapter p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin: 0 0 20px;
+    color: var(--ink);
+  }
+  .chapter p:first-of-type::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 3.1rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.8;
+    margin: 6px 8px 0 0;
+    color: var(--spine-4);
+  }
+
+  .aside {
+    margin: 8px 0 28px;
+    padding: 16px 20px;
+    background: var(--paper-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .aside::before {
+    content: "Reader's note — ";
+    font-style: normal;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--spine-4);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .author-break {
+    text-align: center;
+    margin: 44px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .author-break::before, .author-break::after {
+    content: "◆";
+    color: var(--leaf);
+    margin: 0 14px;
+    font-size: 0.6rem;
+    vertical-align: middle;
+  }
+
+  .the-end {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--cover-dark);
+    margin: 40px 0 0;
+  }
+
+  /* ---------- Story footer / CTA ---------- */
+  .story-cta {
+    background: var(--cover);
+    color: var(--paper);
+    padding: 56px 0;
+    margin-top: 64px;
+    text-align: center;
+  }
+  .story-cta h3 { color: var(--paper); font-size: 1.4rem; margin-bottom: 12px; }
+  .story-cta p { color: rgba(245,239,221,0.8); max-width: 50ch; margin: 0 auto 24px; line-height: 1.6; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold); color: var(--cover-dark);
+    text-decoration: none; padding: 13px 26px; border-radius: 999px;
+    font-family: 'Space Mono', monospace; font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    transition: transform 0.2s ease;
+  }
+  .btn:hover, .btn:focus-visible { transform: translateY(-2px); }
+  .btn.ghost { background: transparent; color: var(--paper); border: 1px solid rgba(245,239,221,0.4); margin-left: 12px; }
+
+  footer.site-footer {
+    background: var(--cover-dark);
+    color: rgba(245,239,221,0.75);
+    padding: 32px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  footer.site-footer a { color: var(--gold); text-decoration: none; }
+
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+
+  @media (max-width: 640px) {
+    .wrap, .read { padding: 0 20px; }
+    .ribbon-inner { padding: 12px 20px; flex-direction: column; gap: 12px; }
+    .story-hero { padding: 40px 0 30px; }
+    .story-title { font-size: clamp(2rem, 10vw, 2.6rem); }
+    .chapter p { font-size: 1rem; }
+    .btn.ghost { display: inline-block; margin: 12px 0 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+  .chapter p.nodrop::first-letter { all: unset; }
+  .chapter-title { font-size: 1.5rem; font-weight: 600; margin: 0 0 20px; }
+  .story-byline { margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; }
+  .end-mark { text-align: center; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.3rem; color: var(--cover-dark); margin: 10px 0 0; }
+  .back-matter { margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(30,58,43,0.2); }
+  .back-matter .chapter { margin-bottom: 28px; }
+  .back-matter .chapter p { font-size: 0.98rem; color: var(--ink-soft); }
+  .back-matter .chapter p::first-letter { all: unset; }
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#section-1">Skip to story</a>
+
+<header class="ribbon">
+  <div class="ribbon-inner">
+    <a class="brand" href="../index.html#home">
+      <img src="../assets/story-icon.jpg" alt="Story Digital logo, an open book on a green circle">
+      <span class="brand-word">Story Digital</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="../index.html#home">Home</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#genre">Our Genre</a></li>
+        <li><a href="../index.html#share">Share a Story</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="story-hero">
+    <div class="read">
+      <a class="back-link" href="../index.html#genre-romance">&larr; Back to the shelf</a>
+      <div class="tag-row"><span class="tag">Romance</span></div>
+      <h1 class="story-title">Love at First Sight</h1>
+      <p class="story-meta">Short story · about 11 min read</p>
+      
+      <p class="story-dek">Shy Parker has never dared to chase love, until a new girl walks into his class.</p>
+    </div>
+  </section>
+
+  <section class="story-body">
+    <div class="read">
+
+      <article class="chapter" id="section-1">
+      <p>Parker, a young, sweet boy studied in Ford college. He had a group of friends whom he hanged out with often and had fun time. Parker was enthusiastic about exploring the world and the realm of relationships but never tried so because he was shy. His friends sometimes teased him about being single but he used to laugh it off good naturedly. Parker didn’t show it on the exterior but deep inside, he yearned for connection, for love, for acceptance.</p>
+      <p>One day he went to hangout with his friends at the mall, they were having a great time, enjoying their hangout. Suddenly, one of Parker’s friend said, “Come on dude, lets get you a girl.” Parker was caught off guard and felt a bit of heat rise to his cheeks, “Dude what?” Parker said, trying to make sure what he heard, while maintaining his composure. “Yeah bro, we can’t just let you stay single, can we?” another friend spoke up. “Oh shush guys, don’t worry about it.” Parker said with a chuckle, but his friends weren’t buying it. “No bro, we have to get you one.” They insisted and Parker’s protest grew weak. “Tell us bro, who do you like?” One of his friends inquired, “I- I like Lisa, from class” Parker confessed innocently. However, his friends burst into a fit of laughter, two of them giving a surprised and disapproving look. “Oh no bro, we didn’t expect that from you” one friend commented and another one added, “No way man, your standards are that low? Have you seen her? She isn’t even that pretty.”</p>
+      <p>Parker was taken aback by such criticism, he didn’t anticipate his friends to react so rudely all of a sudden. “Lisa? Really? No way Parker, you disappointed us” one friend said, shaking his head in disbelief while the other 3 chuckled and giggled at Parker’s choice. “No I mean, I don’t like her that much, you know, just a tad bit” Parker tried to recover but his friends didn’t spare him so easily, “No but you still like her, even if its a tad bit, don’t back down on your words now bro.” His friends said. That day after, Parker was devastated, he slowly even dropped his crush on Lisa and it worsened when she had to leave the college under mysterious circumstances. Parker decided to move on and he did, it was difficult at first but he managed to, soon enough, he had forgotten about his crush on Lisa and was focused on his academics.</p>
+      <p>Some months later, it was another normal day in class as students came in and sat on their respective seats. Parker sat down on his seat, waiting for the class to start. Professor Roberts came in, “Hello students, welcome to another class with me, today we have a new student here with us.” He looked at the doorframe and gestured for the student to come inside. Everyone was intrigued and Parker perked up, eager to know who it was. Soon, came in a girl, dressed in a black attire which hugged her figure perfectly, her blonde hair cascading down her back with perfection, her movements confident and flawless, her blue eyes scanned the room, taking in the appearance of her new classmates. Everyone was shocked by her beauty and the aura her presence exerted on the spot. “Hey guys, Madison here, nice to meet you all.” She spoke in her soft, soothing voice which calmed the hearts of those who listened. Parker was entranced by her beauty and voice. He felt his heart skip a beat and a warm feeling bloom in his chest when she made direct eye contact with him for a brief moment while scanning the classroom. “Ok Madison, please take a seat so we can began our lecture.” Professor Roberts instructed as Madison went to the back row and sat with the group of girls at the back of the class. Parker couldn’t help but steal a few glances at her when she didn’t notice him.</p>
+      <p>The class continued, students focused on learning new concepts meanwhile Parker’s focus was on the new girl. As much as he tried to focus on the lecture instead, his thoughts kept drifting back to Madison. After class, Parker was sitting on a bench with his classmate, Ali, talking about their school life when Ali inquired him about his sneaky glances at the new girl, Madison. “Bro, you like her, don’t you?” Ali asked with a slight smirk. “What? N-no I don’t, she is new and we haven’t even met yet.” Parker swiftly defended himself and Ali thankfully believed him. That’s when Madison was passing them nearby, surrounded by a couple of girls from the class, giggling about something while talking to them. “She looks quite approachable, dude.” Ali teased Parker with a playful nudge to his elbow. “Oh shut up man, you’re such a tease, I told you I don’t like her.” Parker defended again playfully and Ali laughed, but deep down, Parker wanted to talk to her, he liked her...</p>
+      <p>During the sports lesson, the sports teacher announced that they would be playing badminton, but the twist was that it would be girls against boys. The class cheered in excitement and the teacher began listing the pairs. Surprisingly, Parker was paired with the new girl, Madison. “Alright! Next up, Parker from boys and Madison, from Girls!!” The sports teacher announced. Parker couldn’t believe what he had just heard, he got paired with the new girl which he secretly admired, he took a deep breath, getting himself steady and walked to the court, parallel to him, Madison walked to her side of the court, the other spectating students cheered behind them and shouting words of encouragement.</p>
+      <p>The match began and Madison and Parker began playing, trading shots, determined to win. Parker noticed how attractive Madison looked even as she played, her movements calculated and smooth, her blonde hair bounced with each manoeuvre she did, her body moving with grace. For a moment, Parker got distracted and Madison scored a point. She jumped in triumph, the girls cheering for her. She then looked at Parker, flashing him a quick smile and a wink, flexing her score. That move by Madison made Parker’s heart skip a beat, his breath hitched for a moment and blush almost appeared on his cheeks but he quickly regained composure, focusing on the game. Soon, Parker realised that he may be going too hard on Madison as he was locked in, he felt bad and purposefully let Madison win, pretending that she played well. Madison was happy that she beat her opponent, but she knew that Parker let her win.</p>
+      <p>After the match, Parker was at his locker, getting his water bottle when he noticed a group of girls standing in viewing distance of him from the corner of his eye. He curiously glanced in the direction and saw Madison, standing in between, surrounded by girls, giggling and talking. “He literally let you win, such a naive boy.” One of the girls said to Madison and she grinned, “Yeah, he was so innocent.” Madison replied, chuckling. At that moment, Parker felt a surge of adrenaline course through his veins, he unexpectedly gained a bit of confidence to approach the group of girls. “Hi guys” he said with a smile. “Oh hey parker” Krystal, his classmate greeted back with a smile. Madison and other girls looked at Parker, a bit surprised by his sudden appearance. “I want to talk to you, Madison” Parker said, somehow having confidence. “Oh me? Sure, go ahead” Madison responded in her soft voice which made Parker a bit flustered at first but he managed to confess, “I, uhm, like you.”</p>
+      <p>The group fell silent for a moment, all of the girls shocked, looking at Madison, awaiting her response to the confession from Parker. Parker felt his heart race in his chest as he confessed. “Oh that’s sweet but, unfortunately for you, I am not looking forward to anything like that, sorry.” Madison replied, almost bluntly. Parker felt as if he had been shot at his heart due to the rejection, the girls exploded into hysterical laughter at Parker being rejected on the spot. Parker grew extremely embarrassed, he quickly exited the scene, “Oh, uh, sorry.” He uttered and went away. Madison shrugged, but she felt a tad bit guilty for being so blunt with Parker and hurting him, her defences crumbled a bit but she quickly regained her composure, not wanting to feel that way. Parker sat in the class, looking a bit upset, his friend noticed the change in his demeanour and asked, “Dude, what’s wrong?” Parker shook his head, “Nothing” he replied but his friend persuaded on getting the actual news. “Fine..” Parker sighed, “I got rejected, by the new girl.” Parker told his friend who was completely shocked, “You tried to shoot your shot and got rejected?” his friend asked, completely in disbelief. “Yes.” Parker said in a monotone voice, clearly heartbroken by the turn of events. “You really like her?” His friend asked, curious to know. “Yes” Parker replied and his friend grew even curious, “But she is new and you guys didn’t even introduce yourselves to each other properly, maybe that’s why she said no.” His friend suggested and Parker knew it made sense.</p>
+      <p>“Try introducing yourself to her first, then shoot your shot.” His friend advised but Parker shook his head, “I already got rejected, how will I face her again?” he said, losing hope. “Don’t think like that man, just talk to her and take things slow, she will slowly soften up for you.” His friend said, trying his best to help out Parker. That day, at home, Parker was laying in his bed, his mind replaying the scene when he got rejected and it hurted him emotionally. Tears welled up in his eyes as he replayed the scene in his mind. He had left her crush on Lisa and now got rejected by Madison. He couldn’t get over this fact and it haunted him. He had sleepless nights, dreaming about being with Madison, holding her in his arms, knowing she is for him but the opposite reality hit him hard.</p>
+      <p>At school, Parker would try to act nonchalant but seeing Madison daily, in the same school, in the same class, was too much for him. Soon, Madison started noting the change in Parker’s behaviour and she felt a subtle hint of guilt in her chest. She tried to busy herself in work or friends but Parker’s innocent expression, his soft nature, the way he looked broken inside, stirred something deep within her, something primal that terrified yet excited Madison. As days turned into weeks, Madison felt herself struggling with her guilty feelings. She felt weak, vulnerable, a feeling she always hated, given her confident nature. The matter got so worse for Madison that she asked her mother for guidance. One day at home, she went to her mother. “Mom, I need to tell you something that’s been bothering me” she spoke, her mother looked at her with concern etched on her face, “What is it, my sweet child?”</p>
+      <p>Madison took a deep breath before continuing, “There’s this boy named Parker at my college and uh, he confessed that he liked me, but I rejected him and ever since, he looks so broken from the inside, I feel so guilty.” Her voice trembled lightly, hinting at the storm of emotion troubling her. She seeked guidance from her mother, “My dear child, love is a thing you should not deny, if he is into you and you are into him, then give it a chance.” Her mother instructed simply. “Love shouldn’t be judged by someone’s status, wealth or power. It should be based on acceptance, trust and communication” she continued and Madison felt as if she viewed the world completely differently now. “Thank you mom.” Madison said as she hugged her mother. Her mother wrapped her arms around her daughter, holding her close.</p>
+      <p>The very next day, Madison decided to meet with Parker somehow and apologise for her earlier rejection. She couldn’t deny the attraction she felt to him, simply because he was innocent, sweet and kind. It ignited a fire within Madison which threatened to consume her whole. Spotting Parker in the hallway, Madison called out, “Hey parker!” she waited for him to notice. Parker was surprised by the familiar voice as he turned around to see her, Madison, standing before him, a few feet away, his heart ached as he remembered that she rejected him. In that moment, their eyes locked, their hearts fluttered with feelings both harboured deep inside, their body language spoke volumes of hidden love for each other. Breaking the brief silence, Madison took a few, slow steps close, “Hey parker, I..I uh.. came to apologise” she spoke in her soft tone which soothed Parker’s ear and soul. “Apologise?” he asked, curious. “For, for rejecting you, for being rude.” Madison said with an apologetic look and Parker had an unreadable expression. “Look parker, I am sorry for, for judging you so quickly at that moment, over time, I got to know more about you through your peers and you seem like a great guy.” Parker’s expression softened, he looked at Madison with a tender look in his eyes, a soft smile gracing his lips. When Madison looked at Parker, her breath hitched, the way he was looking at her with tenderness made her soften up even more. “I still like you, Madison.” Parker confessed again and Madison gasped softly, “You do?” Parker nodded and Madison felt her eyes fill with unshed tears of joy and disbelief, “I love you too, Parker” With that, she closed the remaining distance between them, wrapping her arms around his neck and pressing her lips to his in a soft, tender—sweet kiss. Parker was surprised by the sudden intimacy but enjoyed it nonetheless, he wrapped his arms around her back, holding her close as they both shared their first kiss, filled with love and acceptance. Breaking the kiss gently, Madison panted lightly, her chest heaving, she gazed up at Parker with adoring eyes, reaching her hand up to his face to caress his cheek. “You’re so sweet, Parker” Madison said softly, her lips embracing a blissful smile. Parker smiled warmly, his hand tracing gentle patterns on her back, “You too, Madison, you’re beautiful.”</p>
+      <p>Madison’s smile widened as she nuzzled into his embrace, feeling a strong protective urge for him. “This is perfect, just us, together.” Madison sighed, smiling with satisfaction, knowing her mother’s guidance made her find her true love. Parker smiled lovingly, knowing his friends suggestion led him here to win back Madison’s heart.</p>
+      </article>
+
+      <p class="end-mark">The End</p>
+
+      
+
+    </div>
+  </section>
+
+  <section class="story-cta">
+    <div class="wrap">
+      <h3>Thanks for reading.</h3>
+      <p>New stories go up on Instagram first. Follow along to catch the next one as soon as it is posted.</p>
+      <a class="btn" href="https://www.instagram.com/story._.digital" target="_blank" rel="noopener">Follow on Instagram</a>
+      <a class="btn ghost" href="../index.html#genre-romance">Back to the shelf</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; 2026 Story Digital. All stories original. <a href="../index.html#home">Back to Story Digital</a></div>
+</footer>
+
+</body>
+</html>

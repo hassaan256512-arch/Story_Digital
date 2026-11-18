@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Haunted Hospital — Story Digital</title>
+<meta name="description" content="A paranormal investigator explores a hospital that has been abandoned for five years, ever since everyone inside vanished overnight.">
+<link rel="icon" type="image/jpeg" href="../assets/story-icon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F5EFDD;
+    --paper-soft: #ECE3C6;
+    --cover: #1E3A2B;
+    --cover-dark: #142A1E;
+    --leaf: #B7D93A;
+    --gold: #E7B93A;
+    --ink: #262318;
+    --ink-soft: #55503f;
+    --spine-4: #8C2F2F;
+    --max-w: 1120px;
+    --read-w: 700px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    margin: 0;
+    color: var(--cover-dark);
+  }
+
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+  .read { max-width: var(--read-w); margin: 0 auto; padding: 0 32px; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--cover); color: var(--paper);
+    padding: 10px 16px; z-index: 999;
+  }
+  .skip-link:focus { left: 16px; top: 16px; }
+
+  /* ---------- Ribbon nav (matches main site) ---------- */
+  .ribbon {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--cover);
+    border-bottom: 3px solid var(--gold);
+  }
+  .ribbon-inner {
+    max-width: var(--max-w); margin: 0 auto; padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand img { width: 42px; height: 42px; border-radius: 50%; display: block; border: 2px solid var(--gold); }
+  .brand-word { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.15rem; color: var(--paper); }
+  .nav-links { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  .nav-links a { text-decoration: none; color: var(--paper); opacity: 0.85; }
+  .nav-links a:hover, .nav-links a:focus-visible { opacity: 1; }
+
+  /* ---------- Story hero ---------- */
+  .story-hero {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid rgba(30,58,43,0.15);
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Space Mono', monospace; font-size: 0.76rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-soft); text-decoration: none; margin-bottom: 26px;
+  }
+  .back-link:hover, .back-link:focus-visible { color: var(--spine-4); }
+
+  .tag-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 5px 12px; border-radius: 999px;
+    background: var(--cover); color: var(--paper);
+  }
+  .tag.alt { background: var(--paper-soft); color: var(--cover-dark); border: 1px solid rgba(30,58,43,0.2); }
+
+  .story-title {
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--spine-4);
+  }
+  .story-meta {
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .story-dek {
+    margin-top: 22px;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* ---------- Chapters ---------- */
+  .story-body { padding: 56px 0 20px; }
+  .chapter { margin-bottom: 54px; }
+  .chapter-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--leaf);
+    background: var(--cover-dark);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .chapter h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .chapter p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin: 0 0 20px;
+    color: var(--ink);
+  }
+  .chapter p:first-of-type::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 3.1rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.8;
+    margin: 6px 8px 0 0;
+    color: var(--spine-4);
+  }
+
+  .aside {
+    margin: 8px 0 28px;
+    padding: 16px 20px;
+    background: var(--paper-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .aside::before {
+    content: "Reader's note — ";
+    font-style: normal;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--spine-4);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .author-break {
+    text-align: center;
+    margin: 44px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .author-break::before, .author-break::after {
+    content: "◆";
+    color: var(--leaf);
+    margin: 0 14px;
+    font-size: 0.6rem;
+    vertical-align: middle;
+  }
+
+  .the-end {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--cover-dark);
+    margin: 40px 0 0;
+  }
+
+  /* ---------- Story footer / CTA ---------- */
+  .story-cta {
+    background: var(--cover);
+    color: var(--paper);
+    padding: 56px 0;
+    margin-top: 64px;
+    text-align: center;
+  }
+  .story-cta h3 { color: var(--paper); font-size: 1.4rem; margin-bottom: 12px; }
+  .story-cta p { color: rgba(245,239,221,0.8); max-width: 50ch; margin: 0 auto 24px; line-height: 1.6; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold); color: var(--cover-dark);
+    text-decoration: none; padding: 13px 26px; border-radius: 999px;
+    font-family: 'Space Mono', monospace; font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    transition: transform 0.2s ease;
+  }
+  .btn:hover, .btn:focus-visible { transform: translateY(-2px); }
+  .btn.ghost { background: transparent; color: var(--paper); border: 1px solid rgba(245,239,221,0.4); margin-left: 12px; }
+
+  footer.site-footer {
+    background: var(--cover-dark);
+    color: rgba(245,239,221,0.75);
+    padding: 32px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  footer.site-footer a { color: var(--gold); text-decoration: none; }
+
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+
+  @media (max-width: 640px) {
+    .wrap, .read { padding: 0 20px; }
+    .ribbon-inner { padding: 12px 20px; flex-direction: column; gap: 12px; }
+    .story-hero { padding: 40px 0 30px; }
+    .story-title { font-size: clamp(2rem, 10vw, 2.6rem); }
+    .chapter p { font-size: 1rem; }
+    .btn.ghost { display: inline-block; margin: 12px 0 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+  .chapter p.nodrop::first-letter { all: unset; }
+  .chapter-title { font-size: 1.5rem; font-weight: 600; margin: 0 0 20px; }
+  .story-byline { margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; }
+  .end-mark { text-align: center; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.3rem; color: var(--cover-dark); margin: 10px 0 0; }
+  .back-matter { margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(30,58,43,0.2); }
+  .back-matter .chapter { margin-bottom: 28px; }
+  .back-matter .chapter p { font-size: 0.98rem; color: var(--ink-soft); }
+  .back-matter .chapter p::first-letter { all: unset; }
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#section-1">Skip to story</a>
+
+<header class="ribbon">
+  <div class="ribbon-inner">
+    <a class="brand" href="../index.html#home">
+      <img src="../assets/story-icon.jpg" alt="Story Digital logo, an open book on a green circle">
+      <span class="brand-word">Story Digital</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="../index.html#home">Home</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#genre">Our Genre</a></li>
+        <li><a href="../index.html#share">Share a Story</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="story-hero">
+    <div class="read">
+      <a class="back-link" href="../index.html#genre-horror">&larr; Back to the shelf</a>
+      <div class="tag-row"><span class="tag">Horror</span></div>
+      <h1 class="story-title">The Haunted Hospital</h1>
+      <p class="story-meta">Short story · about 11 min read</p>
+      
+      <p class="story-dek">A paranormal investigator explores a hospital that has been abandoned for five years, ever since everyone inside vanished overnight.</p>
+    </div>
+  </section>
+
+  <section class="story-body">
+    <div class="read">
+
+      <article class="chapter" id="section-1">
+      <p>Krystal, a young paranormal investigator arrived at a abandoned hospital which had been out of service since 5 years due to classified reasons, hidden from the public and media. The patients and staff seemingly vanished overnight, leaving many people confused and sparking a lot of controversies where people even thought of a possible Alien intervention.</p>
+      <p>However, without proof, no one could make an official statement to describe the case of the abandoned hospital. Krystal decided to change that and by putting herself in harms way, she was determined to go on and explore the site herself. She spent hours, researching about the hospital’s location and history but couldn’t find any solid hint of anything that could potentially describe the sudden abandonment of the hospital.</p>
+      <figure class="story-figure"><img src="../assets/story-images/the-haunted-hospital-1.jpg" alt="A decayed hospital corridor with debris and stains on the floor." loading="lazy"></figure>
+      <p>It was 8 am in the morning and Krystal stepped out of her vehicle alone. She was a daring woman who liked to explore such eerie sites alone. Gathering her camera and other essential tools, she made her way to the entrance which was rusty and moss laden. Taking a deep breath and mentally preparing herself, she pushed open the doors and went inside. The atmosphere inside seemed normal, a mix of warm and cold. The area was dead silent and the hallways were mostly dark or hard some flickering lights in them, giving an apocalyptic vibe. At some spots, debris had fallen and chunks of concrete were scattered. Despite this, Krystal moved forward to explore, she got her camera ready and started recording the intro of her video, “Hey guys, Krystal here and today I am going to be exploring this haunted hospital where patients and staff disappeared for some unknown reason. Wish me luck.”</p>
+      <p>Just as Krystal said that, she then held her camera in her left hand and started exploring. “This place gives me the weird vibes” She whispered to the camera as she kept moving through the abandoned building all alone. Her footsteps caused occasional crunch of debris under her shoes but she kept going.</p>
+      <figure class="story-figure"><img src="../assets/story-images/the-haunted-hospital-2.jpg" alt="An abandoned hospital room with a scanner and a torn-up bed." loading="lazy"></figure>
+      <p>Eventually, she reached into a room and the view was horrifying. Hospital bed was destroyed with dried blood on the sheets, an MRI machine was malfunctioned and out of order, the lights flickered ominously. “Oh god, look at this guys” Krystal spoke to the camera and showed the devastated room to the camera. There was no sign of life whatsoever, torn papers scattered across the desk, covered in ink and blood. Krystal’s gaze locked on to one specific paper, she picked it up and it happened to be a report of a patient. “Emily, 55kgs, 20 years old, 5 feet 7 inches, female, diagnosed with cancer” Krystal read the information on the paper with sorrow and grief in her voice, she then read the date and was shocked ‘Report generated: 2/1/2020’ The report was from 5 years ago, exactly the time told when all patient and staff suddenly disappeared and the hospital was abandoned. Krystal was shocked to see this, she folded the paper and tucked it into her pocket immediately, “Oh my goodness guys, I just found a major evidence” she spoke to the camera, catching the moment on cam. She then looked around with renewed energy, hoping to find anything else from that room but unfortunately, she didn’t find anything useful.</p>
+      <p>Suddenly, a sound from outside caught her attention and she quickly bolted out of the room but saw nothing, the sound felt like something fell, but from where?</p>
+      <p>After searching around for some minutes, she made her way to another room where she suspected the sound to have came from. She entered the room to find similar setting. Another hospital bed was ruined, its sheets torn and a bit of blood dried on it. “What the heck actually happened here?” Krystal spoke to herself more than the camera as she continued to explore the room, hoping that she would find anything useful in here. While observing, she heard footsteps as if something or someone ran across the hallway outside the room. Krystal’s heartbeat doubled, her eyes widened. She immediately picked up her camera and ran out of the room into the hallway to see who caused those footsteps but she saw nothing once again.</p>
+      <p>Krystal started to think that she was going paranoid because she was exploring an abandoned building all alone but she didn’t give up her exploration. Glancing at her watch, she realized it was already 12pm, around 4 hours had passed since Krystal had arrived but it didn’t make sense to her, how did 4 hours pass so quickly and Krystal had only managed to check a handful of rooms while there being hundreds of others left unexplored.</p>
+      <p>Another realization dawned on her that she won’t be done until night and at that time, the darkness outside would make her return to home, hazardous.</p>
+      <p>One side of her screamed to just pack up by 4 pm and leave before the dark arrives but another, more daring side urged her to stay and complete her exploration even if she has to return in the dangerous darkness of the night. Krystal fell into an internal debate with herself, she contemplated whether to return or not early because if she did return early, then people would criticize her attempt for exploring in the first place if she couldn’t complete her objective. However, if she finished her exploration, she wouldn’t face criticism but would have to face the hazards of returning at night since the journey is long.</p>
+      <p>Finally, Krystal made up her mind, she was going to finish her exploration whatsoever and face the inevitable darkness, only to keep her fame and for the entertainment of her viewers, she put her life at risk. With adrenaline coursing through her veins, she resumed her exploration, determined not to get distracted as she got dead serious. She went into a laboratory room and saw broken tubes, apparatus and some glass shards scattered on the main table and the floor. She carefully avoided getting something plunged into her skin and looked around the room. A subtle sound pierced the silence, causing Krystal to freeze dead in her tracks, she knew the sound came from the room she was in but didn’t know what caused it. However, that changed quickly as she saw something like a shadow, or something that resembled a shadow.</p>
+      <p>Krystal burst out of the room and ran as fast as she could. She felt her heart pumping madly and her muscles worked overtime to support her speed, she didn’t even glance back but just kept running. That one encounter with something spooked her so much that she ran blindly and was now far away from the laboratory room, she stopped to catch her breath, her chest heaving and her face embraced an exhausted look, “Guys you won’t believe, I.. I swear I saw someone in that room or something, I just don’t know what it is but I am sure it is something, I don’t know if it was caught on camera but genuinely I am freaked out of my soul, I am not even lying.”</p>
+      <p>Small tears filled her eyes due to the terror but she wiped them off, not wanting to show her vulnerable side to the camera and subsequently the audience. She wanted to go back home but knew she couldn’t as she had made the commitment to stay and finish her exploration. She then made her way in the opposite wing of the building where she found the administration room. Her eyes light up at the sight and she wasted no time and went in. The admin room was oddly a bit better in condition, compared to the other rooms which felt like they had been through a warzone. Krystal opened drawers and cabinets to find any piece of evidence to collect and her work paid off when she found an ID, ‘Dr Lil Tim, ENT specialist, ID Issued: 2/1/2020’ Upon reading the information, Krystal noticed the date, it matched the report of a patient she found earlier, she quickly took out the report from her pocket and read it, ‘2/1/2020’. This confused Krystal, she thought of a possible connection between the patient and the doctor but it didn’t make sense because the Doctor’s ID said he was an ENT specialist while the patient, Emily, was diagnosed with Cancer.</p>
+      <p>Anyhow, Krystal quickly tucked the pieces of evidence back into her pocket but then she realized something. If the Doctor ID was in the admin room, that means the Doctor himself never got the ID because if he disappeared, the ID would have disappeared with him. Krystal didn’t give much thought to the endless possibilities, instead, she focused on gathering more evidence of what could’ve happened 5 years ago. She found another document hidden in a drawer, she quickly read it, ‘Biohazard leak! All systems to be shut down, contamination spreading will cause death, evacuate.’</p>
+      <p>The document seemed like an order which never reached its intended location, but Krystal now knew what happened and it sounded painful. Still, she wasn’t sure as to how the staff and patients disappeared. She saw a lifeless computer sitting on the main desk and approached it. “Seems like it is lacking power.” Krystal plugged the lead into the switch but nothing happened, she felt disappointed but then suddenly, the screen flickered on and asked for an ID to be input. She didn’t know which ID to input but then remembered that she had collected a Doctor’s ID and she quickly input the ID number. The screen displayed a document which shocked Krystal. ‘This is Dr Tim writing, Mysterious sighting reported in main lobby, people have been heard screaming and some suddenly vanishing into thin air, a biohazard leak reported, I have a young female patient with me, requesting urgent back...’</p>
+      <p>The document was incomplete but seemed to be a report of the events that happened on the day when the hospital was abandoned, what was even more shocking for Krystal was that the name and date on the document, matched those on the Doctor’s ID she had found. ‘Dr Lil Tim’ and ‘2/1/2020’. This spooked Krystal out of her body, she vigorously scanned the ID and then the document displayed on screen and both, the name and the date were same...</p>
+      <p>A chill ran down her spine as she couldn’t believe the amount of evidence she had discovered. The date on the patient’s report, Doctor’s ID and the document, were the same, ‘2/1/2020’ but something came to Krystal’s mind. The doctors ID read that it was issued on the same date but that meant that Doctor Lil Tim was a new Doctor who was hired at the hospital and whatever happened on that day, he consequently vanished before even starting the job and he was desperately trying to convey the message to helpline number but didn’t manage to. Along with that, the message mentioned a young female patient but the name wasn’t specified. Krystal knew she found the report of a patient named Emily who seemed young according to the date written on the report, so she assumed that Doctor Tim was trying to provide assistance to her but couldn’t. This struck another thought in Krystal’s mind which she had before as well, that Doctor Tim was an ENT specialist and Emily was diagnosed with cancer, it didn’t make sense for Doctor Tim to be assisting Emily.</p>
+      <p>Krystal was in deep sorrow and empathy but there was no one there to offer it to. She glanced at the time and realized it was near evening already, around 5:30 pm. She had gathered monumental evidence about what potentially could’ve happened on ‘2/1/2020’ that left this hospital in ruins. She exited the administration room and let out a deep sigh. She had unexpectedly completed her exploration before night struck and so, she decided to go back. She approached the main doors but her blood ran cold. They wouldn’t budge...</p>
+      <p>She vigorously yanked on the door handle but to no avail. It was draining her energy and strength instead, tears filled her eyes as she panicked, not wanting to accept the brutal reality that she was indeed, Trapped...</p>
+      <p>“Open the damn up!” she growled in anger but the door felt like it was tightly sealed with no way out. She fell to the ground in defeat, her shoulders slumping and arms aching from the intense pulling. She took out her phone and tried to call for help but of course, there were no signals. Krystal was now stuck in a dire situation, her mind going blank due to panic and stress of the harsh reality she was in. Suddenly, she heard something coming from a room, it sounded like something was buzzing or humming. Intrigued, she slowly got up and with measured steps, made her way to the room. A faint glow was visible from the slightly ajar door and as soon as she pushed it open, she stopped dead in her tracks. She saw a person, presumably a Doctor, standing right before a portal, his eyes blazing with otherworldly light. He let out an ominous chuckle, “Seems like you have discovered about me, huh?” he asked from Krystal who was caught off guard, “Doctor...Tim?” she managed to utter with a shaky voice and the Doctor nodded subtly with a devious grin, “You shouldn’t have come here in the first place, Krystal”</p>
+      <p>Krystal was taken aback by the Doctor knowing her name, she didn’t expect it simply. She screamed and tried running away but as soon as she turned back, she saw a crowd around her, of Patients, Doctors, nurses and other staff, all seemed to be walking corpses and in lead, was a young patient, presumably Emily. Krystal screamed at the top of her lungs as she was trapped. The staff and patients giggled and chuckled demonically and chanted, “You’ve made a mistake, you will be a part of us”</p>
+      <p>Krystal was then pushed back by the squirming masses as they forced her into the room where the portal was, Dr Tim grinned mischievously and as soon as Krystal got near, he pushed her into the portal, silencing her screams once in for all. The hospital went dead silent again, the hallways went empty, the rooms shrouded back by darkness and Krystal... she was now an addition to the people who had disappeared five years ago on ‘2/1/2020’...</p>
+      </article>
+
+      <p class="end-mark">The End</p>
+
+      
+
+    </div>
+  </section>
+
+  <section class="story-cta">
+    <div class="wrap">
+      <h3>Thanks for reading.</h3>
+      <p>New stories go up on Instagram first. Follow along to catch the next one as soon as it is posted.</p>
+      <a class="btn" href="https://www.instagram.com/story._.digital" target="_blank" rel="noopener">Follow on Instagram</a>
+      <a class="btn ghost" href="../index.html#genre-horror">Back to the shelf</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; 2026 Story Digital. All stories original. <a href="../index.html#home">Back to Story Digital</a></div>
+</footer>
+
+</body>
+</html>

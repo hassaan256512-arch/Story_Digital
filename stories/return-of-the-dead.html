@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Return of the Dead — Story Digital</title>
+<meta name="description" content="Three urban explorers fly to Indonesia to find out whether the legend of the pocong is real.">
+<link rel="icon" type="image/jpeg" href="../assets/story-icon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F5EFDD;
+    --paper-soft: #ECE3C6;
+    --cover: #1E3A2B;
+    --cover-dark: #142A1E;
+    --leaf: #B7D93A;
+    --gold: #E7B93A;
+    --ink: #262318;
+    --ink-soft: #55503f;
+    --spine-4: #8C2F2F;
+    --max-w: 1120px;
+    --read-w: 700px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    margin: 0;
+    color: var(--cover-dark);
+  }
+
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+  .read { max-width: var(--read-w); margin: 0 auto; padding: 0 32px; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--cover); color: var(--paper);
+    padding: 10px 16px; z-index: 999;
+  }
+  .skip-link:focus { left: 16px; top: 16px; }
+
+  /* ---------- Ribbon nav (matches main site) ---------- */
+  .ribbon {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--cover);
+    border-bottom: 3px solid var(--gold);
+  }
+  .ribbon-inner {
+    max-width: var(--max-w); margin: 0 auto; padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand img { width: 42px; height: 42px; border-radius: 50%; display: block; border: 2px solid var(--gold); }
+  .brand-word { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.15rem; color: var(--paper); }
+  .nav-links { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  .nav-links a { text-decoration: none; color: var(--paper); opacity: 0.85; }
+  .nav-links a:hover, .nav-links a:focus-visible { opacity: 1; }
+
+  /* ---------- Story hero ---------- */
+  .story-hero {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid rgba(30,58,43,0.15);
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Space Mono', monospace; font-size: 0.76rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-soft); text-decoration: none; margin-bottom: 26px;
+  }
+  .back-link:hover, .back-link:focus-visible { color: var(--spine-4); }
+
+  .tag-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 5px 12px; border-radius: 999px;
+    background: var(--cover); color: var(--paper);
+  }
+  .tag.alt { background: var(--paper-soft); color: var(--cover-dark); border: 1px solid rgba(30,58,43,0.2); }
+
+  .story-title {
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--spine-4);
+  }
+  .story-meta {
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .story-dek {
+    margin-top: 22px;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* ---------- Chapters ---------- */
+  .story-body { padding: 56px 0 20px; }
+  .chapter { margin-bottom: 54px; }
+  .chapter-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--leaf);
+    background: var(--cover-dark);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .chapter h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .chapter p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin: 0 0 20px;
+    color: var(--ink);
+  }
+  .chapter p:first-of-type::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 3.1rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.8;
+    margin: 6px 8px 0 0;
+    color: var(--spine-4);
+  }
+
+  .aside {
+    margin: 8px 0 28px;
+    padding: 16px 20px;
+    background: var(--paper-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .aside::before {
+    content: "Reader's note — ";
+    font-style: normal;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--spine-4);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .author-break {
+    text-align: center;
+    margin: 44px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .author-break::before, .author-break::after {
+    content: "◆";
+    color: var(--leaf);
+    margin: 0 14px;
+    font-size: 0.6rem;
+    vertical-align: middle;
+  }
+
+  .the-end {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--cover-dark);
+    margin: 40px 0 0;
+  }
+
+  /* ---------- Story footer / CTA ---------- */
+  .story-cta {
+    background: var(--cover);
+    color: var(--paper);
+    padding: 56px 0;
+    margin-top: 64px;
+    text-align: center;
+  }
+  .story-cta h3 { color: var(--paper); font-size: 1.4rem; margin-bottom: 12px; }
+  .story-cta p { color: rgba(245,239,221,0.8); max-width: 50ch; margin: 0 auto 24px; line-height: 1.6; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold); color: var(--cover-dark);
+    text-decoration: none; padding: 13px 26px; border-radius: 999px;
+    font-family: 'Space Mono', monospace; font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    transition: transform 0.2s ease;
+  }
+  .btn:hover, .btn:focus-visible { transform: translateY(-2px); }
+  .btn.ghost { background: transparent; color: var(--paper); border: 1px solid rgba(245,239,221,0.4); margin-left: 12px; }
+
+  footer.site-footer {
+    background: var(--cover-dark);
+    color: rgba(245,239,221,0.75);
+    padding: 32px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  footer.site-footer a { color: var(--gold); text-decoration: none; }
+
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+
+  @media (max-width: 640px) {
+    .wrap, .read { padding: 0 20px; }
+    .ribbon-inner { padding: 12px 20px; flex-direction: column; gap: 12px; }
+    .story-hero { padding: 40px 0 30px; }
+    .story-title { font-size: clamp(2rem, 10vw, 2.6rem); }
+    .chapter p { font-size: 1rem; }
+    .btn.ghost { display: inline-block; margin: 12px 0 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+  .chapter p.nodrop::first-letter { all: unset; }
+  .chapter-title { font-size: 1.5rem; font-weight: 600; margin: 0 0 20px; }
+  .story-byline { margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; }
+  .end-mark { text-align: center; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.3rem; color: var(--cover-dark); margin: 10px 0 0; }
+  .back-matter { margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(30,58,43,0.2); }
+  .back-matter .chapter { margin-bottom: 28px; }
+  .back-matter .chapter p { font-size: 0.98rem; color: var(--ink-soft); }
+  .back-matter .chapter p::first-letter { all: unset; }
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#section-1">Skip to story</a>
+
+<header class="ribbon">
+  <div class="ribbon-inner">
+    <a class="brand" href="../index.html#home">
+      <img src="../assets/story-icon.jpg" alt="Story Digital logo, an open book on a green circle">
+      <span class="brand-word">Story Digital</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="../index.html#home">Home</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#genre">Our Genre</a></li>
+        <li><a href="../index.html#share">Share a Story</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="story-hero">
+    <div class="read">
+      <a class="back-link" href="../index.html#genre-horror">&larr; Back to the shelf</a>
+      <div class="tag-row"><span class="tag">Horror</span></div>
+      <h1 class="story-title">Return of the Dead</h1>
+      <p class="story-meta">Short story · about 19 min read</p>
+      
+      <p class="story-dek">Three urban explorers fly to Indonesia to find out whether the legend of the pocong is real.</p>
+    </div>
+  </section>
+
+  <section class="story-body">
+    <div class="read">
+
+      <article class="chapter" id="section-1">
+      <span class="chapter-number">June 17th, 1999</span>
+      <p>Maya sat in her apartment with her team which consisted of only two other people apart from her. Her friend Stacy and her friend Anna who were all passionate urban explorers since birth, it was in their DNA. Together, the group had been on countless adventure packed expeditions to many places even if they were forbidden to enter.</p>
+      <p>From exploring haunted places in their home city to haunted places all across America, they had seen it all. Currently, they were editing their video which they recently recorded. It was of an abandoned school which they visited the day before and had to upload the video on their YouTube channel.</p>
+      <p>“It was fun, wasn’t it?” Stacy broke the silence, her eyes shining with excitement from earlier. “Yes it was, you almost tripped over that fence and it would have been caught on camera!” Maya erupted in heavy laughter, causing Anna to lose herself in giggles as well. “Stop it, I didn’t see it, okay?” Stacy defended herself but couldn’t stop her lips from twitching upward in a smile.</p>
+      <p>“Beep, boop and...posted!” Stacy exclaimed as she uploaded the video on their YouTube channel. Anna sighed, leaning back on the couch as if she had just finished lifting heavy wooden logs. “Finally, I am so tired after all that work.” Anna groaned dramatically, “Hello there diva, why are you so tired? You didn’t even do anything.” Anna smiled lazily and stretched out languidly, “I am just tired.” And with that, she dozed off.</p>
+      <p>“Wow, she actually slept so easily”, Stacy chuckled as Maya playfully rolled her eyes at Anna’s antics. “Well, I guess I will dose off too, bye sweetheart.” Stacy informed Maya before heading to the couch and pouncing on it, losing herself in a peaceful slumber.</p>
+      <p>“Heavy sleepers.” Maya commented before resuming her doom-scrolling through YouTube where she was watching horror videos. Suddenly, her eyes landed on one video from Indonesia of a man filming a real folklore while it was occurring. Maya’s interest grew and she made a mental note to tell about it to the other girls in the morning.</p>
+      </article>
+
+      <article class="chapter" id="section-2">
+      <span class="chapter-number">June 18th, 1999</span>
+      <p>The morning sun soon arose, casting a warm orange glow over the horizon. Sunlight crept through the gaps of the curtains of Maya’s apartment. Illuminating her face and causing her to wake up. She yawned and stretched like a cat does and sat up, glancing around to see Stacy and Anna dead asleep.</p>
+      <p>She got out of bed and woke the two up from their peaceful slumbers while they made such faces as if someone insulted their bloodline. “Good morning divas!” Maya said with a grin, amused at the way Anna and Stacy wanted to sleep more. “Gosh, let us rest.” Anna groaned playfully but Stacy smirked, “No baby, you’re not going to sleep now, get up quick. I have a plan.” Maya’s words made Anna eagerly get up, “Oh? A plan? Do tell me about it.” She said with childlike curiosity. Their chatter made Stacy wake up—looking like she came from the apocalypse with her hair dishevelled and nightwear ruined. “What’s going on?”</p>
+      <p>Stacy asked while rubbing her eyes, “Nothing much, Maya has a plan which she is teasing us about.” Anna answered and Maya joined in, “So I was watching this video online yesterday of an interesting folklore which supposedly originates from Indonesia and it goes like when someone dies, they are tied up in a white cloth but the knot has to be untied on the 40th day since the burial or else the dead rise back and ‘bounce’ towards the nearest human they see.”</p>
+      <p>Maya’s revelation sent shivers down Stacy and Anna’s spines, making them more intrigued about what Maya was talking about. “Dead bodies bouncing towards a human?” Anna probed further, “Precisely, and that’s what makes it more interesting, doesn’t it?” Stacy nodded in agreement. Maya then thought for a moment before her eyes lit up at an idea forming in her head, “How about we go explore it... for ourselves and find out if this is fake or true.” Stacy and Anna seemed more curious then excited.</p>
+      <p>“But what if its...fake...and we waste our money?” Stacy protested to which Maya answered, “You gotta do it for the viewers.” Anna seemed interested in going but also thought about it from Stacy’s perspective. However, her excitement to go overwhelmed her logical side of measuring the plan from Stacy’s point of view.</p>
+      </article>
+
+      <article class="chapter" id="section-3">
+      <span class="chapter-number">June 19th, 1999</span>
+      <p>Before they knew, the girls were preparing their clothes and accessories and packing it up in their luggage. Maya had booked the tickets prior to the flight which was in about 5 hours. The girls were used to this fast-paced procedure since they would occasionally travel thousands of miles across the U.S to visit haunted places.</p>
+      <p>They reached the airport and boarded the aircraft after which they took off towards Jakarta international airport. After suffering long hours of flight, they had finally made it to Indonesia. “This place is...unique!” Stacy shared her impression with the others, “I know right, but we aren’t here to admire the beauty, we are here to find the scary thing.” Maya chuckled as a taxi arrived, taking the three to their hotel.</p>
+      <p>In their hotel room, they sat and planned for the next couple of hours on where they would go and how they would try to hunt for the ‘pocong’. “Okay so I have this address of a village which is approximately 3-4 miles away from us. It is reported that the residents of this village have seen the infamous folklore, the ‘pocong’.” Maya told the other two who seemed eager to pay the village a visit. “But since its the dead coming back, shouldn’t they be able to be sighted in any graveyard?” Anna questioned but Maya didn’t have a strong answer, “Not sure about that, Anny, maybe we can find more about this folklore from the villagers themselves.”</p>
+      </article>
+
+      <article class="chapter" id="section-4">
+      <span class="chapter-number">June 20th, 1999</span>
+      <p>The very next day, the three were on their way to the alleged village where the pocong was sighted. It was yet another long drive but eventually they reached their destination and scanned their surroundings. The village seemed to be located in the middle of a small jungle, covered by bushes and vines which were sprawled over roofs of the wooden houses. Overall, the village didn’t really give a good impression to the girls. “Pocong katamu? Beberapa tetangga saya pernah melihatnya di malam hari” (Pocong you say? Some of my neighbours have seen it in the night.) Told one of the villager to the group, pointing to another man who looked like he was in his 40s but had experience.</p>
+      <p>The group then went to that man and inquired about the folklore to which the man told something interesting, “Ah! Pocong yang terkenal itu, aku telah melihatnya dengan mata kepala sindiri.” (Ah! The famous pocong, I have seen it with my eyes.) The girls leaned in with renewed interest, hoping to know more. “Pocong keluar pada malam hari dan mencari bantuan dari manusia terdekat yang dilihatnya” (The pocong comes out at night, it seeks help from the nearest human). The man explained further.</p>
+      <p>Definitely going to be an interesting exploration, thought the group as they ģlanced at the forests’ trees then back at the man. He asked if they were here to witness the creepy event themselves and the girls nodded eagerly, clearly wanting to see the pocong with their eyes and potentially catch it on camera. The man had an expression which suggested that he was contemplating something. After thinking for some time, he reluctantly agreed to let the girls explore but under supervision from him and other villagers who are experienced in dealing with the pocong.</p>
+      <p>He invited the group in his house for the evening, letting them stay until night arrived. As soon as the sky became dark and light disappeared from the earth, the girls activated their ghost hunting equipment. EMF meter, Spirit box, Camera, UV light, flashlight—you name it. The man seemed impressed and intrigued by the level of prepardness the girls showed. He personally had never seen such equipment before.</p>
+      <p>The night was cool since there were trees and bushes surrounding the village. The group was on full alert, their senses sharp, their eyes locking onto even the tiniest movement even if it was caused by the wind. The man wasn’t as tense because he had been through this multiple times and it was a normal thing for him. However, the girls were recording everything while talking to their audience through the camera, “So guys we are here in this village in indonesia near Jakarta in search of the Pocong ghost as many people here have actually confirmed its existence and presence.” Maya spoke softly, explaining the purpose of the video. Anna and Stacy were vigorously pointing their flashlights left and right, up and down—desperate to find something... or someone.</p>
+      <p>The night weared on and it was midnight, meaning the next day had already started. Stacy took a quick look at her watch, it was 12:00 a.m.</p>
+      </article>
+
+      <article class="chapter" id="section-5">
+      <span class="chapter-number">June 21st, 1999</span>
+      <p>Maya was slowly growing impatient as no such signs were appearing yet. The night was young and the cool breeze caressing their skins made Goosebumps erupt. Suddenly, everything felt silent—too silent, as if like the calm before the storm. Maya could hear the blood rushing in her ears due to the pin drop silence. Anna and Stacy noticed the subtle shift in the environment as well, their guts telling them that a sign had appeared.</p>
+      <p>The man knew something was up, he was simply too experienced in this. He informed the girls that the peak hour of activity had started, causing shivers to go up the groups’ spines. Their hearts hammered in their chests, gazes darting around nervously, senses sharp and adrenaline pumping through veins. “Nothing is appearing.” Said Anna who was also slowly losing her patience and Stacy nodded in agreement.</p>
+      <p>Suddenly, they heard a soft rustle of leaves in one of the bush near them, causing the group to stumble back in shock. The man noticed and knew exactly on what was happening. He didn’t flinch, instead he had an almost defensive like posture because anything could be in the bushes, from harmless animals to deadly predators, the possibilities were endless of who could be the cause of the sound. Maya quickly pointed her camera towards the bush she suspected, curiously glancing around the team to check if they heard the same sound. “What was that?” Stacy inquired as she stayed close to Anna for emotional support.</p>
+      <p>“Tetap diam” (Stay quiet). The man suddenly spoke as he moved forward to assess the situation. With cautious movement, he proceeded to go near the bush and with a solid stick he held in his hand, he hit the bush lightly, causing a racoon to jump out and run away. The group felt their hearts coming to their throat momentarily at the swift exit of the racoon. Soon, they broke into laughter, “You should have seen your face, Stacy.” Maya couldn’t keep it in and laughed hard at Stacy’s terrified expression.</p>
+      <p>“Well, we are not really gaining any signs here, can we move to a new location or something?” Anna asked and the man nodded, seeming confused himself, “Mungkin pocong itu tidak suka jika kita banyak berkumpul bersama, ayo kita pergi ke pemakaman terdekat” (It is possible the pocong doesn’t like a lot of us together, lets go to a nearby graveyard).</p>
+      <p>The group then proceeded towards a nearby graveyard as claimed by the local man. He lead them through the jungle, navigating his way until they reached an opening. The girls had no idea where they were headed and how to return back, they all relied on this one man who led them. The reliance of multiple girls on just one man far from civilization was scary and exhilarating.</p>
+      <p>On their way, Maya kept showing the surroundings to the viewers on camera as they inched closer to the graveyard. However, their journey wasn’t going to be so smooth. While showing the surroundings, Maya unfortunately got a bit distracted by the shape of a specific tree and the others kept walking forward, thinking she was following them. When Maya looked away from the tree, she realized she was the only one standing there in the middle of nowhere and her heart sank.</p>
+      <p>She quickly picked up her pace and tried following the others but fate today was not on her side. She saw two different paths ahead, one going to the left and one going to the right. Panic slowly set in her chest as she had to make a quick decision and choose the right path before the group went too further. “STACY!? ANNA!? HELLO!?” Maya practically screamed out, feeling as if she drew a lot of unwanted attention to herself but she received no response from her friends nor the man.</p>
+      <p>She then took out her phone and tried calling the girls but there were no signals in the jungle, “Of course no signal, gosh dammit!” Maya quickly set the phone back into her pocket, trying to guess the correct way herself. She went on the path going right—the group had actually gone left. She hurriedly made her way down the path, hoping to find her friends but even far away, only silence was to be observed. She looked back at the camera in panic, “This is hell, I lost them, guys.” She said to the viewers in panic but couldn’t get any help from there as well.</p>
+      <p>She kept sprinting until her stamina gave up and she reluctantly had to slow down till she came to a stop. Panting heavily, her chest heaving and her legs trembling from such a panicked run—still she saw no traces of any human nearby. She pointed her flashlight towards the ground and saw a trail of footsteps. A wave of hope flowed through her heart as she eagerly followed the trail of footprints in the soil. Her mind was convinced that she was on the right path and that she should keep going which Maya did.</p>
+      <p>After a while of walking, she came to a stop because the trail had come to an abrupt end leaving Maya completely stranded and left alone in the jungle—and worst of all was that she didn’t know her way back. Maya put her camera down and knelt down onto the ground herself, exhausted and overwhelmed from stress and anxiety. “God, why me, just why.” Maya murmured, her head starting to spin even though she tried to control her anxiety.</p>
+      <p>Suddenly, She heard soft stomping noises coming from nearby bushes and trees. Her eyes widened in terror, heart thumping against her chest, hands and feet trembling in nervousness until... a figure emerged, wrapped in a white cloth from head to toe. Maya’s world stopped for a moment as she simply stared the figure in front of her. Her mind struggling to process the rapid development which took place before her.</p>
+      <p>The figure in white though having its face and body hidden, turned towards Maya and paused briefly. The air was charged with an undercurrent of tension, Maya’s instincts were on alert and her legs were coiled to sprint away at any moment. She couldn’t believe that she was seeing the myth herself, the folklore which was only heard in stories till now—the Pocong. The figure abruptly broke the silence and began hopping towards Maya, exactly as described by the villager and people online. Maya’s breath caught in her throat, a scream which threatened to escape her lips. She swiftly turned around and began sprinting—not caring which direction she was headed, the camera dangling in her weak grip.</p>
+      <p>She made a mistake of looking back while running and her soul almost left her body by the sight of a literal dead body bouncing towards her on its own. The sight was enough to even make a brave person run in terror. Maya knew that the pocong wanted help, but she was alone, stranded and the fear gripped her heart too tightly.</p>
+      <p>Eventually, she reached an opening where she spotted what looked like a small cottage with a light visible in one of its windows. Maya sped up further, racing towards the cottage at her maximum speed with the pocong following close behind her. She spotted a man standing there at the cottage’s front door who also spotted Maya and quickly signalled with his hand.</p>
+      <p>Maya saw the signal and rushed towards the man as quickly as possible. That’s when she heard a growl emanating from the pocong chasing her which made her heart race more. Finally, she reached the cottage and the man quickly stepped aside, giving her way into the cottage going inside himself and closing the door shut behind them. Inside, the man held the door tightly as the pocong started ramming the door, wanting to get into the vicinity. Maya stared with wide eyes as the man held out the pocong.</p>
+      <p>After a few moments, the door stopped shaking and silence returned. The man let out a small sigh of relief before his gaze fixed on Maya— he seemed to speak some level of English. “You.. foreigner?” the man inquired and Maya eagerly nodded, “Yes, I am an American, here to explore the mystery of the pocong.” A wave of realization washed over the man as he spoke, “you...alone? No one else with you?”. Maya cleared her throat before speaking, “I came here with two of my friends and we started our exploration with a local man from a nearby village. However, I got lost in the jungle while heading towards a graveyard and... encountered the thing.” For a few seconds, the man didn’t speak anything, he just listened and noted the information provided by Maya.</p>
+      <p>“You know, its dangerous out there, especially pocong.” Maya then asked, “But, the local man from the village said that the pocong is not harmful.” The man seemed confused as well before telling, “Not all pocong harmless, some...dangerous, harmful to human.” Maya shuddered at the man’s words, her mind clouded with thoughts like “What is that pocong chasing her was harmful?” The man continued speaking, “You got lucky you found my place... or god knows what would happen.”</p>
+      <p>Maya buried her face in her hands for a moment, attempting to relax her frayed nerves and think of a way to connect back to her friends. That’s when Maya realizes that the camera she was holding is no longer with her...</p>
+      <p>Panic once more took control of her and she scanned her surroundings, the man noticed and got curious, “What happen?” but Maya was too busy to notice the man’s question, she then turned towards him and asked, “Have you seen any camera?” The man responded, “Camera? What is camera?” Maya let out a huff, trying to control her cortisol as well now. She got frustrated and grabbed her head, “Just kill me..” she murmured in frustration but then the man intervened and made her sit down on the couch.</p>
+      <p>“No kill, kill bad, you relax, I bring water.” The man brought water and Maya chugged it down, the cool liquid helping to soothe her parched throat. “Do you know a way back to the village?” she asked the man who nodded, “Ya, there is only one village in this area.”—“perfect, just take me there please.” Maya asked and the man took a quick glance outside of the window before gesturing for Maya to follow. Maya stood up and followed the man. They carefully navigated their way out of the cottage and back to their village.</p>
+      <p>Each step was taken with calculated decision as the pocong could be anywhere and could emerge at any moment. A stark reminder of how tense the situation was. They kept making their way to the village as the man led Maya through the same jungle again. After some time of walking, they eventually reached back towards the village and Maya saw no one at first glance. She was wondering why until the thought came to her mind that the villagers must be sleeping.</p>
+      <p>However, she wasn’t finding villagers, she was trying to find her friends who were lost to her. She remembered the house of the man who led them for the hunt of the Pocong and went to his door. Surprisingly, the door was unlocked, suggesting that someone was inside or someone must have paid a visit. In hopes, she opened the door to reveal the empty house behind it. Her hope died once again—it felt like as if reality itself was pranking her in real time.</p>
+      <p>She was completely hopeless now, having lost her friends, camera and connection, she felt utterly useless and stupid for getting distracted in the first place. The man standing beside her couldn’t understand the intense internal fight of emotions which was raging inside Maya. He simply stood there, observing Maya’s moves when the silence was broken once again. The sound of rustling leaves and crows flying away echoed through the night, catching the attention of the man and Maya.</p>
+      <p>The man frantically scanned his surroundings until his hunter eyes landed on the bouncing body—the pocong—the body in white. “Quick, get in!” the man spoke urgently and Maya complied, immediately closing the door behind her as the man came inside. “It follow us here.” The man told Maya, “Should we try getting rid of it?” Maya was caught off guard by the man’s proposal. “Seriously? Are we... trying to get rid of that thing!?” Maya inquired and the man responded in kind, “Yes, or else it follows us anywhere we go.”—“What’s the way of getting rid of it then?”—“We have to hug it.” Maya was left stunned by the man’s answer, shivering in fear, “No way in hell that I would ever hug that!” She spoke out, already backing off.</p>
+      <p>The man reassured her, “You don’t worry, I go hug it, you stay safe.” With that, the man proceeded towards the door, Maya suddenly spoke up, “Wait! Don’t hug it, what if its dangerous.” But the man was already outside the house. Maya stood in the doorway, watching as the man skilfully approached the pocong. “Take care of yourself.” The man said before advancing and hugging the pocong. Upon the embrace, the white cloth covering the body began spinning wildly, wrapping around the man as well and after a few seconds... the cloth fell to the ground with the body and the man... gone.</p>
+      <p>Maya’s scream of pure terror echoed through the village with villagers coming out of their homes in curiosity. They rushed to the sight where Maya was sitting on the ground, crying and clutching her head as if smacked. They asked her what happened while Maya tried explaining in her trembling voice, “The man, he hugged that pocong thing and they both VANISHED.” Her voice rose an octave higher as fresh tears spilled out of her eyes, unable to comprehend the loss of someone in front of her eyes.</p>
+      <p>That’s all Maya remembered before everything went black. The next thing she remembers was her waking up in an hospital where the doctors informed her that she had fainted because of extreme anxiety. After treatment, she was dispatched and returned to her hotel in Jakarta even though she missed her friends and was still in deep worry for their well being.</p>
+      </article>
+
+      <article class="chapter" id="section-6">
+      <span class="chapter-number">June 22nd, 1999</span>
+      <p>In her apartment room, she was going through the YouTube account which was managed by her and Stacy and Anna. Maya’s gaze landed on one shocking video mysteriously uploaded on 21st June, literally yesterday. Her mind went into another state of intense thinking, “Who uploaded this? How and why?” she was left with more questions than answers until she clicked the video.</p>
+      <p>The video started as normal, the same footage which Maya recorded up until stumbling upon the cottage and finding that man—but things in the video took a dark turn after that clip. Maya curiously watched the video which seemed to skip to show a graveyard and her eyes widened as she watched intently. The next clip showed two girls laying side by side and Maya covered her mouth with her hands as she recognised the girls to be no other than Stacy and Anna. The clip further showed the girls being wrapped in the same white clothing before being lowered into their respective graves.</p>
+      <p>At this point, Maya felt an intense pain in her chest, specifically in her heart and everything went black once again. Her dead body was found by the hotel staff a few days later and submitted it to the mortuary. After a few weeks, her burial was done by the mortuary staff since her family or friends weren’t there...</p>
+      <p>What started as an exciting journey for the group turned out far more disastrous and lethal, causing the group to lose their lives in the process and losing their YouTube channel which they spent years building. To this day, it remains unclear on what happened to that man who was leading Stacy and Anna... as the girls became nothing more than a relic of the past. Their channel now abandoned, but the question remains... who uploaded that video of Stacy and Anna being buried and who were the people burying them and most importantly, how did they get access to Maya’s camera which was left behind her.</p>
+      </article>
+
+      <p class="end-mark">The End</p>
+
+      
+
+    </div>
+  </section>
+
+  <section class="story-cta">
+    <div class="wrap">
+      <h3>Thanks for reading.</h3>
+      <p>New stories go up on Instagram first. Follow along to catch the next one as soon as it is posted.</p>
+      <a class="btn" href="https://www.instagram.com/story._.digital" target="_blank" rel="noopener">Follow on Instagram</a>
+      <a class="btn ghost" href="../index.html#genre-horror">Back to the shelf</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; 2026 Story Digital. All stories original. <a href="../index.html#home">Back to Story Digital</a></div>
+</footer>
+
+</body>
+</html>

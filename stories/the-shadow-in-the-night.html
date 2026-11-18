@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Shadow in the Night — Story Digital</title>
+<meta name="description" content="A detective hunts a killer who always seems to be one step ahead, in a city living in fear.">
+<link rel="icon" type="image/jpeg" href="../assets/story-icon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F5EFDD;
+    --paper-soft: #ECE3C6;
+    --cover: #1E3A2B;
+    --cover-dark: #142A1E;
+    --leaf: #B7D93A;
+    --gold: #E7B93A;
+    --ink: #262318;
+    --ink-soft: #55503f;
+    --spine-4: #8C2F2F;
+    --max-w: 1120px;
+    --read-w: 700px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    margin: 0;
+    color: var(--cover-dark);
+  }
+
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+  .read { max-width: var(--read-w); margin: 0 auto; padding: 0 32px; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--cover); color: var(--paper);
+    padding: 10px 16px; z-index: 999;
+  }
+  .skip-link:focus { left: 16px; top: 16px; }
+
+  /* ---------- Ribbon nav (matches main site) ---------- */
+  .ribbon {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--cover);
+    border-bottom: 3px solid var(--gold);
+  }
+  .ribbon-inner {
+    max-width: var(--max-w); margin: 0 auto; padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand img { width: 42px; height: 42px; border-radius: 50%; display: block; border: 2px solid var(--gold); }
+  .brand-word { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.15rem; color: var(--paper); }
+  .nav-links { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  .nav-links a { text-decoration: none; color: var(--paper); opacity: 0.85; }
+  .nav-links a:hover, .nav-links a:focus-visible { opacity: 1; }
+
+  /* ---------- Story hero ---------- */
+  .story-hero {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid rgba(30,58,43,0.15);
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Space Mono', monospace; font-size: 0.76rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-soft); text-decoration: none; margin-bottom: 26px;
+  }
+  .back-link:hover, .back-link:focus-visible { color: var(--spine-4); }
+
+  .tag-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 5px 12px; border-radius: 999px;
+    background: var(--cover); color: var(--paper);
+  }
+  .tag.alt { background: var(--paper-soft); color: var(--cover-dark); border: 1px solid rgba(30,58,43,0.2); }
+
+  .story-title {
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--spine-4);
+  }
+  .story-meta {
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .story-dek {
+    margin-top: 22px;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* ---------- Chapters ---------- */
+  .story-body { padding: 56px 0 20px; }
+  .chapter { margin-bottom: 54px; }
+  .chapter-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--leaf);
+    background: var(--cover-dark);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .chapter h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .chapter p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin: 0 0 20px;
+    color: var(--ink);
+  }
+  .chapter p:first-of-type::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 3.1rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.8;
+    margin: 6px 8px 0 0;
+    color: var(--spine-4);
+  }
+
+  .aside {
+    margin: 8px 0 28px;
+    padding: 16px 20px;
+    background: var(--paper-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .aside::before {
+    content: "Reader's note — ";
+    font-style: normal;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--spine-4);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .author-break {
+    text-align: center;
+    margin: 44px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .author-break::before, .author-break::after {
+    content: "◆";
+    color: var(--leaf);
+    margin: 0 14px;
+    font-size: 0.6rem;
+    vertical-align: middle;
+  }
+
+  .the-end {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--cover-dark);
+    margin: 40px 0 0;
+  }
+
+  /* ---------- Story footer / CTA ---------- */
+  .story-cta {
+    background: var(--cover);
+    color: var(--paper);
+    padding: 56px 0;
+    margin-top: 64px;
+    text-align: center;
+  }
+  .story-cta h3 { color: var(--paper); font-size: 1.4rem; margin-bottom: 12px; }
+  .story-cta p { color: rgba(245,239,221,0.8); max-width: 50ch; margin: 0 auto 24px; line-height: 1.6; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold); color: var(--cover-dark);
+    text-decoration: none; padding: 13px 26px; border-radius: 999px;
+    font-family: 'Space Mono', monospace; font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    transition: transform 0.2s ease;
+  }
+  .btn:hover, .btn:focus-visible { transform: translateY(-2px); }
+  .btn.ghost { background: transparent; color: var(--paper); border: 1px solid rgba(245,239,221,0.4); margin-left: 12px; }
+
+  footer.site-footer {
+    background: var(--cover-dark);
+    color: rgba(245,239,221,0.75);
+    padding: 32px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  footer.site-footer a { color: var(--gold); text-decoration: none; }
+
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+
+  @media (max-width: 640px) {
+    .wrap, .read { padding: 0 20px; }
+    .ribbon-inner { padding: 12px 20px; flex-direction: column; gap: 12px; }
+    .story-hero { padding: 40px 0 30px; }
+    .story-title { font-size: clamp(2rem, 10vw, 2.6rem); }
+    .chapter p { font-size: 1rem; }
+    .btn.ghost { display: inline-block; margin: 12px 0 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+  .chapter p.nodrop::first-letter { all: unset; }
+  .chapter-title { font-size: 1.5rem; font-weight: 600; margin: 0 0 20px; }
+  .story-byline { margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; }
+  .end-mark { text-align: center; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.3rem; color: var(--cover-dark); margin: 10px 0 0; }
+  .back-matter { margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(30,58,43,0.2); }
+  .back-matter .chapter { margin-bottom: 28px; }
+  .back-matter .chapter p { font-size: 0.98rem; color: var(--ink-soft); }
+  .back-matter .chapter p::first-letter { all: unset; }
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#section-1">Skip to story</a>
+
+<header class="ribbon">
+  <div class="ribbon-inner">
+    <a class="brand" href="../index.html#home">
+      <img src="../assets/story-icon.jpg" alt="Story Digital logo, an open book on a green circle">
+      <span class="brand-word">Story Digital</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="../index.html#home">Home</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#genre">Our Genre</a></li>
+        <li><a href="../index.html#share">Share a Story</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="story-hero">
+    <div class="read">
+      <a class="back-link" href="../index.html#genre-thriller">&larr; Back to the shelf</a>
+      <div class="tag-row"><span class="tag">Thriller</span></div>
+      <h1 class="story-title">The Shadow in the Night</h1>
+      <p class="story-meta">Short story · about 12 min read</p>
+      <p class="story-byline">By Hassaan Ijaz</p>
+      <p class="story-dek">A detective hunts a killer who always seems to be one step ahead, in a city living in fear.</p>
+    </div>
+  </section>
+
+  <section class="story-body">
+    <div class="read">
+
+      <article class="chapter" id="section-1">
+      <p>Ravenswood was never a peaceful place to live in. Constant news of murders and kidnappings kept the residents on edge. Some left, some stayed out of need as they couldn’t find any other place to live in. The police failed miserably to catch the culprit behind the chaos and almost gave up on the case. Along with them, someone else was equally as confused and burdened. Leo sat in his office, the air rich in the scent of sandalwood and musk perfume, his desk crowded with files and documents—each one having a case of its own, murders, kidnappings, assault and a mystery unsolved. He scratched his head as he flipped through another file, gazing at the same type of case, another murder. He was giving it all his thoughts, trying to piece together the evidences but every time he tried doing so, one of the evidence wouldn’t match the pattern.</p>
+      <p>The door of his office opened and came in his assistant, “Sir, another case, murder.” The assistant said and placed the file on his desk, adding to the pile. Leo slammed his fist on the table, “Dammit, that culprit is laying bodies faster than we can track them.” He spoke, his voice laced with worry and frustration. “Who do you think it could be, sir?” his assistant asked, his brow furrowing in thought. “That’s what I’ve been trying to figure out since the past few days.” Leo replied, gesturing to the pile of files on his desk. “Whoever the killer is, they are too good at it and that hurts my head! They are going at it at a tremendous speed and I am concerned that one of these files might have our name on them some day.”--“Sir don’t say that!” the assistant spoke up, trying to shake Leo out of his intrusive thoughts. Leo looked up at him, a matter-of-factly expression on his face. “What? Just because we are some ‘titled’ men, we aren’t any less of a target, after all, we are the ones trying to catch and expose the culprit which makes us even valuable for them.” Leo said, his voice monotone but carrying a hint of worry. “Have you contacted the cops yet, sir?” Leo looked up at his assistant again and chuckled before reading a file of a victim, “Cops... they are the ones who hired me to find the culprit because their brains gave up.” The assistant’s eyes widened, “even the cops require our help?”—“Precisely, that’s why I have been saying that we aren’t any less of a target.” Suddenly, Leo’s phone buzzed with a number and it was from the police headquarters, he immediately picked up and answered. “Hey Leo, found any concrete proof yet?” the officer spoke in his raspy voice. “Unfortunately no sir, nothing solid yet.”—“Oh come on, we hired you for one purpose and you can’t even complete that?”—“I apologize sir, I am working on it.” The call cut off and Leo placed the phone back on the desk, sighing in exhaustion, rubbing circles with his thumbs on his forehead. “Sir, what did the officer say?” the assistant inquired, “As usual, asked me about any concrete evidence and I have none. Every time I deny them, I hate it. Perhaps, we should stop the yap and get to work.” The assistant noted and discreetly exited the room.</p>
+      <p>Leo opened the new file which his assistant had placed recently and read through. ‘17 year old girl, 11th standard student, found dead in an alleyway, multiple stab-like wounds on body.’ He opened another file, ‘40 year old woman, housewife, married, found dead in her home.’ He groaned in frustration, until he realized... the culprit mostly targeted adults and teenagers, mostly when it seemed like he was targeting females, there were cases of males too. At one point, it felt like the killer knew his aftermath was being documented and to fool the detectives, he would constantly change his prey, not following a pattern. Leo picked up his phone dialled the police station’s number, “Hello officer, do you have any suspects whom you think might potentially be the culprit?” a moment of silence before the raspy voice came from the receiving end, “We do not have any real suspects yet but some eye witnesses described vaguely of what they think was the killer.” Leo’s interest piqued, “Do tell me.”— “Well, they told that is seemed like a middle aged man, probably around 30, with grey hair and always dressed in black when he is on the hunt.” The officer told. “We have been looking around for such a man but the problem is, we have seen a lot of grey haired men but we don’t know what the real culprit looks like so we can’t make a solid claim of catching them.” He concluded.</p>
+      <p>“That’s valuable info for me sir, thanks.” Leo ended the call and quickly stood up from his chair, grabbing his walkie-talkie and jacket, slipped them on and went out of his office. “Going home, sir?” His assistant asked as he saw Leo walking towards the exit, “No, something related to my work.” Leo replied urgently and exited the building. His assistant was left to ponder where he went but didn’t dare to follow as he was explicitly instructed not to, by Leo. The cool air hit Leo’s skin as he made his way down the quiet street. His boots clicked on the pavement as he kept glancing around, hoping to find anything which will be helpful for his work. He saw a strange old man standing on the side and went to him, “Hi sir, have you seen any grey-haired man roam around suspiciously?” The man was confused at first but shook his head in a ‘no’ gesture. Leo continued his search, he was trying to act as ‘normal’ as possible, hoping to see the culprit. Suddenly, he heard a faint cry of help coming from down the street as if someone is writhing in pain, he quickly sprinted towards the source of the sound and found himself in an alleyway but there was no one there except a mobile phone laying on the ground. He quickly glanced around, scanning his surroundings, his gaze calculating and critical as he feared that this may be a trap.</p>
+      <p>Before proceeding to pick up the phone, he quickly grabbed his walkie-talkie, “Send in the cops.” Moments later, a police car arrived and two officers were on the spot. “Heard a cry for help but saw no one, but this is what I found.” Leo said as he gestured to the mobile phone laying on the ground. “Okay sir, I’ll need you to step back.”</p>
+      <p>The officer crouched down and picked up the mobile phone, examining it. “Sir, you said you heard cries for help?”—“yes”—“well, that is just a sound effect playing in the phone.” Leo face palmed as he knew someone played a trick on them, presumably the killer. Suddenly, they heard a noise, BEEP. “What was that?”—“I don’t know sir.” Then again, BEEP. The officer glanced down at the phone and his eyes widened, Leo followed his gaze and his body went rigid. “ITS A TIME BOMB!” Leo and the officers ducked for safety as the timer grew frequent, BEEP...BEEP..BEEP,BEEP,BEEP...</p>
+      <p>EXPLOSION</p>
+      <p>The sound echoed through the silent alleyway, the phone burst into pieces and shrapnel ricocheted off of the walls, almost brushing against Leo’s skin as he kept himself on the ground, after the explosion subsided, he and the officer got up, their eyes wide. “This was an assassination plot!” Leo said, his voice firm and angry. “I’ am so done with this killer, I swear on my life, I’ll not stop until I find him.” Leo vowed to himself as the officers quickly escorted him back to safety, “We can’t afford to lose you, Mr Detective.” One of the officer said. They got Leo in the police car and took him back to his office. “We advise you to stay inside and safe, Mr Detective, we don’t want you putting yourself in harms way.” The officer said before leaving. Seeing Leo’s dishevelled clothes and hair, his assistant rushed to him, “Sir are you okay? What happened?”— “Nothing much, almost got taken out.” Leo said almost calmly but his assistant was horrified. “Sir, please don’t go out all alone, you won’t become a hero but a piece of history like this.”</p>
+      <p>Leo nodded, his expression thoughtful. The next day, he decided to go to a victim’s parents’ house. He knocked on the door, the sunlight kissing his skin. A woman opened the door, her expression full of sorrow, “Yes? How may I help you?” the woman asked and Leo showed her—his badge, clarifying that he is a detective. “Oh, please come in.” The woman stepped aside, allowing Leo to enter. He went to the living room and sat on the couch, the woman sitting across from him. “So, tell me more about what happened before your daughter went missing.” Leo initiated the conversation and the woman spoke, her voice full of sadness, “She told me she was going to her friends place, it was 9 pm and I allowed her.” Her eyes filled with unshed tears, “The news tore me apart, of her death, her murder.” The woman looked down in regret, “All my fault, all because I allowed her to go, she...she lost her life.” The woman burst into tears, her form shaking from the sobs, “She was my shining light, my hope, my future, all gone!” The woman blamed herself for the loss of her daughter and Leo could read the kaleidoscope of emotions crashing over the poor woman, he got up from his seat and walked over to her, gently placing a hand on her shoulder to comfort her, “Don’t worry mam, I’ll find the culprit and bring him to justice.” The woman looked up at Leo, her eyes holding a glimmer of hope, “please do so, I will be relieved.” Leo nodded, “Can you provide more details?” he asked.</p>
+      <p>The woman composed herself and tried to remember any useful details, “Eyewitnesses last spotted her near an alleyway where she was allegedly murdered.” Leo’s expression became intrigued from the one particular place, ‘The Alley.’ It seemed like the killer had a habit to lure their prey into the confined space, away from prying eyes before finishing them off, just like how Leo himself almost got taken out in an alleyway. “Thank you for your time, mam.” Leo said and left the property, making his way to another victim’s house. A man opened the door and Leo followed protocol, introducing himself as the detective and requesting to ask questions. The man stepped aside and let him in. Inside, Leo asked the same question from the man, asking him about the details before the murder happened. “I came back from work and.. the house had this weird smell of decay and rot, as I went in further and into the kitchen, I- I was shocked to see..” the man held back his tears, “My wife... was laying lifeless on the ground with, with a wound on her neck and god know how long she had been laying there.” The man seemed terrified as he remembered the scene, “There was blood, on the ground.. around her dead body and.. I couldn’t believe it.” The man let out a choked sob as he fought back his tears, not wanting to appear vulnerable but deep down, he was devastated. “We planned to have a good life together, to have a happy family, but she, she is taken away from me.”</p>
+      <p>Leo nodded in understanding, his own expression empathetic. “I am deeply sorry for your loss, sir. Can you provide me what time it was when the murder happened?”—“I don’t know the exact time but I came home in the evening and found her dead”—“That means the murder happened before evening, around afternoon. Leo was trying to think of the pattern, just as he thought most of the murders were occurring at night as a pattern, this one happened in broad daylight so the pattern once again was rigged. He rubbed his forehead in deep thought, trying to grasp what the killer was doing. “It means the killer knows that I am investigating his murders, I’ve been saying this since the beginning and also survived an assassination plot.” The man’s eyes widened at Leo’s confession on surviving an assassination. “They even targeted you?”—“I am on top of the list for them.” Leo said almost as if he was accepting his fate but in reality, he knew the harsh truth.</p>
+      <p>After interviewing many witnesses of the victims, Leo came back to his office and began joining the evidences. He pondered on how the killer was so stealthy all this time and claimed tens of innocent lives. Leo knew his ultimate mission was to find out who the killer was and what their motive is. He had very limited knowledge on what the killer actually looked like as not many people saw him. One thing was for sure that the killer mostly lured their prey into a secluded alleyway and end them, although the case of the dead woman in her house was completely different. He made up a secret plan, knowing that catching or even figuring out a culprit while sitting in an office was not going to work. He went to a gun dealer shop and wanted to buy a gun, he picked a Desert Eagle with an aiming scope and got ammo. Sure, it did cost him but he knew the reward would be twice as much. He planned to somehow catch the culprit himself, ambush them and shoot them on spot. Seems like Leo didn’t learn his lesson from before where he was almost taken out.</p>
+      <p>Without telling anyone, he quietly sneaked out in the night, walking down the street in a black trench coat to blend in with the dark surroundings, he had his desert eagle ready inside, his arm poised to act at moments notice. He knew that the neighbourhood had many alleyways so he decided to set-up ambush points. He went to the first alleyway and tactically hid himself, keeping an eye on the surroundings. 10 minutes had passed and no activity, he went to the second alleyway, hiding himself in the same manner as before but still, no activity. Leo had a feeling that the killer might not be on a hunt today but he couldn’t resist checking the third alley. As he hid inside a trash bin, he saw it...</p>
+      <p>A figure, dressed in full black was sprinting down the street to the fourth alleyway. Leo’s gazed locked on and he jumped out of the trash bin, his Desert Eagle ready, he was hot on his heels behind the suspect. The figure glanced back and saw Leo chasing him, it grunted as he Leo was in hot pursuit. As the figure found itself cornered in the fourth alleyway, it turned back and saw Leo standing there, holding the gun. “Time’s up, you criminal scum!” without wasting a moment, Leo pulled the trigger. The gunshot echoed through the silent street and the figure in black fell to the ground, its body going limp. Leo felt an immense sense of accomplishment, he had done it, he hunted down the killer, even if it was by unconventional ways... but that’s what Leo thought.</p>
+      <p>He crouched down beside the body and pulled the mask away, revealing a man’s face which seemed foreign to him, he was about to pull out his walkie-talkie to call the cops but suddenly, he felt a sharp blade pressed to the back of his neck and a raspy, bone chilling cackle. The voice then said, “You really thought you had gotten me, eh?” and as Leo glanced back, his eyes went wide in shock and disbelief, the culprit who he was searching for so long... was no other... than the police officer himself who was in contact with Leo all this time...</p>
+      </article>
+
+      <p class="end-mark">The End</p>
+
+      
+
+    </div>
+  </section>
+
+  <section class="story-cta">
+    <div class="wrap">
+      <h3>Thanks for reading.</h3>
+      <p>New stories go up on Instagram first. Follow along to catch the next one as soon as it is posted.</p>
+      <a class="btn" href="https://www.instagram.com/story._.digital" target="_blank" rel="noopener">Follow on Instagram</a>
+      <a class="btn ghost" href="../index.html#genre-thriller">Back to the shelf</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; 2026 Story Digital. All stories original. <a href="../index.html#home">Back to Story Digital</a></div>
+</footer>
+
+</body>
+</html>

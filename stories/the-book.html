@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Book — Story Digital</title>
+<meta name="description" content="Ada loves reading, so she orders a new horror novel online. She did not expect it to bring something else into the house.">
+<link rel="icon" type="image/jpeg" href="../assets/story-icon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F5EFDD;
+    --paper-soft: #ECE3C6;
+    --cover: #1E3A2B;
+    --cover-dark: #142A1E;
+    --leaf: #B7D93A;
+    --gold: #E7B93A;
+    --ink: #262318;
+    --ink-soft: #55503f;
+    --spine-4: #8C2F2F;
+    --max-w: 1120px;
+    --read-w: 700px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    margin: 0;
+    color: var(--cover-dark);
+  }
+
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+  .read { max-width: var(--read-w); margin: 0 auto; padding: 0 32px; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--cover); color: var(--paper);
+    padding: 10px 16px; z-index: 999;
+  }
+  .skip-link:focus { left: 16px; top: 16px; }
+
+  /* ---------- Ribbon nav (matches main site) ---------- */
+  .ribbon {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--cover);
+    border-bottom: 3px solid var(--gold);
+  }
+  .ribbon-inner {
+    max-width: var(--max-w); margin: 0 auto; padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand img { width: 42px; height: 42px; border-radius: 50%; display: block; border: 2px solid var(--gold); }
+  .brand-word { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.15rem; color: var(--paper); }
+  .nav-links { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  .nav-links a { text-decoration: none; color: var(--paper); opacity: 0.85; }
+  .nav-links a:hover, .nav-links a:focus-visible { opacity: 1; }
+
+  /* ---------- Story hero ---------- */
+  .story-hero {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid rgba(30,58,43,0.15);
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Space Mono', monospace; font-size: 0.76rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-soft); text-decoration: none; margin-bottom: 26px;
+  }
+  .back-link:hover, .back-link:focus-visible { color: var(--spine-4); }
+
+  .tag-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 5px 12px; border-radius: 999px;
+    background: var(--cover); color: var(--paper);
+  }
+  .tag.alt { background: var(--paper-soft); color: var(--cover-dark); border: 1px solid rgba(30,58,43,0.2); }
+
+  .story-title {
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--spine-4);
+  }
+  .story-meta {
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .story-dek {
+    margin-top: 22px;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* ---------- Chapters ---------- */
+  .story-body { padding: 56px 0 20px; }
+  .chapter { margin-bottom: 54px; }
+  .chapter-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--leaf);
+    background: var(--cover-dark);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .chapter h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .chapter p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin: 0 0 20px;
+    color: var(--ink);
+  }
+  .chapter p:first-of-type::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 3.1rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.8;
+    margin: 6px 8px 0 0;
+    color: var(--spine-4);
+  }
+
+  .aside {
+    margin: 8px 0 28px;
+    padding: 16px 20px;
+    background: var(--paper-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .aside::before {
+    content: "Reader's note — ";
+    font-style: normal;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--spine-4);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .author-break {
+    text-align: center;
+    margin: 44px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .author-break::before, .author-break::after {
+    content: "◆";
+    color: var(--leaf);
+    margin: 0 14px;
+    font-size: 0.6rem;
+    vertical-align: middle;
+  }
+
+  .the-end {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--cover-dark);
+    margin: 40px 0 0;
+  }
+
+  /* ---------- Story footer / CTA ---------- */
+  .story-cta {
+    background: var(--cover);
+    color: var(--paper);
+    padding: 56px 0;
+    margin-top: 64px;
+    text-align: center;
+  }
+  .story-cta h3 { color: var(--paper); font-size: 1.4rem; margin-bottom: 12px; }
+  .story-cta p { color: rgba(245,239,221,0.8); max-width: 50ch; margin: 0 auto 24px; line-height: 1.6; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold); color: var(--cover-dark);
+    text-decoration: none; padding: 13px 26px; border-radius: 999px;
+    font-family: 'Space Mono', monospace; font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    transition: transform 0.2s ease;
+  }
+  .btn:hover, .btn:focus-visible { transform: translateY(-2px); }
+  .btn.ghost { background: transparent; color: var(--paper); border: 1px solid rgba(245,239,221,0.4); margin-left: 12px; }
+
+  footer.site-footer {
+    background: var(--cover-dark);
+    color: rgba(245,239,221,0.75);
+    padding: 32px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  footer.site-footer a { color: var(--gold); text-decoration: none; }
+
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+
+  @media (max-width: 640px) {
+    .wrap, .read { padding: 0 20px; }
+    .ribbon-inner { padding: 12px 20px; flex-direction: column; gap: 12px; }
+    .story-hero { padding: 40px 0 30px; }
+    .story-title { font-size: clamp(2rem, 10vw, 2.6rem); }
+    .chapter p { font-size: 1rem; }
+    .btn.ghost { display: inline-block; margin: 12px 0 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+  .chapter p.nodrop::first-letter { all: unset; }
+  .chapter-title { font-size: 1.5rem; font-weight: 600; margin: 0 0 20px; }
+  .story-byline { margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; }
+  .end-mark { text-align: center; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.3rem; color: var(--cover-dark); margin: 10px 0 0; }
+  .back-matter { margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(30,58,43,0.2); }
+  .back-matter .chapter { margin-bottom: 28px; }
+  .back-matter .chapter p { font-size: 0.98rem; color: var(--ink-soft); }
+  .back-matter .chapter p::first-letter { all: unset; }
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#section-1">Skip to story</a>
+
+<header class="ribbon">
+  <div class="ribbon-inner">
+    <a class="brand" href="../index.html#home">
+      <img src="../assets/story-icon.jpg" alt="Story Digital logo, an open book on a green circle">
+      <span class="brand-word">Story Digital</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="../index.html#home">Home</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#genre">Our Genre</a></li>
+        <li><a href="../index.html#share">Share a Story</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="story-hero">
+    <div class="read">
+      <a class="back-link" href="../index.html#genre-horror">&larr; Back to the shelf</a>
+      <div class="tag-row"><span class="tag">Horror</span></div>
+      <h1 class="story-title">The Book</h1>
+      <p class="story-meta">Short story · about 8 min read</p>
+      
+      <p class="story-dek">Ada loves reading, so she orders a new horror novel online. She did not expect it to bring something else into the house.</p>
+    </div>
+  </section>
+
+  <section class="story-body">
+    <div class="read">
+
+      <article class="chapter" id="section-1">
+      <p>Ada had a strong love for books, she liked to read novels and magazines as part of her hobby whenever she was bored or wanted to spend time. Her husband worked at a job and was busy in the day, only free at evening after 7 pm. That explained why Ada had a lot of free time to spend and she loved to read books rather than any other activity.</p>
+      <p>Recently, she had finished reading all of the books from her collection and was browsing the internet to search for more, new and interesting ones. Her husband was aware of her hobby and supported her, as Ada had a dream of getting higher education but due to the expense, her parents couldn’t afford it and she eventually got married later on. However, the unexpected turn of events in her life didn’t stop her hobbies.</p>
+      <p>While browsing, her gaze landed on a particularly intriguing book. With a catchy title and a good cover, Ada smiled approvingly and bought the book online, clearly interested into reading what this new bundle of papers had scribbled inside of it. She closed her laptop and leaned back in her chair, letting out a sigh of relief. Soon, the sound of the front door opening was heard and Ada glanced at the door, seeing her husband standing at the doorstep.</p>
+      <p>She smiled and got up, sauntering over to her favourite man. “Hey handsome, how’d work go?” she asked with a subtle smirk as she took off his coat. “It went good, but now my day got even better since I am with you” Harry smiled teasingly and Ada playfully scoffed, “Charmer” she mumbled, playfully swatting at Harry’s arm before pulling him close and hugging him. “I just crave cuddles right now” Ada murmured as she nuzzled her face in the crook of his neck. Harry’s smile widened and he hugged Ada tightly, giving her the comfort she needed. “It gets a bit lonely without you here throughout the day” Ada confessed.</p>
+      <p>“I know honey, but I am doing all this work for us, for our happy future.” Harry said as he still held her close. Ada smiled and pulled away a bit to look at his face, “I know darling.” A bright smile spread across her face, “I also ordered a new book to read” she told Harry, clearly excited about the new book. Harry smiled curiously, “Oh? And what did you order this time?” He inquired.</p>
+      <p>“Don’t worry about it, I will tell you when I complete it.” Ada said with a smile. The couple then spent their time together in their sanctuary and as the next day arrived, Ada could barely conceal her excitement because the book she ordered was going to be delivered today. It was afternoon and Ada was working in the kitchen. Suddenly, the doorbell rang and she quickly went to check. Upon opening the door, she noticed a small package on the porch but strangely, no delivery guy. Anyways, Ada didn’t pay any attention as she cared about the book only, she quickly picked up the package and took it inside.</p>
+      <p>She tore through the packet mercilessly and picked up the book from inside. The book had a dark cover with an appealing look. Ada finished her work quickly and sat down at the couch to start reading. While reading, Ada felt a weird sensation she never felt before. Sure, it was an horror story novel but Ada had read a lot of them in the past and never felt this way. She ignored the sensation and continued reading. As she got immersed in the story, she felt like she saw something from the corner of her eye and quickly looked up from the book but saw nothing. She shook her head, confused as to why she was having these unfamiliar feelings.</p>
+      <p>She flipped onto the next page and for a split second she thought she saw a weird image on one of the pages but she saw nothing when she investigated. Ada thought she was just mentally tired and that is why her brain was playing tricks on her. She noticed that her desire to read the book quickly died and she felt bored while reading the book. She closed the book and placed it on the nightstand. Ada stretched languidly and made her way to the kitchen to grab a glass of water.</p>
+      <p>While walking, she had this undeniable sense of something behind her. She tried to ignore but she couldn’t and found herself whipping around just to find nothing but look silly herself. Ada now started to worry, what was happening to her and why? She desperately wanted answers. She quickly got the glass of water and drank it, the cool liquid soothing her parched throat. She took some uneven breaths, trying to stabilize herself.</p>
+      <p>Soon, Harry arrived back as usual but his expression shifted to concern as he saw his wife in a panicked condition. “Babe what’s wrong?” Harry asked with worry and rushed to Ada, holding her close. Ada clung to Harry, her knuckles turning white from the tight grip on his shirt. Harry asked again, “Ada? What’s wrong?” Ada didn’t respond for a few seconds before Harry heard a choked sob. He realized that Ada was crying.</p>
+      <p>Harry allowed her to cry on his shoulder and kept tracing patterns on her back, caressing her body to soothe her. As Ada calmed down, Harry led her to the couch and helped her sit down. He took Ada’s hands in his and looked into her eyes. “Tell me, love, what’s wrong?” Harry felt bad seeing his wife in such distress, a stark contrast to her usual confident and charming demeanour.</p>
+      <p>“You know, about that book?” Ada began, her voice already trembling. Harry’s eyebrow raised in confusion, “Which book, honey?” He inquired as he tended to forget things a bit too quickly. Ada continued explaining, “The book which I ordered” She uttered. Harry remembered the book his wife had ordered, “Yeah that book you told me about. What about it?” Harry asked, his concern evident. Ada took a few deep breath to steady her breath before speaking.</p>
+      <p>“I.. I don’t know what happened babe, I just read the book like normal but, it felt odd, felt like I was reading something.. I shouldn’t” Ada spoke, her voice a whisper as if scared that something unseen might hear. “Honey did you bought a super scary book again?” Harry asked as he knew that Ada had once ordered a sensitive content containing book before as well. “N-no Harry, I didn’t order a gorey book or anything, it was just a normal horror story book, but it felt like... I was being watched, or something else was in the house with me”</p>
+      <p>The words sent a shiver down Harry’s spine, he thought that his wife was probably suffering from social loneliness and therefore he arranged regular sessions with his wife.</p>
+      <p>They would go out on occasional dates, spend time together in the house or in parks and cuddle with each other. All of these measures taken by Harry seemed to have positive impact on Ada and Harry reassured her that everything will be fine, that its just her imagination fooling her. However, another day, Ada was alone in the house, working in the bedroom when she heard a few soft thuds from the outside lounge area where the stairs were located. It felt like a child’s feet padding up the stairs. Ada froze in terror as to who could it be. She quickly grabbed a self defence weapon in case it was an intruder who sneaked in.</p>
+      <p>She carefully made her way to the stairs and glanced up at the top most step, the first floor was shrouded in darkness and the only way to turn on the light was to go upstairs and turn on the switch. The problem was, the alleged intruder had also went upstairs and Ada was filled with dread to go up alone despite having a weapon, she just feared if she could even use it properly. “Who is there?” Ada spoke, trying to get a signal but her voice sounded super hesitant as if she was protesting against herself to not speak.</p>
+      <p>A few moments later, she got no response and knew she had to do something herself. She wanted to call the cops but feared that if they found nothing, she would have to face embarrassment. She mustered up the courage somehow and started ascending the stairs. She felt her heart pounding in her chest, the dead silence meaning she could hear the blood rushing in her veins. The wooden planks creaked beneath each step of Ada but she didn’t stop.</p>
+      <p>Upon reaching the first floor, she found nothing initially but upon closer inspection, she saw a book laying on the floor. She shone the light of her flashlight on the book and froze in fear as she realised the book was the same one that she ordered, but what was it doing upstairs and most importantly, who put it there and why? Thousands of questions flooded Ada’s mind but she had no answer to any.</p>
+      <p>She picked up the book and was almost about to go back downstairs when suddenly she heard a noise. Her head snapped in the direction of the noise as she focused all her attention. She carefully made her way to the room where the noise supposedly came from and as she opened the door to peek inside, she froze in terror. The same book was inside the room but she was holding one in her hand. Ada was completely mind blown, she tried to run back downstairs but a strong force yanked her backwards, she lost her balance and fell to the ground, “NO, NO, NO!!!” She screamed, desperate for some help but unfortunately couldn’t get.</p>
+      <p>The force dragged her backwards into the room and the door slammed shut once she was inside. Hours later at evening, Harry came back home as usual, setting his bag down, he made his way to the lounge, hoping to find Ada but he didn’t see her there. He didn’t think much about it and went to his room, still not finding Ada. He then went to the kitchen and still no sign of Ada. He was now getting worried and dialled her phone but her phone was in the lounge. “Ada? I’m home!” Harry called out, but received no response from Ada. He sighed and sat down on the couch, not knowing where his wife was.</p>
+      <p>Suddenly, he noticed a book beside him, the same book which Ada told days ago that she ordered. He picked the book up and opened it out of curiosity. As he read, he started hallucinating and seeing things, he couldn’t believe what was happening and suddenly, everything went black. The house which was filled with constant life was now lifeless.. and in the midst of all that, the book rested on the same nightstand, just with two new characters, Ada and Harry.</p>
+      </article>
+
+      <p class="end-mark">The End</p>
+
+      
+
+    </div>
+  </section>
+
+  <section class="story-cta">
+    <div class="wrap">
+      <h3>Thanks for reading.</h3>
+      <p>New stories go up on Instagram first. Follow along to catch the next one as soon as it is posted.</p>
+      <a class="btn" href="https://www.instagram.com/story._.digital" target="_blank" rel="noopener">Follow on Instagram</a>
+      <a class="btn ghost" href="../index.html#genre-horror">Back to the shelf</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; 2026 Story Digital. All stories original. <a href="../index.html#home">Back to Story Digital</a></div>
+</footer>
+
+</body>
+</html>

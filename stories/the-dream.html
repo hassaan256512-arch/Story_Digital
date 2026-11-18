@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Dream — Story Digital</title>
+<meta name="description" content="A young author&#x27;s ordinary evening takes a strange turn: a power cut nobody else noticed, and a nightmare that feels too real.">
+<link rel="icon" type="image/jpeg" href="../assets/story-icon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F5EFDD;
+    --paper-soft: #ECE3C6;
+    --cover: #1E3A2B;
+    --cover-dark: #142A1E;
+    --leaf: #B7D93A;
+    --gold: #E7B93A;
+    --ink: #262318;
+    --ink-soft: #55503f;
+    --spine-4: #8C2F2F;
+    --max-w: 1120px;
+    --read-w: 700px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    margin: 0;
+    color: var(--cover-dark);
+  }
+
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+  .read { max-width: var(--read-w); margin: 0 auto; padding: 0 32px; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--cover); color: var(--paper);
+    padding: 10px 16px; z-index: 999;
+  }
+  .skip-link:focus { left: 16px; top: 16px; }
+
+  /* ---------- Ribbon nav (matches main site) ---------- */
+  .ribbon {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--cover);
+    border-bottom: 3px solid var(--gold);
+  }
+  .ribbon-inner {
+    max-width: var(--max-w); margin: 0 auto; padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand img { width: 42px; height: 42px; border-radius: 50%; display: block; border: 2px solid var(--gold); }
+  .brand-word { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.15rem; color: var(--paper); }
+  .nav-links { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  .nav-links a { text-decoration: none; color: var(--paper); opacity: 0.85; }
+  .nav-links a:hover, .nav-links a:focus-visible { opacity: 1; }
+
+  /* ---------- Story hero ---------- */
+  .story-hero {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid rgba(30,58,43,0.15);
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Space Mono', monospace; font-size: 0.76rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-soft); text-decoration: none; margin-bottom: 26px;
+  }
+  .back-link:hover, .back-link:focus-visible { color: var(--spine-4); }
+
+  .tag-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 5px 12px; border-radius: 999px;
+    background: var(--cover); color: var(--paper);
+  }
+  .tag.alt { background: var(--paper-soft); color: var(--cover-dark); border: 1px solid rgba(30,58,43,0.2); }
+
+  .story-title {
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--spine-4);
+  }
+  .story-meta {
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .story-dek {
+    margin-top: 22px;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* ---------- Chapters ---------- */
+  .story-body { padding: 56px 0 20px; }
+  .chapter { margin-bottom: 54px; }
+  .chapter-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--leaf);
+    background: var(--cover-dark);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .chapter h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .chapter p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin: 0 0 20px;
+    color: var(--ink);
+  }
+  .chapter p:first-of-type::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 3.1rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.8;
+    margin: 6px 8px 0 0;
+    color: var(--spine-4);
+  }
+
+  .aside {
+    margin: 8px 0 28px;
+    padding: 16px 20px;
+    background: var(--paper-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .aside::before {
+    content: "Reader's note — ";
+    font-style: normal;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--spine-4);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .author-break {
+    text-align: center;
+    margin: 44px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .author-break::before, .author-break::after {
+    content: "◆";
+    color: var(--leaf);
+    margin: 0 14px;
+    font-size: 0.6rem;
+    vertical-align: middle;
+  }
+
+  .the-end {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--cover-dark);
+    margin: 40px 0 0;
+  }
+
+  /* ---------- Story footer / CTA ---------- */
+  .story-cta {
+    background: var(--cover);
+    color: var(--paper);
+    padding: 56px 0;
+    margin-top: 64px;
+    text-align: center;
+  }
+  .story-cta h3 { color: var(--paper); font-size: 1.4rem; margin-bottom: 12px; }
+  .story-cta p { color: rgba(245,239,221,0.8); max-width: 50ch; margin: 0 auto 24px; line-height: 1.6; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold); color: var(--cover-dark);
+    text-decoration: none; padding: 13px 26px; border-radius: 999px;
+    font-family: 'Space Mono', monospace; font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    transition: transform 0.2s ease;
+  }
+  .btn:hover, .btn:focus-visible { transform: translateY(-2px); }
+  .btn.ghost { background: transparent; color: var(--paper); border: 1px solid rgba(245,239,221,0.4); margin-left: 12px; }
+
+  footer.site-footer {
+    background: var(--cover-dark);
+    color: rgba(245,239,221,0.75);
+    padding: 32px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  footer.site-footer a { color: var(--gold); text-decoration: none; }
+
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+
+  @media (max-width: 640px) {
+    .wrap, .read { padding: 0 20px; }
+    .ribbon-inner { padding: 12px 20px; flex-direction: column; gap: 12px; }
+    .story-hero { padding: 40px 0 30px; }
+    .story-title { font-size: clamp(2rem, 10vw, 2.6rem); }
+    .chapter p { font-size: 1rem; }
+    .btn.ghost { display: inline-block; margin: 12px 0 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+  .chapter p.nodrop::first-letter { all: unset; }
+  .chapter-title { font-size: 1.5rem; font-weight: 600; margin: 0 0 20px; }
+  .story-byline { margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; }
+  .end-mark { text-align: center; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.3rem; color: var(--cover-dark); margin: 10px 0 0; }
+  .back-matter { margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(30,58,43,0.2); }
+  .back-matter .chapter { margin-bottom: 28px; }
+  .back-matter .chapter p { font-size: 0.98rem; color: var(--ink-soft); }
+  .back-matter .chapter p::first-letter { all: unset; }
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#section-1">Skip to story</a>
+
+<header class="ribbon">
+  <div class="ribbon-inner">
+    <a class="brand" href="../index.html#home">
+      <img src="../assets/story-icon.jpg" alt="Story Digital logo, an open book on a green circle">
+      <span class="brand-word">Story Digital</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="../index.html#home">Home</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#genre">Our Genre</a></li>
+        <li><a href="../index.html#share">Share a Story</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="story-hero">
+    <div class="read">
+      <a class="back-link" href="../index.html#genre-thriller">&larr; Back to the shelf</a>
+      <div class="tag-row"><span class="tag">Thriller</span></div>
+      <h1 class="story-title">The Dream</h1>
+      <p class="story-meta">Short story · about 5 min read</p>
+      
+      <p class="story-dek">A young author's ordinary evening takes a strange turn: a power cut nobody else noticed, and a nightmare that feels too real.</p>
+    </div>
+  </section>
+
+  <section class="story-body">
+    <div class="read">
+
+      <article class="chapter" id="section-1">
+      <p>Harry was a young man who was studying in college, he had recently graduated from high school and got admission into a good college by getting a decent scholarship. He had won a prize for being a great author in town and due to that, he was pretty famous in his college despite being a new student. Many of his classmates were in disbelief when they saw who it really was behind those amazing books they read. Harry had a hobby of writing narrative stories and reading some stories to further expand his ideas on how he could write even more intriguing stories. He would spend his free time typing away on his screen, scribbling his new story and publish it.</p>
+      <p>Sometimes, he would do it so quickly that his friends would be surprised on how he was coming up with a new story every time. One day, Harry came back from college, exhausted and tired from the classes, he went into the shower to take a bath and relax. While bathing, the lights suddenly went out, plunging the confined space into pure darkness. Harry groaned internally, “Not the power..” he muttered to himself. All he could do was wait and hope for the power to come back quickly. Thankfully, just a minute later, the power came back and Harry could finally see again. He finished bathing and got dressed, getting out of his apartment room and heading to his neighbour next door. “Hello Liam, did your power also go out momentarily?” Harry asked curiously and Liam raised an eyebrow, “power you say? No, power didn’t go out.” This sent a chill running through Harry’s bones. “Dude what? The lights of my apartment went out momentarily while I was bathing.” Harry told Liam about his situation but Liam shrugged.</p>
+      <p>Coming back to his apartment, Harry was lost in the thoughts of why the power only momentarily went out at his place as the apartment had a shared power grid system so individual apartments couldn’t experience power outage alone. He was snapped out of his thoughts by his phone buzzing with a message and he quickly picked it up to check, it was from his classmate who had sent a review on one of his latest stories. He smiled and replied back, setting his phone aside. He glanced at the time and realized it was almost evening and he was feeling a bit hungry too. He went to the kitchen and began cooking himself a meal, while doing so, he started having eerie thoughts which flood his mind. He even started feeling like he was being watched but he tried to brush off the feeling. The apartment was dead silent except the sound of the fryer.</p>
+      <p>One moment he almost felt like he saw something or someone from the corner of his eye but there was nothing. He sighed and rubbed his eyes, thinking he was just hallucinating. As the meal was cooked, he sat on his table and began eating. The atmosphere of his apartment felt a bit odd to him, so to distract himself, he chatted with his friends online. His eyes began growing tired and he found himself yawning. He knew that it was better to sleep rather than staying up for no reason so he turned off his mobile phone and went to bed. His room was cooled thanks to the air conditioner. He plopped down on his bed, sinking into the soft mattress and pulling the covers on top of him, cuddling a pillow to his chest, slowly but surely, he dozed off to a comfortable sleep.</p>
+      <p>Suddenly, his eyes opened and he sat up on his bed, he glanced around and saw that his entire apartment was shrouded in darkness including his room, the door was open and the lounge outside of his room was barely visible. He turned on his flashlight camera in his phone and for some reason, pointed the light ray to the lounge from his room, while doing so, his camera caught something bone-chilling. On the stairs outside of his room, there was a woman standing there but not just any woman... she looked old, wearing a white gown and having a mix of black and white hair but most importantly.. her wide, creepy grin and her white eyes fixed straight at Harry. She made no movement for a second, just standing there and keeping her lifeless gaze fixed on Harry, the creepy wide grin plastered on her face.</p>
+      <p>Harry’s breath hitched and his eyes widened in horror as he looked at his phone camera but mysteriously, when he glanced up to see with his naked eye, there was no one there but then again, he glanced back at the camera and the old woman was there, just staring at him. Harry was paralyzed by fear, he couldn’t even utter a single word or couldn’t even perform a movement. Suddenly, his eyes caught something, in the camera of his phone, the woman turned towards the staircase and began ascending upstairs, soon disappearing from view but Harry still kept his flashlight pointed there just in case.</p>
+      <p>The events stopped as quick as they started by Harry waking up with a gasp, still in his bed, his heart hammering against his chest as he glanced around his room but started to calm down when he saw the familiar surroundings and everything normal. He realized that it was just a nightmare but he had never had such a graphic one before. He got out his bed and went to the same staircase where he saw the old woman but of course, there was no one there. Spooked, he went to his neighbour Liam again and told him the entire situation. Liam supressed a laugh at how Harry was over reacting to a nightmare but Harry seemed dead serious. This caused Liam’s expression to get serious as well. “Maybe you should tell this to a religious scholar as soon as possible.” Liam suggested and Harry perked up, “You’re right, I need to tell this to someone who understands.”</p>
+      <p>Later, Harry arrived at a holy site and went in, inside, he met a well-known religious scholar and told him about his dreams. The scholar listened attentively, “Well son, it seems there is a spirit where you currently live.” The words made Harry’s blood run cold, “But don’t worry as it doesn’t intend on harming you yet, unless you do something.” The words calmed harry to some extent. “So what should I do?” he asked to which the scholar replied, “you can shift your house somewhere or stay in your current place but do not do anything to the stairs.” The scholar put the conditions in front of Harry and he had to make the choice. Harry knew he couldn’t move anywhere else so he had to stay in the same apartment. That day later, Harry got regular in his prayers and didn’t approach the staircase unnecessarily and things became back to normal again, he didn’t have any more nightmares but the staircase still reminded him of the same nightmare he had that night...</p>
+      </article>
+
+      <p class="end-mark">The End</p>
+
+      
+
+    </div>
+  </section>
+
+  <section class="story-cta">
+    <div class="wrap">
+      <h3>Thanks for reading.</h3>
+      <p>New stories go up on Instagram first. Follow along to catch the next one as soon as it is posted.</p>
+      <a class="btn" href="https://www.instagram.com/story._.digital" target="_blank" rel="noopener">Follow on Instagram</a>
+      <a class="btn ghost" href="../index.html#genre-thriller">Back to the shelf</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; 2026 Story Digital. All stories original. <a href="../index.html#home">Back to Story Digital</a></div>
+</footer>
+
+</body>
+</html>

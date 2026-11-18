@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hallucinations — Story Digital</title>
+<link rel="icon" type="image/jpeg" href="../assets/story-icon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F5EFDD;
+    --paper-soft: #ECE3C6;
+    --cover: #1E3A2B;
+    --cover-dark: #142A1E;
+    --leaf: #B7D93A;
+    --gold: #E7B93A;
+    --ink: #262318;
+    --ink-soft: #55503f;
+    --spine-4: #8C2F2F;
+    --max-w: 1120px;
+    --read-w: 700px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    margin: 0;
+    color: var(--cover-dark);
+  }
+
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+  .read { max-width: var(--read-w); margin: 0 auto; padding: 0 32px; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--cover); color: var(--paper);
+    padding: 10px 16px; z-index: 999;
+  }
+  .skip-link:focus { left: 16px; top: 16px; }
+
+  /* ---------- Ribbon nav (matches main site) ---------- */
+  .ribbon {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--cover);
+    border-bottom: 3px solid var(--gold);
+  }
+  .ribbon-inner {
+    max-width: var(--max-w); margin: 0 auto; padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand img { width: 42px; height: 42px; border-radius: 50%; display: block; border: 2px solid var(--gold); }
+  .brand-word { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.15rem; color: var(--paper); }
+  .nav-links { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  .nav-links a { text-decoration: none; color: var(--paper); opacity: 0.85; }
+  .nav-links a:hover, .nav-links a:focus-visible { opacity: 1; }
+
+  /* ---------- Story hero ---------- */
+  .story-hero {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid rgba(30,58,43,0.15);
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Space Mono', monospace; font-size: 0.76rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-soft); text-decoration: none; margin-bottom: 26px;
+  }
+  .back-link:hover, .back-link:focus-visible { color: var(--spine-4); }
+
+  .tag-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 5px 12px; border-radius: 999px;
+    background: var(--cover); color: var(--paper);
+  }
+  .tag.alt { background: var(--paper-soft); color: var(--cover-dark); border: 1px solid rgba(30,58,43,0.2); }
+
+  .story-title {
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--spine-4);
+  }
+  .story-meta {
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .story-dek {
+    margin-top: 22px;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* ---------- Chapters ---------- */
+  .story-body { padding: 56px 0 20px; }
+  .chapter { margin-bottom: 54px; }
+  .chapter-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--leaf);
+    background: var(--cover-dark);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .chapter h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .chapter p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin: 0 0 20px;
+    color: var(--ink);
+  }
+  .chapter p:first-of-type::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 3.1rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.8;
+    margin: 6px 8px 0 0;
+    color: var(--spine-4);
+  }
+
+  .aside {
+    margin: 8px 0 28px;
+    padding: 16px 20px;
+    background: var(--paper-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .aside::before {
+    content: "Reader's note — ";
+    font-style: normal;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--spine-4);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .author-break {
+    text-align: center;
+    margin: 44px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .author-break::before, .author-break::after {
+    content: "◆";
+    color: var(--leaf);
+    margin: 0 14px;
+    font-size: 0.6rem;
+    vertical-align: middle;
+  }
+
+  .the-end {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--cover-dark);
+    margin: 40px 0 0;
+  }
+
+  /* ---------- Story footer / CTA ---------- */
+  .story-cta {
+    background: var(--cover);
+    color: var(--paper);
+    padding: 56px 0;
+    margin-top: 64px;
+    text-align: center;
+  }
+  .story-cta h3 { color: var(--paper); font-size: 1.4rem; margin-bottom: 12px; }
+  .story-cta p { color: rgba(245,239,221,0.8); max-width: 50ch; margin: 0 auto 24px; line-height: 1.6; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold); color: var(--cover-dark);
+    text-decoration: none; padding: 13px 26px; border-radius: 999px;
+    font-family: 'Space Mono', monospace; font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    transition: transform 0.2s ease;
+  }
+  .btn:hover, .btn:focus-visible { transform: translateY(-2px); }
+  .btn.ghost { background: transparent; color: var(--paper); border: 1px solid rgba(245,239,221,0.4); margin-left: 12px; }
+
+  footer.site-footer {
+    background: var(--cover-dark);
+    color: rgba(245,239,221,0.75);
+    padding: 32px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  footer.site-footer a { color: var(--gold); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    .wrap, .read { padding: 0 20px; }
+    .ribbon-inner { padding: 12px 20px; flex-direction: column; gap: 12px; }
+    .story-hero { padding: 40px 0 30px; }
+    .story-title { font-size: clamp(2rem, 10vw, 2.6rem); }
+    .chapter p { font-size: 1rem; }
+    .btn.ghost { display: inline-block; margin: 12px 0 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#chapter-1">Skip to story</a>
+
+<header class="ribbon">
+  <div class="ribbon-inner">
+    <a class="brand" href="../index.html#home">
+      <img src="../assets/story-icon.jpg" alt="Story Digital logo, an open book on a green circle">
+      <span class="brand-word">Story Digital</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="../index.html#home">Home</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#genre">Our Genre</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="story-hero">
+    <div class="read">
+      <a class="back-link" href="../index.html#genre">← Back to the shelf</a>
+      <div class="tag-row">
+        <span class="tag">Horror</span>
+        <span class="tag alt">Psychological Thriller</span>
+      </div>
+      <h1 class="story-title">Hallucinations</h1>
+      <p class="story-meta">10 chapters · A night-shift office worker starts seeing a woman who shouldn't be there.</p>
+      <p class="story-dek">
+        Jacob works the overnight shift at a software company, alone with
+        the hum of empty servers — until a sound in the dark, a woman in
+        white on an empty road, and a face that keeps reappearing start to
+        undo everything he's sure of.
+      </p>
+    </div>
+  </section>
+
+  <section class="story-body">
+    <div class="read">
+
+      <article class="chapter" id="chapter-1">
+        <span class="chapter-number">Chapter 1 · 15th January, 2025</span>
+        <p>Jacob worked at Freemans Corp, a software company which helped design, develop and maintain software for companies in need. Jacob loved software engineering as a profession, but it came at a bit of a cost.</p>
+        <p>That cost was that Jacob had to work an overnight shift at his company, managing files, databases and orders while almost the entire office would be empty with no sign of life. Regardless, Jacob was used to it and didn't complain. As usual, one day he was sitting at his desk doing his work. It was late at night and all the other employees had left a few hours ago, leaving behind Jacob and his glowing rectangular screen, which were the only signs of life in the otherwise deserted building.</p>
+        <p>Jacob was working peacefully until a sound emerged from somewhere, catching his attention — even though Jacob had a tough-guy personality and mere sounds didn't bother him that much. But this wasn't just any sound. It was the sound of something scraping against a surface, or worse, something or someone walking with their feet scraping the ground. This particular noise caught the attention of tough-guy Jacob.</p>
+        <p>Still, it wasn't enough to bother him out of his seat, as he just sat and observed, trying to hear any other sound. Soon, the disturbance stopped and everything became silent as it was — but not the comforting silence. An odd silence, as if it were the calm before the storm. However, Jacob continued typing away at his keyboard, trying to pay less attention to the surroundings. But the question is, how long will it take for his facade to crumble? Or, what will it take to make his facade crumble? Perhaps we would never know. Or would we?</p>
+      </article>
+
+      <article class="chapter" id="chapter-2">
+        <span class="chapter-number">Chapter 2</span>
+        <p>Finally, it was 4 A.M. Jacob's night shift was complete, and he took a relieved sigh, leaning back in his chair and stretching languidly. It was normal for him to do this, considering he sat in a chair and worked straight for twelve hours.</p>
+        <p>He packed his stuff into his bag and proceeded to leave the office building when suddenly his gaze fell upon a stack of files that seemed out of order, despite Jacob having arranged them neatly prior. He glanced around, thinking, <em>What? How are these out of order?</em> But since Jacob's style wasn't to overthink, he brushed it off, telling himself he may have forgotten to arrange them properly in the first place.</p>
+
+        <div class="aside">Maybe the scraping sound was of someone messing with the files?</div>
+
+        <p>Nevertheless, Jacob arranged the files back into order and proceeded towards the exit, but deep inside, he sensed something off. Outside, the world felt like a place where only Jacob existed. The streets were full of silence, the roads were empty, and the only car in the parking lot was his own. He unlocked the SUV before sitting in the driver's seat and firing up the engine, the growl of it echoing through the dead-silent street.</p>
+        <p>He pulled out of the parking lot and drove towards home. Most of the journey was smooth and undisturbed, but that peace was short-lived — at one spot on the road, a woman appeared to be standing in the middle of the lane, dressed in a pure white gown cascading down her body. Jacob's eyes widened as he swiftly maneuvered the car, twisting the steering wheel and honking the horn while slamming the brakes, doing everything possible at once to avoid hitting her.</p>
+        <p>To Jacob's utter shock, the woman remained stationary and didn't move an inch despite the car rapidly approaching. Thanks to his quick reflexes, she wasn't hit, and the car swerved past her. Jacob glanced back to check — but just as he was about to catch his breath, a loud horn blared alongside flashing lights. As he turned around, his soul rose to his throat: a huge cargo truck was bearing down on him. Realizing he'd drifted into the wrong lane, Jacob quickly steered back, narrowly avoiding a second accident in the same journey. His brain barely had time to register what was happening before the next thing occurred.</p>
+        <p>Whatever was going on, Jacob didn't like it at all, and he pressed the accelerator, speeding home as fast as possible. His heart raced, adrenaline coursing through his veins as he navigated the streets. Finally, after what felt like an eternity, Jacob reached home.</p>
+        <p>He killed the engine, got out, and walked to his door as if nothing had happened — he had a tough-guy reputation to maintain, after all. He unlocked the door and breathed in the familiar surroundings of his home, which brought him some ease. He set his bag on the table before sinking onto the couch, leaning back, closing his eyes, and taking a deep breath.</p>
+        <p>Just then, a cool breeze brushed against his skin, and his eyes snapped open. He glanced around, trying to pinpoint the source, but couldn't find one. He'd closed all the doors and windows, yet somehow a soft gust of wind had entered his house. Things were definitely not normal for Jacob.</p>
+        <p>He made a swift check around the property, and after confirming every door and window was sealed, he made his way to his bedroom. <em>"Night shifts are probably messing me up for good,"</em> Jacob groaned, sinking into his bed. His mind replayed the day's events — the strange noises, the woman alone on a midnight road, the near-miss with the truck, and finally, the unexplained gust of wind in his house.</p>
+        <p>Before he could dwell on it further, sleep took over, and Jacob's body relaxed into a peaceful slumber.</p>
+      </article>
+
+      <article class="chapter" id="chapter-3">
+        <span class="chapter-number">Chapter 3</span>
+        <p>Morning light soon filtered through the curtains of his room, shining bright on his face. Jacob let out a sigh, his eyes slowly opening and adjusting to the brightness. He glanced at the clock — 2:00 P.M.</p>
+        <p>He shot out of bed, rushing to get ready. <em>"I am so getting late today."</em> He threw on his shirt, pants and tie, made himself a quick sandwich for breakfast, and rushed to his car. He had to reach the office by 4:00 P.M., a thirty-minute drive away.</p>
+        <p>While driving, memories of the previous night came flooding back, but Jacob had no time or energy to dwell on them, racing instead against the clock. When he reached the office, the other employees were working normally, the space bustling with activity. He greeted his boss and got to his desk.</p>
+        <p><em>"Jacob, I need this paperwork done and on my desk in ten minutes, now!"</em> his boss barked, dropping a stack of files before vanishing into his office. Jacob began rummaging through them, starting his work — until his gaze landed on a woman employee walking by with a file. More specifically, on her face. Suddenly, a memory flashed before his eyes: the woman from the night before, standing alone in the middle of the lane, dressed in white.</p>
+
+        <div class="aside">Maybe this was the same woman Jacob saw yesterday on the road.</div>
+
+        <p>Jacob tried to compare her face to the one he vaguely remembered from the road, unsure if they were the same — but somewhere deep inside, his gut told him something far more sinister was happening. <em>"Jacob?"</em> a colleague called out, and he snapped back, realizing he'd been blankly staring at a wall. <em>"You okay, buddy?"</em> — <em>"Yeah, just work stress, I guess."</em> Jacob excused himself quickly, reclaiming his tough-guy composure before returning to his work.</p>
+        <p>His colleague didn't quite buy the excuse but decided not to push, and went back to what he was doing.</p>
+        <p>Later, someone sat down in the chair in front of his desk, and Jacob froze, stunned. It was the same woman he'd seen a few minutes ago. She carried herself with a confident, alluring posture — the kind that suggested she knew things no one else did.</p>
+        <p><em>"Hello there, how may I be of help?"</em> Jacob offered, hoping she'd finally reveal who she was. <em>"Hi Jacob."</em> Her calm certainty caught him off guard; he hadn't expected her to know his name. <em>"You know my name?"</em> he asked, intrigued despite himself. <em>"Name? That's basic knowledge one should have of a person they meet."</em> Her answer left him shaken, his mind racing through questions he was almost afraid to ask: <em>Who is she? What does she want? Why does she know me so well?</em></p>
+
+        <div class="aside">Why did she only choose Jacob out of everyone else to talk to? Is there a deeper secret we don't know?</div>
+
+        <p>He was left with more questions than answers. <em>"Let's just say I've seen you working around this company and wanted to chat a bit,"</em> she said. <em>"So you're a new employee?"</em> he probed. <em>"New? No, dear. I've been here since you have."</em> <em>"Then how do you know me so well? We've never met."</em> She didn't answer that directly, instead offering, <em>"I feel like I've seen you somewhere… in a car, perhaps."</em></p>
+        <p>The comment fed his growing suspicion, though he didn't say so, choosing instead to keep listening. <em>"Oh yeah? In a car? But where?"</em> <em>"I think I've seen you in your car, driving somewhere alone."</em> His heart sank, though he tried to stay composed. <em>"Is that so? I haven't seen you before in this company, though."</em> She hid a smirk, checked her watch, and said, <em>"Oh, it seems I've spent too much time talking. I'll see you next time, darling."</em></p>
+        <p>She stood and left abruptly, leaving Jacob speechless and flabbergasted by everything that had happened over the past few days.</p>
+      </article>
+
+      <article class="chapter" id="chapter-4">
+        <span class="chapter-number">Chapter 4</span>
+        <p>His boss came by his desk. <em>"Jacob, why were you talking to air?"</em></p>
+        <p>Jacob's heart sank; he couldn't believe what he was hearing. <em>"What? No, sir — I was talking to a woman who said she worked here."</em> His boss frowned. <em>"There was no one here."</em></p>
+        <p>A strange pressure built in Jacob's chest. He turned to the empty chair in front of his desk. It sat perfectly still, untouched, as though no one had sat there in hours. <em>"But she was right here,"</em> he insisted, his voice losing its confidence. <em>"She was talking to me. She knew my name."</em></p>
+        <p><em>"Jacob,"</em> his boss said, lowering his voice, <em>"you've been working too many night shifts. You need rest."</em> The conversation ended there, but the damage had been done. The rest of the day passed in a blur; his mind kept drifting back to her — her voice, her smile, the way she spoke as though she knew something he didn't.</p>
+        <p>And worst of all, her chair had been empty the whole time. That night, Jacob stayed later than usual. The office slowly emptied until he was alone again, the silence heavier than before, the hum of computers and distant ticking echoing unnaturally through the building.</p>
+        <p>Then he heard it again. The scraping sound. Closer this time.</p>
+        <p>He leaned back slowly, eyes scanning the dark corners of the office. The sound continued — dragging, uneven, like something being pulled across the floor.</p>
+        <p><em>"Hello?"</em> No response. The sound stopped. Silence. Then — a whisper. Soft. Faint. Right behind him. <em>"Jacob…"</em> He turned instantly. No one was there.</p>
+        <p>But his screen flickered, and for a brief second, he saw her reflection in it.</p>
+      </article>
+
+      <article class="chapter" id="chapter-5">
+        <span class="chapter-number">Chapter 5</span>
+        <p>Jacob didn't sleep that night. He sat in the office, staring at his screen long after his shift had technically ended, the image of her reflection replaying over and over. If she wasn't real, then what was she?</p>
+        <p>By early morning, a thought struck him: the CCTV cameras. If she'd really been there, they would have caught it.</p>
+        <p>He pulled up the surveillance system without wasting time. Rows of camera feeds filled his screen. He scrubbed back to the exact moment she'd approached his desk.</p>
+        <p>His heartbeat quickened. There he was, sitting alone, talking — but the chair across from him was empty. Jacob froze in pure terror.</p>
+        <p>On the screen, he watched himself nodding, smiling, responding to someone who simply wasn't there. His lips moved as if mid-conversation. But there was no second person. No shadow. No movement. Nothing.</p>
+        <p>A cold wave of dread washed over him. <em>"This… doesn't make sense,"</em> he whispered.</p>
+        <p>Then something changed. The footage glitched, static flickering across the screen, and for a single frame — she appeared. Sitting in the chair. Staring directly into the camera. Smiling.</p>
+        <p>Jacob jerked back, his chair scraping loudly against the floor. His breathing turned uneven as he stared at the frozen image. He leaned closer. Her face looked wrong — too still, too perfect. And her eyes weren't on the camera anymore.</p>
+        <p>They were looking at him.</p>
+      </article>
+
+      <article class="chapter" id="chapter-6">
+        <span class="chapter-number">Chapter 6</span>
+        <p>Jacob left the office that morning without finishing his shift. His mind felt unstable, as though reality itself were slipping through his fingers. He drove home in silence, gripping the wheel tighter than usual.</p>
+        <p>When he reached his house, everything seemed normal again — too normal. The silence inside felt heavy, almost unnatural. He threw his keys on the table and sat down, running his hands through his hair. <em>"I'm just tired,"</em> he muttered. <em>"That's all this is."</em> But deep down, he knew that wasn't true.</p>
+        <p>A faint notification interrupted his thoughts. His phone lit up on the table: one new message, from an unknown number. He hesitated before picking it up.</p>
+        <p>The message read: <strong>"You shouldn't have looked at the cameras."</strong></p>
+        <p>Jacob's heart stopped. Fingers trembling, he typed back. <em>"Who is this?"</em> The reply came instantly. <em>"You saw me when you weren't supposed to."</em> He stood up abruptly, knocking his chair over behind him.</p>
+        <p><em>"How do you know that?"</em> he typed. A pause. Then: <em>"Because I was watching you too."</em> The room suddenly felt colder. Jacob looked around his house — every corner, every shadow.</p>
+        <p>For the first time in his life, he didn't feel alone. He felt as if something else had entered his home and taken refuge there, unseen.</p>
+      </article>
+
+      <p class="author-break">Enjoying the story so far?</p>
+
+      <article class="chapter" id="chapter-7">
+        <span class="chapter-number">Chapter 7</span>
+        <p>That night, Jacob tried to stay awake, but sleep came anyway. And with it, the dream.</p>
+        <p>He stood in the middle of the same road where he'd seen her before. Darkness stretched endlessly in every direction. The air was cold and still.</p>
+
+        <div class="aside">Is the story going how you anticipated it? If so, then good! 🙂</div>
+
+        <p>Then she appeared, standing in front of him — the woman in white, closer this time, much closer. He could see her face clearly now. The same one from the office. The same one from the footage. <em>"You finally see me,"</em> she said softly.</p>
+        <p>Jacob stepped back. <em>"What are you?"</em> She smiled faintly. <em>"Not what… who."</em> Before he could respond, her expression shifted. Her smile faded. Her eyes darkened. <em>"You weren't supposed to remember me yet."</em> The ground beneath him seemed to shift.</p>
+        <p><em>"What do you mean?"</em> he asked. She raised her hand slowly, pointing at him. <em>"You left me there."</em> His heart skipped. <em>"Left you where?"</em> But she didn't answer — instead, she whispered something so softly he could barely make it out.</p>
+        <p><em>"On the road."</em> Jacob woke up screaming, telling himself it was only his mind's imagination. Or was it?</p>
+      </article>
+
+      <article class="chapter" id="chapter-8">
+        <span class="chapter-number">Chapter 8</span>
+        <p>The next day, something felt different. Not outside — inside his mind.</p>
+        <p>Jacob sat quietly, trying to recall the events from a few nights ago, the night he'd seen the woman on the road.</p>
+        <p>But something was wrong. The memory felt incomplete. Broken. He remembered swerving the car. He remembered the truck. But after that — nothing. A blank space.</p>
+        <p><em>"How did I get home?"</em> he whispered to himself, unable to remember. A cold realization crept in: what if something had happened that night that he simply didn't remember? Something his own mind was hiding from him? The thought refused to leave.</p>
+      </article>
+
+      <article class="chapter" id="chapter-9">
+        <span class="chapter-number">Chapter 9</span>
+        <p>That evening, Jacob returned to the same road. Empty. Silent. Exactly as before. He parked and stepped out slowly, eyes scanning the darkness.</p>
+        <p><em>"Hello?"</em> No response. Minutes passed. Then — a faint figure appeared in the distance, and his breath caught in his throat.</p>
+        <p>The woman.</p>
+        <p>Standing in the middle of the road, just like before. But this time, she started walking toward him.</p>
+      </article>
+
+      <article class="chapter" id="chapter-10">
+        <span class="chapter-number">Chapter 10</span>
+        <p>Jacob stood frozen as she approached, each step deliberate, almost unnatural. The closer she got, the heavier the air around him became.</p>
+        <p><em>"You came back,"</em> she said softly. Jacob swallowed. <em>"What do you want from me?"</em> She tilted her head. <em>"I want you to remember."</em> <em>"Remember what?"</em> She stepped closer.</p>
+        <p>Close enough now that he could see the faint bruises on her face. <em>"You hit me."</em> The words struck him like lightning. His eyes widened. <em>"No. I didn't…"</em></p>
+
+        <div class="aside">Remember Chapter 2's last paragraph? This wasn't told there — you can figure out why.</div>
+
+        <p>But even as he said it, fragments of memory flashed through his mind. The car. The road. The impact. A body falling. His breathing turned unsteady. <em>"I… I didn't stop?"</em> Her expression stayed calm. <em>"No,"</em> she said quietly. <em>"You didn't."</em> A deep silence followed. Then she leaned closer and whispered:</p>
+        <p><em>"And now… I didn't leave either."</em></p>
+        <p>Jacob felt something inside him break. Because for the first time, he realized —</p>
+        <p class="the-end">this wasn't a hallucination.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="story-cta">
+    <div class="wrap">
+      <h3>That's it — for now.</h3>
+      <p>New chapters and new stories go up on Instagram first. Follow along to catch the next one as soon as it's posted.</p>
+      <a class="btn" href="https://www.instagram.com/story._.digital" target="_blank" rel="noopener">Follow on Instagram</a>
+      <a class="btn ghost" href="../index.html#genre">Back to the shelf</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">© 2026 Story Digital. All stories original. <a href="../index.html#home">story-digital.com</a></div>
+</footer>
+
+</body>
+</html>

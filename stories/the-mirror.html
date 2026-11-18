@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Mirror — Story Digital</title>
+<meta name="description" content="A mirror that came into Samantha and Jacob&#x27;s home on their wedding day has been quietly watching their family.">
+<link rel="icon" type="image/jpeg" href="../assets/story-icon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F5EFDD;
+    --paper-soft: #ECE3C6;
+    --cover: #1E3A2B;
+    --cover-dark: #142A1E;
+    --leaf: #B7D93A;
+    --gold: #E7B93A;
+    --ink: #262318;
+    --ink-soft: #55503f;
+    --spine-4: #8C2F2F;
+    --max-w: 1120px;
+    --read-w: 700px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    margin: 0;
+    color: var(--cover-dark);
+  }
+
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+  .read { max-width: var(--read-w); margin: 0 auto; padding: 0 32px; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--cover); color: var(--paper);
+    padding: 10px 16px; z-index: 999;
+  }
+  .skip-link:focus { left: 16px; top: 16px; }
+
+  /* ---------- Ribbon nav (matches main site) ---------- */
+  .ribbon {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--cover);
+    border-bottom: 3px solid var(--gold);
+  }
+  .ribbon-inner {
+    max-width: var(--max-w); margin: 0 auto; padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand img { width: 42px; height: 42px; border-radius: 50%; display: block; border: 2px solid var(--gold); }
+  .brand-word { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.15rem; color: var(--paper); }
+  .nav-links { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  .nav-links a { text-decoration: none; color: var(--paper); opacity: 0.85; }
+  .nav-links a:hover, .nav-links a:focus-visible { opacity: 1; }
+
+  /* ---------- Story hero ---------- */
+  .story-hero {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid rgba(30,58,43,0.15);
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Space Mono', monospace; font-size: 0.76rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-soft); text-decoration: none; margin-bottom: 26px;
+  }
+  .back-link:hover, .back-link:focus-visible { color: var(--spine-4); }
+
+  .tag-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 5px 12px; border-radius: 999px;
+    background: var(--cover); color: var(--paper);
+  }
+  .tag.alt { background: var(--paper-soft); color: var(--cover-dark); border: 1px solid rgba(30,58,43,0.2); }
+
+  .story-title {
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--spine-4);
+  }
+  .story-meta {
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .story-dek {
+    margin-top: 22px;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* ---------- Chapters ---------- */
+  .story-body { padding: 56px 0 20px; }
+  .chapter { margin-bottom: 54px; }
+  .chapter-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--leaf);
+    background: var(--cover-dark);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .chapter h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .chapter p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin: 0 0 20px;
+    color: var(--ink);
+  }
+  .chapter p:first-of-type::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 3.1rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.8;
+    margin: 6px 8px 0 0;
+    color: var(--spine-4);
+  }
+
+  .aside {
+    margin: 8px 0 28px;
+    padding: 16px 20px;
+    background: var(--paper-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .aside::before {
+    content: "Reader's note — ";
+    font-style: normal;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--spine-4);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .author-break {
+    text-align: center;
+    margin: 44px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .author-break::before, .author-break::after {
+    content: "◆";
+    color: var(--leaf);
+    margin: 0 14px;
+    font-size: 0.6rem;
+    vertical-align: middle;
+  }
+
+  .the-end {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--cover-dark);
+    margin: 40px 0 0;
+  }
+
+  /* ---------- Story footer / CTA ---------- */
+  .story-cta {
+    background: var(--cover);
+    color: var(--paper);
+    padding: 56px 0;
+    margin-top: 64px;
+    text-align: center;
+  }
+  .story-cta h3 { color: var(--paper); font-size: 1.4rem; margin-bottom: 12px; }
+  .story-cta p { color: rgba(245,239,221,0.8); max-width: 50ch; margin: 0 auto 24px; line-height: 1.6; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold); color: var(--cover-dark);
+    text-decoration: none; padding: 13px 26px; border-radius: 999px;
+    font-family: 'Space Mono', monospace; font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    transition: transform 0.2s ease;
+  }
+  .btn:hover, .btn:focus-visible { transform: translateY(-2px); }
+  .btn.ghost { background: transparent; color: var(--paper); border: 1px solid rgba(245,239,221,0.4); margin-left: 12px; }
+
+  footer.site-footer {
+    background: var(--cover-dark);
+    color: rgba(245,239,221,0.75);
+    padding: 32px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  footer.site-footer a { color: var(--gold); text-decoration: none; }
+
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+
+  @media (max-width: 640px) {
+    .wrap, .read { padding: 0 20px; }
+    .ribbon-inner { padding: 12px 20px; flex-direction: column; gap: 12px; }
+    .story-hero { padding: 40px 0 30px; }
+    .story-title { font-size: clamp(2rem, 10vw, 2.6rem); }
+    .chapter p { font-size: 1rem; }
+    .btn.ghost { display: inline-block; margin: 12px 0 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+
+  .story-figure { margin: 8px 0 32px; }
+  .story-figure img { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 18px 36px -22px rgba(20,42,30,0.55); }
+  .chapter p.nodrop::first-letter { all: unset; }
+  .chapter-title { font-size: 1.5rem; font-weight: 600; margin: 0 0 20px; }
+  .story-byline { margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; }
+  .end-mark { text-align: center; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.3rem; color: var(--cover-dark); margin: 10px 0 0; }
+  .back-matter { margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(30,58,43,0.2); }
+  .back-matter .chapter { margin-bottom: 28px; }
+  .back-matter .chapter p { font-size: 0.98rem; color: var(--ink-soft); }
+  .back-matter .chapter p::first-letter { all: unset; }
+
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 640px) { .nav-links { gap: 8px 16px; flex-wrap: wrap; justify-content: center; font-size: 0.7rem; } }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#section-1">Skip to story</a>
+
+<header class="ribbon">
+  <div class="ribbon-inner">
+    <a class="brand" href="../index.html#home">
+      <img src="../assets/story-icon.jpg" alt="Story Digital logo, an open book on a green circle">
+      <span class="brand-word">Story Digital</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="../index.html#home">Home</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#genre">Our Genre</a></li>
+        <li><a href="../index.html#share">Share a Story</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="story-hero">
+    <div class="read">
+      <a class="back-link" href="../index.html#genre-horror">&larr; Back to the shelf</a>
+      <div class="tag-row"><span class="tag">Horror</span></div>
+      <h1 class="story-title">The Mirror</h1>
+      <p class="story-meta">Short story · about 7 min read</p>
+      
+      <p class="story-dek">A mirror that came into Samantha and Jacob's home on their wedding day has been quietly watching their family.</p>
+    </div>
+  </section>
+
+  <section class="story-body">
+    <div class="read">
+
+      <article class="chapter" id="section-1">
+      <p>Ever since the mirror came into their house after their marriage, Samantha and Jacob felt something was odd about it but didn’t really question it. They had two children and were a complete family. It had been nearly five years to their relationship and they aimed to continue it together.</p>
+      <p>“Jimmy, get ready for school” Sam called out from the kitchen as she prepared breakfast for her kids. “I am getting ready mom” Jimmy responded from the room, he was looking in the mirror, styling his hair and tie when he noticed something, he leaned in closer and saw what appeared to be fingerprints on the glass. However, no one touched it, still, jimmy brushed it off and without paying much attention to it, he got ready.</p>
+      <p>“Where is Bela?” Jacob asked as he came out of the room, ready to drop the kids to school and go to work himself. “She is probably getting ready for school” Sam replied as she wiped off sweat from her forehead. Just as the couple were talking, Jimmy came out of his room, ready. “That’s my tiger” Jacob said with a grin, patting Jimmy’s back, “Come on lets go to school” He headed towards the car but was stopped by Jimmy’s voice, “Dad wait, Bela is coming”. Jacob sighed and came back in, “Where is she? What’s taking so long?”</p>
+      <p>As Jacob went into her daughter’s room, he saw Bela standing in front of the mirror who seemed to have snapped out of her thoughts. “Bela what are you doing? We’re getting late!” Jacob said fondly as Bela quickly grabbed her bag, “Coming, sorry dad”.</p>
+      <p>Samantha then watched as Jacob left with the kids to school, a smile on her face. When the car disappeared from sight, she closed the door and went back in. The familiar emptiness of the house surrounding her once again as she got busy in chores to distract herself from feeling lonely.</p>
+      <p>In the car, while travelling, Jacob curiously asked her daughter, “Bela, why were you staring at the mirror?” Bela was caught off guard by the question and responded hesitantly, “I wasn’t staring, dad, I was getting ready.” Jacob raised an eyebrow, clearly not buying it, “No sweetie, I saw you staring at the mirror, what were you doing?” Bela’s expression turned thoughtful, but she eventually replied, “I was staring at myself.”</p>
+      <p>The reply and tone of Bela, both felt odd to Jacob as he questioned again with confusion, “What do you mean sweetie? Why were you just staring at yourself?” Bela hesitated yet again, debating on whether to tell the truth or to keep it hidden. Fortunately for her, Jimmy spoke up, “Don’t question her, dad, she is like that” He teased with a chuckle and Bela gave him a side eye, internally relieved that Jimmy steered the conversation elsewhere.</p>
+      <p>Jacob dropped the kids at school and went to work. Back at home, Samantha was cleaning the children’s room when she noticed the same fingerprints on the mirror. She got into a conundrum as she tried to figure out who may have caused it. She knew her kids very well and was certain that it couldn’t have been them but still she didn’t fret much and cleaned the stain. However, while cleaning, she felt like something is watching her, she whipped around but there was no one. Her heartbeat was racing and her breath quickened but she composed herself and reassured herself that the loneliness was trying to get the better of her.</p>
+      <p>Suddenly, she heard as if something, or someone, was walking around but she couldn’t pinpoint where. Her eyes shot wide as she glanced around and checked the hallways, finding them empty, her anxiety grew by each passing second. Her gaze landed on the mirror for a moment and she could swear she saw someone or something right behind her again, she gasped and jerked around, only to find nothing.</p>
+      <p>Her situation was growing worse and she quickly scrambled to the drawer, taking out her anxiety pills and taking them. Her chest was heaving and her breath ragged. Her heart pounded against her rib cage and she found herself calling Jacob immediately. As soon as Jacob picked up the call, he heard his wife’s urgent voice coming in short gasps. “Honey, something’s wrong, I need you back home, now!” The words sent a wave of dread washing over Jacob, he quickly inquired, “What’s wrong?”</p>
+      <p>“I’ll explain when you got home, please darling. Just come quick” Sam’s voice sounded like she was on the verge of tears and Jacob’s heart ached, he couldn’t see her wife in such distress so he drove back home and arrived as fast as possible. As he opened the door, he was immediately hugged tightly by Samantha who had a unyielding grip on his shirt. “I’m so glad you came back” Sam whispered in a hushed voice, looking at Jacob with relief.</p>
+      <p>“So, what happened Sam?” Jacob asked with concern. Samantha sighed and took him to the room, sitting on the bed before explaining, “The mirror... There’s something wrong with it.” Jacob frowned, “Huh? But what happened?” Sam looked at Jacob and spoke, “I was cleaning the room when I noticed some fingerprints on the glass and I know that Jimmy or Bela never touch the glass, anyways, I cleaned the fingerprints but then I heard someone walking around but saw no one. That’s when I looked back in the mirror and I swear that I saw something or someone standing behind me.”</p>
+      <p>Just as Jacob processed these words, his blood ran cold, a chill washing down his spine at the mere thought of the scene his wife faced alone. He pulled her into a tight hug again, trying to soothe her nerves. Sam’s tears flowed from her eyes despite her best attempt to keep herself composed, she couldn’t help it. “We should get rid of this mirror, Sam, ever since we brought this from our first day of marriage, it has been doing no good to us.” Jacob spoke with determination and Sam nodded, “You’re right Jacob, we need to get rid of this mirror before it does something else...”.</p>
+      <p>“Something else?” Jacob said in confusion to Sam’s statement. Sam nodded and confessed, “Our children, what if it does something to them?” Sam had big pleading eyes, hoping that her husband could understand and not judge her mental health. “I know honey, but don’t worry, our kids are safe with us” Jacob reassured Sam and she was grateful for the understanding and support from her husband.</p>
+      <p>Without wasting any further time, Sam and Jacob got to work. They dismantled the mirror from its stand and wrapped it in a sheet, sealing it tight. “Where would we send this mirror to?” Sam asked as Jacob went into deep thought, “Maybe we can sell it?” Jacob suggested but Sam denied, “No Jacob, we can’t give a cursed object to someone else.” Jacob nodded in agreement. “Lets just throw it in a wasteland” Sam suggested as she couldn’t think of anything else at the moment. “The wasteland? I mean sure, it wouldn’t bother someone there and would be crushed into pieces.”</p>
+      <p>Jacob put the mirror in the car trunk and immediately set off to a wasteland. Soon, arriving at one, he got out and as he opened the trunk. He froze. The mirror was not in his car, thinking he had accidentally dropped it somewhere in the way, Jacob manuevered his car and began searching. Suddenly, he gets a call from Sam and picks up to hear the following words which rocked his sanity. “Jacob, the mirror is back in the room!” Sam spoke, her voice filled with fear, “Come back, NOW!”</p>
+      <p>Jacob pushed the car to its limits and sped back home. The kids were to arrive back soon from school as well and he didn’t want them to see the drama so he had to do it quick. Jacob pulled up to the curb of his front yard and saw his wife standing outside on the porch, her expression full of fear and dread. “The mirror!” Sam shouted and wildly gestured towards the house. She ran towards Jacob and held his hand, her own trembling, “Honey, how is it back!?” Sam seeked an explanation but Jacob was just as flabbergasted as she was. “Come on show me” Jacob said as he began rushing inside the house.</p>
+      <p>Entering his room, he saw the same mirror in the same, placed back on the stand. Jacob was absolutely mind blown, he couldn’t comprehend for a few seconds on what just happened. “I think we need to do some unconventional approach” Jacob said as he went to the storage room, coming back with a hammer in his hand. “No jacob” but before Sam could stop him, Jacob had already smashed the mirror with the hammer. The glass shattered into a million pieces, falling on the ground. However, Jacob didn’t stop there, he kept smashing the glass until it was tiny fragments sprawled across the floor.</p>
+      <p>Samantha’s eyes widened in shock and relief as the mirror was now destroyed. Jacob sighed in relief and exhaustion as Sam quickly cleaned the evidence and threw the broken shards into the bin. The mirror was finally gone (or was it?) Soon, the kids came back home and both Jacob and Sam pretended that everything was fine. They fed the kids, played with them and finally it was their bed time.</p>
+      <p>Sam tucked her children in bed and they slept. Somewhere around midnight when everyone was asleep, Jimmy woke up to drink water, he got out of bed and while making his way to the door, he realised something out of the corner of his eye. He turned to look And found the same mirror, intact and in place...</p>
+      </article>
+
+      <p class="end-mark">The End</p>
+
+      
+
+    </div>
+  </section>
+
+  <section class="story-cta">
+    <div class="wrap">
+      <h3>Thanks for reading.</h3>
+      <p>New stories go up on Instagram first. Follow along to catch the next one as soon as it is posted.</p>
+      <a class="btn" href="https://www.instagram.com/story._.digital" target="_blank" rel="noopener">Follow on Instagram</a>
+      <a class="btn ghost" href="../index.html#genre-horror">Back to the shelf</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; 2026 Story Digital. All stories original. <a href="../index.html#home">Back to Story Digital</a></div>
+</footer>
+
+</body>
+</html>
