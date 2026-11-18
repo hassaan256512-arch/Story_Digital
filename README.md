@@ -1,2 +1,2 @@
 # Story_Digital
-A storytelling website built to provide intrigued readers with immersive reading material 
+A storytelling website built to provide immersive reading experiences.
